@@ -1,0 +1,21 @@
+spring:
+  # プロファイル設定
+  profiles: local
+  # DB設定
+  datasource:
+    platform: mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: admin
+    url: jdbc:mysql://localhost:3306/kinwork?serverTimezone=JST
+# Log設定
+logging:
+  level:
+    org.springframework: INFO
+    org.springframework.jdbc: DEBUG
+    org.thymeleaf: INFO
+    jp.co.nok: DEBUG
+# Doma設定
+doma:
+  # SQLファイルをキャッシュしない
+  sql-file-repository: no-cache
