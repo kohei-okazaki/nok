@@ -1,4 +1,4 @@
-package jp.co.nok;
+package jp.co.nok.common.bean;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -26,8 +26,7 @@ public class BeanConfig implements WebMvcConfigurer {
 	@Bean
 	public ModelMapper modelMapper() {
 		ModelMapper modelMapper = new ModelMapper();
-		org.modelmapper.config.Configuration conf = modelMapper
-				.getConfiguration();
+		org.modelmapper.config.Configuration conf = modelMapper.getConfiguration();
 		conf.setMatchingStrategy(MatchingStrategies.STRICT);
 		return modelMapper;
 	}

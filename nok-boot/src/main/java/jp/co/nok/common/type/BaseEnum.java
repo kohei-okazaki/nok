@@ -4,7 +4,7 @@ import java.util.stream.Stream;
 
 /**
  * 列挙型の基底インターフェース
- * 
+ *
  * @version 1.0.0
  */
 public interface BaseEnum {

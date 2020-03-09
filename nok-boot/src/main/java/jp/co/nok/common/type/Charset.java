@@ -1,10 +1,8 @@
-package jp.co.nok.common.util;
-
-import jp.co.nok.common.type.BaseEnum;
+package jp.co.nok.common.type;
 
 /**
  * 文字コードの列挙
- * 
+ *
  * @version 1.0.0
  */
 public enum Charset implements BaseEnum {
@@ -12,7 +10,9 @@ public enum Charset implements BaseEnum {
 	/** MS932 */
 	MS_932("MS932"),
 	/** UTF-8 */
-	UTF_8("UTF-8");
+	UTF_8("UTF-8"),
+	/** Shift-JIS */
+	SHIFT_JIS("Shift-JIS");
 
 	/** 値 */
 	private String value;

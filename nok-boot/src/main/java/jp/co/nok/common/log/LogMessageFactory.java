@@ -22,8 +22,7 @@ import jp.co.nok.common.util.DateUtil.DateFormatType;
 public class LogMessageFactory {
 
 	/** LOG */
-	private final static Logger LOG = LoggerFactory
-			.getLogger(LogMessageFactory.class);
+	private final static Logger LOG = LoggerFactory.getLogger(LogMessageFactory.class);
 
 	/**
 	 * プライベートコンストラクタ
@@ -51,8 +50,7 @@ public class LogMessageFactory {
 			if (MaskExecutor.isMask(f)) {
 				body.add(name + "=" + MaskExecutor.getMask(f));
 			} else {
-				body.add(name + "="
-						+ editValue(getValue(bean, name)));
+				body.add(name + "=" + editValue(getValue(bean, name)));
 			}
 		}
 		return clazz.getName() + " " + body.toString();
@@ -69,8 +67,7 @@ public class LogMessageFactory {
 	 */
 	private static String getLogParamName(Field field) {
 		LogParam annotation = field.getAnnotation(LogParam.class);
-		return BeanUtil.isNull(annotation) ? field.getName()
-				: annotation.name();
+		return BeanUtil.isNull(annotation) ? field.getName() : annotation.name();
 	}
 
 	/**

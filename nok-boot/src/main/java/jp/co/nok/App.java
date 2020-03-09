@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * アプリ起動クラス
- * 
+ *
  * @version 1.0.0
  */
 @SpringBootApplication

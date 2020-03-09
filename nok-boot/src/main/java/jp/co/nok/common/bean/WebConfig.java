@@ -1,4 +1,4 @@
-package jp.co.nok;
+package jp.co.nok.common.bean;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

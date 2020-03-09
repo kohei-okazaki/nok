@@ -19,3 +19,7 @@ logging:
 doma:
   # SQLファイルをキャッシュしない
   sql-file-repository: no-cache
+# 暗号設定
+crypt:
+  mode: AES/ECB/PKCS5Padding
+  key: 1234567890123456

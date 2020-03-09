@@ -9,6 +9,8 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.util.StringUtils;
 
+import jp.co.nok.common.type.Charset;
+
 /**
  * 文字列操作のUtilクラス
  *
@@ -36,7 +38,12 @@ public class StringUtil {
 	public static final String THRASH = "/";
 	/** アンダースコア */
 	public static final String UNDER_SCORE = "_";
+	/** タブ */
+	public static final String TAB = "	";
 
+	/**
+	 * プライベートコンストラクタ
+	 */
 	private StringUtil() {
 	}
 

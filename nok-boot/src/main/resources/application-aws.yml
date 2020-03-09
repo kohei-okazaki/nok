@@ -17,5 +17,9 @@ logging:
     jp.co.nok: INFO
 # Doma設定
 doma:
-  # SQLファイルをキャッシュしない
+  # SQLファイルをキャッシュ
   sql-file-repository: greedy-cache
+# 暗号設定
+crypt:
+  mode: AES/ECB/PKCS5Padding
+  key: 1234567890123456

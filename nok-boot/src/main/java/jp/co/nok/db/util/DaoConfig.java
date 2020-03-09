@@ -14,6 +14,7 @@ import org.slf4j.event.Level;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
+import jp.co.nok.common.component.ApplicationComponent;
 import jp.co.nok.common.log.Logger;
 import jp.co.nok.common.log.LoggerFactory;
 
@@ -31,8 +32,8 @@ public class DaoConfig implements Config {
 	private Dialect dialect;
 	@Autowired
 	private SqlFileRepository sqlFileRepository;
-	// @Autowired
-	// private SystemComponent systemComponent;
+	@Autowired
+	private ApplicationComponent component;
 
 	public DaoConfig() {
 	}
@@ -67,10 +68,8 @@ public class DaoConfig implements Config {
 	@Override
 	public JdbcLogger getJdbcLogger() {
 		return new DaoLogger(Stream.of(Level.class.getEnumConstants())
-				.filter(e -> e.toString()
-						.equals("DEBUG"))
-				.findFirst()
-				.orElse(Level.INFO));
+				.filter(e -> e.toString().equals(component.getSpringframeworkJdbc()))
+				.findFirst().orElse(Level.INFO));
 	}
 
 	/**
@@ -79,8 +78,7 @@ public class DaoConfig implements Config {
 	 */
 	public static class DaoLogger extends AbstractJdbcLogger<Level> {
 
-		private static final Logger LOG = LoggerFactory
-				.getLogger(DaoLogger.class);
+		private static final Logger LOG = LoggerFactory.getLogger(DaoLogger.class);
 
 		public DaoLogger() {
 			this(Level.DEBUG);
@@ -91,9 +89,8 @@ public class DaoConfig implements Config {
 		}
 
 		@Override
-		public void log(Level level, String callerClassName,
-				String callerMethodName, Throwable throwable,
-				Supplier<String> messageSupplier) {
+		public void log(Level level, String callerClassName, String callerMethodName,
+				Throwable throwable, Supplier<String> messageSupplier) {
 
 			switch (level) {
 			case ERROR:
