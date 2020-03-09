@@ -10,8 +10,7 @@ import java.lang.annotation.Target;
 /**
  * Propertiesファイルのアノテーション
  *
- * @see jp.co.nok.common.io.property.reader.PropertyReader#read(String,
- *      Class<T>)
+ * @see jp.co.nok.common.io.property.reader.PropertyReader#read(String, Class)
  * @version 1.0.0
  */
 @Documented

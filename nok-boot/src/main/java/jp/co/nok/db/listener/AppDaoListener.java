@@ -10,6 +10,8 @@ import jp.co.nok.db.entity.BaseEntity;
 /**
  * Daoのリスナークラス
  *
+ * @param <T>
+ *            Entity
  * @version 1.0.0
  */
 public class AppDaoListener<T extends BaseEntity> implements EntityListener<T> {

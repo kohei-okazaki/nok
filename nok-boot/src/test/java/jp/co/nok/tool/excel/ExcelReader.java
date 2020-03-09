@@ -1,16 +1,12 @@
 package jp.co.nok.tool.excel;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Iterator;
 
-import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
-import jp.co.nok.common.log.Logger;
-import jp.co.nok.common.log.LoggerFactory;
 import jp.co.nok.tool.excel.type.CellPositionType;
 import jp.co.nok.tool.gen.ToolProperty;
 
@@ -21,24 +17,20 @@ import jp.co.nok.tool.gen.ToolProperty;
  */
 public class ExcelReader {
 
-	/** LOG */
-	private static final Logger LOG = LoggerFactory.getLogger(ExcelReader.class);
-
 	/**
 	 * 指定された自動生成ツール設定ファイルからExcelの読込を行う
 	 *
 	 * @param prop
 	 *            自動生成ツール設定ファイル
 	 * @return Excel
+	 * @throws Exception
+	 *             Excelの取得に失敗した場合
 	 */
-	public Excel read(ToolProperty prop) {
+	public Excel read(ToolProperty prop) throws Exception {
 
 		Iterator<org.apache.poi.ss.usermodel.Sheet> sheetIte;
 		try (Workbook wb = WorkbookFactory.create(new File(prop.getExcelPath()))) {
 			sheetIte = wb.sheetIterator();
-		} catch (EncryptedDocumentException | IOException e) {
-			LOG.error("excelファイル読込エラー", e);
-			return null;
 		}
 
 		Excel excel = new Excel();

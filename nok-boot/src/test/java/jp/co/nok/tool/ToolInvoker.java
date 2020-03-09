@@ -18,8 +18,9 @@ public class ToolInvoker {
 	 *            使わない
 	 */
 	public static void main(String[] args) {
-		// GenerateInvoker.invoke(GenerateType.DAO);
 		GenerateInvoker.invoke(GenerateType.ENTITY);
+		// GenerateInvoker.invoke(GenerateType.ENTITY, GenerateType.DAO);
+
 	}
 
 }

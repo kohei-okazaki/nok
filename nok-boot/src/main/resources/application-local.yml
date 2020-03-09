@@ -23,3 +23,5 @@ doma:
 crypt:
   mode: AES/ECB/PKCS5Padding
   key: 1234567890123456
+server:
+  port: 8081

@@ -186,7 +186,7 @@ public class BeanUtil {
 	 * targetがnullでないかどうか判定する<br>
 	 * 判定結果:nullの場合false, それ以外の場合true<br>
 	 *
-	 * @see jp.co.ha.common.util.BeanUtil#isNull
+	 * @see jp.co.nok.common.util.BeanUtil#isNull
 	 * @param target
 	 *            検査対象インスタンス
 	 * @return 判定結果

@@ -453,8 +453,7 @@ public class DateUtil {
 	/**
 	 * java.time.ZoneIdの列挙
 	 *
-	 * @since 1.0.0
-	 *
+	 * @version 1.0.0
 	 */
 	public static enum ZoneIdType implements BaseEnum {
 
@@ -485,8 +484,7 @@ public class DateUtil {
 	/**
 	 * 日付型と文字列型の日時を変換する際に使用するフォーマットの列挙
 	 *
-	 * @since 1.0.0
-	 *
+	 * @version 1.0.0
 	 */
 	public static enum DateFormatType implements BaseEnum {
 

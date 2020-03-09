@@ -1,8 +1,8 @@
 package jp.co.nok.tool.gen;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.StringJoiner;
 
 import org.seasar.doma.Entity;
 import org.seasar.doma.jdbc.entity.NamingType;
@@ -10,7 +10,6 @@ import org.seasar.doma.jdbc.entity.NamingType;
 import jp.co.nok.common.type.Charset;
 import jp.co.nok.common.util.FileUtil.FileExtension;
 import jp.co.nok.common.util.FileUtil.FileSeparator;
-import jp.co.nok.common.util.FileUtil.LineFeedType;
 import jp.co.nok.db.entity.BaseEntity;
 import jp.co.nok.tool.source.Field;
 import jp.co.nok.tool.source.Getter;
@@ -28,19 +27,27 @@ import jp.co.nok.tool.util.ToolUtil;
  */
 public class EntityGenerator extends BaseGenerator {
 
+	/** BaseEntityで定義されているため、フィールド作成を無視するカラムリスト */
+	private static final List<String> IGNORE_FIELD_LIST = Arrays.asList("VERSION",
+			"REG_DATE", "UPDATE_DATE");
+
 	@Override
-	List<GenerateFile> generateImpl() {
+	List<GenerateFile> generateImpl() throws Exception {
 
 		// 自動生成ファイルリスト
 		List<GenerateFile> list = new ArrayList<>();
 
 		for (String table : prop.getTargetTableList()) {
 
+			LOG.debug("テーブル名:" + table);
+
 			JavaSource source = new JavaSource();
 			setCommonInfo(source);
 
 			excel.getRowList().stream()
 					.filter(row -> ToolUtil.isTargetTable(row, table))
+					.filter(row -> !IGNORE_FIELD_LIST
+							.contains(ToolUtil.getFieldName(row)))
 					.forEach(row -> {
 
 						source.setClassJavaDoc(ToolUtil.getLogicalName(row) + " Entity");
@@ -72,7 +79,7 @@ public class EntityGenerator extends BaseGenerator {
 			generateFile.setCharset(Charset.UTF_8);
 			generateFile.setFileName(
 					ToolUtil.toJavaFileName(table) + FileExtension.JAVA.getValue());
-			generateFile.setData(toStrSource(source));
+			generateFile.setData(ToolUtil.toStrJavaSource(source, prop));
 			generateFile.setOutputPath(prop.getBaseDir() + FileSeparator.SYSTEM.getValue()
 					+ GenerateType.ENTITY.getPath());
 			list.add(generateFile);
@@ -106,46 +113,6 @@ public class EntityGenerator extends BaseGenerator {
 		// org.seasar.doma.jdbc.entity.NamingTypeのImport
 		source.addImport(new Import(NamingType.class));
 
-	}
-
-	/**
-	 * 指定されたJavaSourceからEntityクラスの文字列表現を返す
-	 *
-	 * @param source
-	 *            JavaSource
-	 * @return Entityクラスの文字列表現
-	 */
-	private String toStrSource(JavaSource source) {
-
-		StringJoiner result = new StringJoiner(
-				LineFeedType.CRLF.getValue() + LineFeedType.CRLF.getValue());
-
-		// package情報
-		result.add(ToolUtil.toStrPackage(source));
-
-		// import情報
-		result.add(ToolUtil.toStrImportList(source));
-
-		// class情報
-		result.add(
-				ToolUtil.toStrClassJavaDoc(source, prop)
-						+ LineFeedType.CRLF.getValue()
-						+ ToolUtil.toStrClassAnnotation(source)
-						+ LineFeedType.CRLF.getValue()
-						+ ToolUtil.toStrClassName(source)
-						+ ToolUtil.toStrExtendsClass(source)
-						+ ToolUtil.toStrInterfaceList(source)
-						+ " {");
-
-		// field情報
-		result.add(ToolUtil.toStrFieldList(source));
-
-		// method情報
-		result.add(ToolUtil.toStrMethodList(source));
-
-		result.add("}");
-
-		return result.toString();
 	}
 
 }

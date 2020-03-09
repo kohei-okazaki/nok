@@ -14,12 +14,11 @@ import org.seasar.doma.GeneratedValue;
 import org.seasar.doma.GenerationType;
 import org.seasar.doma.Id;
 
-import jp.co.nok.common.log.Logger;
-import jp.co.nok.common.log.LoggerFactory;
 import jp.co.nok.common.log.annotation.Mask;
 import jp.co.nok.common.util.BeanUtil;
 import jp.co.nok.common.util.CollectionUtil;
 import jp.co.nok.common.util.FileUtil;
+import jp.co.nok.common.util.FileUtil.LineFeedType;
 import jp.co.nok.common.util.StringUtil;
 import jp.co.nok.tool.excel.Cell;
 import jp.co.nok.tool.excel.Row;
@@ -38,9 +37,6 @@ import jp.co.nok.tool.source.type.ClassType;
  */
 public class ToolUtil {
 
-	/** LOG */
-	private static final Logger LOG = LoggerFactory.getLogger(ToolUtil.class);
-
 	/**
 	 * プライベートコンストラクタ
 	 */
@@ -52,19 +48,19 @@ public class ToolUtil {
 	 *
 	 * @param genFileList
 	 *            自動生成ファイルリスト
+	 * @throws IOException
+	 *             ファイルの作成に失敗した場合
 	 */
-	public static void createGenFileList(List<GenerateFile> genFileList) {
-		try {
-			for (GenerateFile genFile : genFileList) {
-				Path path = FileUtil.createFile(
-						genFile.getOutputPath() + FileUtil.FileSeparator.SYSTEM.getValue()
-								+ genFile.getFileName());
-				Files.write(path,
-						genFile.getData().getBytes(genFile.getCharset().getValue()));
-			}
-		} catch (IOException e) {
-			LOG.error("自動生成に失敗", e);
+	public static void createGenFileList(List<GenerateFile> genFileList)
+			throws IOException {
+
+		for (GenerateFile genFile : genFileList) {
+			Path path = FileUtil.createFile(genFile.getOutputPath()
+					+ FileUtil.FileSeparator.SYSTEM.getValue() + genFile.getFileName());
+			Files.write(path,
+					genFile.getData().getBytes(genFile.getCharset().getValue()));
 		}
+
 	}
 
 	/**
@@ -212,6 +208,52 @@ public class ToolUtil {
 		}
 
 		return result;
+	}
+
+	/**
+	 * 指定されたJavaSourceからクラスの文字列表現を返す
+	 *
+	 * @param source
+	 *            JavaSource
+	 * @param prop
+	 *            JavaSource
+	 * @return Entityクラスの文字列表現
+	 */
+	public static String toStrJavaSource(JavaSource source, ToolProperty prop) {
+
+		StringJoiner result = new StringJoiner(
+				LineFeedType.CRLF.getValue() + LineFeedType.CRLF.getValue());
+
+		// package情報
+		result.add(toStrPackage(source));
+
+		// import情報
+		result.add(toStrImportList(source));
+
+		// class情報
+		result.add(
+				toStrClassJavaDoc(source, prop)
+						+ LineFeedType.CRLF.getValue()
+						+ toStrClassAnnotation(source)
+						+ LineFeedType.CRLF.getValue()
+						+ toStrClassName(source)
+						+ toStrExtendsClass(source)
+						+ toStrInterfaceList(source)
+						+ " {");
+
+		// field情報
+		if (!CollectionUtil.isEmpty(source.getFieldList())) {
+			result.add(toStrFieldList(source));
+		}
+
+		// method情報
+		if (!CollectionUtil.isEmpty(source.getMethodList())) {
+			result.add(toStrMethodList(source));
+		}
+
+		result.add("}");
+
+		return result.toString();
 	}
 
 	/**

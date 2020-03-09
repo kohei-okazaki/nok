@@ -62,7 +62,7 @@ public final class RequestTrackingInterceptor implements HandlerInterceptor {
 	 *
 	 * @param request
 	 *            リクエスト
-	 * @return
+	 * @return トラックID
 	 */
 	private String getTrackId(HttpServletRequest request) {
 		String trackId = request.getHeader(HEADER_X_TRACK_ID);

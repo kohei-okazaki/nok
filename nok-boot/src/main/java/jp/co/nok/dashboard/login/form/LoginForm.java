@@ -11,8 +11,6 @@ public class LoginForm {
 	private String id;
 	/** パスワード */
 	private String password;
-	/** 数字 */
-	private int number;
 
 	public String getId() {
 		return id;
@@ -28,14 +26,6 @@ public class LoginForm {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public int getNumber() {
-		return number;
-	}
-
-	public void setNumber(int number) {
-		this.number = number;
 	}
 
 }

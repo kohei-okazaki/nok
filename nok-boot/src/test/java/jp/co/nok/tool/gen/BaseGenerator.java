@@ -37,19 +37,24 @@ public abstract class BaseGenerator {
 
 		LOG.debug("自動生成開始");
 
-		// 自動生成ツール設定ファイルを取得
-		this.prop = readProp();
+		try {
+			// 自動生成ツール設定ファイルを取得
+			this.prop = readProp();
 
-		// Excelファイルを取得
-		this.excel = new ExcelReader().read(prop);
+			// Excelファイルを取得
+			this.excel = new ExcelReader().read(prop);
 
-		// 自動生成個別処理
-		List<GenerateFile> genFileList = generateImpl();
+			// 自動生成個別処理
+			List<GenerateFile> genFileList = generateImpl();
 
-		// 自動生成ファイルを作成
-		ToolUtil.createGenFileList(genFileList);
+			// 自動生成ファイルを作成
+			ToolUtil.createGenFileList(genFileList);
 
-		LOG.debug("自動生成終了");
+		} catch (Exception e) {
+			LOG.error("自動生成処理に失敗", e);
+		} finally {
+			LOG.debug("自動生成終了");
+		}
 
 	}
 
@@ -58,36 +63,35 @@ public abstract class BaseGenerator {
 	 * 本クラスを継承して実処理を実装すること
 	 *
 	 * @return 自動生成ファイルリスト
+	 * @throws Exception
+	 *             自動生成個別処理が失敗した場合
 	 */
-	abstract List<GenerateFile> generateImpl();
+	abstract List<GenerateFile> generateImpl() throws Exception;
 
 	/**
 	 * 設定ファイルを読込を行う
 	 *
 	 * @return 設定ファイル
+	 * @throws URISyntaxException
+	 *             パスの指定が不正な場合
 	 */
-	private ToolProperty readProp() {
+	private ToolProperty readProp() throws URISyntaxException {
 
-		try {
-			Path path = Paths
-					.get(this.getClass().getClassLoader().getResource("").toURI());
-			String binDir = path.getParent().toString();
+		Path path = Paths
+				.get(this.getClass().getClassLoader().getResource("").toURI());
+		String binDir = path.getParent().toString();
 
-			// 設定ファイルを取得
-			StringJoiner sj = new StringJoiner(FileSeparator.SYSTEM.getValue());
-			sj.add(binDir);
-			sj.add("test");
-			sj.add("tool.properties");
-			ToolProperty prop = new PropertyReader().read(sj.toString(),
-					ToolProperty.class);
-			Stream.of(prop.getTargetTables().split(","))
-					.forEach(e -> prop.addTargetTable(e));
+		// 設定ファイルを取得
+		StringJoiner sj = new StringJoiner(FileSeparator.SYSTEM.getValue());
+		sj.add(binDir);
+		sj.add("test");
+		sj.add("tool.properties");
+		ToolProperty prop = new PropertyReader().read(sj.toString(),
+				ToolProperty.class);
+		Stream.of(prop.getTargetTables().split(","))
+				.forEach(e -> prop.addTargetTable(e));
 
-			return prop;
-
-		} catch (URISyntaxException e) {
-			throw new RuntimeException(e);
-		}
+		return prop;
 
 	}
 

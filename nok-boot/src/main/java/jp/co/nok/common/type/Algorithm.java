@@ -4,8 +4,7 @@ package jp.co.nok.common.type;
  * 暗号化アルゴリズムの列挙<br>
  * 適宜新しいアルゴリズムが追加された場合、本クラスに追加する
  *
- * @since 1.0.0
- *
+ * @version 1.0.0
  */
 public enum Algorithm implements BaseEnum {
 
