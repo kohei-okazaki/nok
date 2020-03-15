@@ -9,6 +9,7 @@ import org.seasar.doma.Dao;
 import org.seasar.doma.Delete;
 import org.seasar.doma.Insert;
 import org.seasar.doma.Update;
+import org.seasar.doma.boot.ConfigAutowireable;
 
 import jp.co.nok.common.type.Charset;
 import jp.co.nok.common.util.FileUtil.FileExtension;
@@ -103,13 +104,26 @@ public class DaoGenerator extends BaseGenerator {
 	 *            JavaSource
 	 */
 	private void setCommonInfo(JavaSource source) {
+
+		// パッケージ
 		source.setPackage(new jp.co.nok.tool.source.Package("jp.co.nok.db.dao"));
+		// ソースのクラスタイプ
 		source.setClassType(ClassType.INTERFACE);
+		// ソースのアクセス修飾子
 		source.setAccessType(AccessType.PUBLIC);
+		// 親Interface
 		source.addImplInterface(BaseDao.class);
+		// 親InterfaceのImport
 		source.addImport(new Import(BaseDao.class));
+		// クラスに付与するorg.seasar.doma.Daoアノテーション
 		source.addClassAnnotation(Dao.class, "");
+		// クラスに付与するorg.seasar.doma.DaoアノテーションのImport
 		source.addImport(new Import(Dao.class));
+		// クラスに付与するorg.seasar.doma.boot.ConfigAutowireableアノテーション
+		source.addClassAnnotation(ConfigAutowireable.class, "");
+		// クラスに付与するorg.seasar.doma.boot.ConfigAutowireableアノテーションのImport
+		source.addImport(new Import(ConfigAutowireable.class));
+
 	}
 
 	/**

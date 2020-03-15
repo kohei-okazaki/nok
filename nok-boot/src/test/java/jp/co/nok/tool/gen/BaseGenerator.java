@@ -25,15 +25,18 @@ public abstract class BaseGenerator {
 
 	/** LOG */
 	protected final Logger LOG = LoggerFactory.getLogger(this.getClass());
-	/** 自動生成ツール設定ファイルのBean */
+	/** 自動生成ツール設定ファイル情報 */
 	protected ToolProperty prop;
-	/** 自動生成ツールのExcel */
+	/** 自動生成ツールのExcel情報 */
 	protected Excel excel;
 
 	/**
 	 * 自動生成を行う
+	 *
+	 * @throws Exception
+	 *             自動生成処理に失敗した場合
 	 */
-	public final void generate() {
+	final void generate() throws Exception {
 
 		LOG.debug("自動生成開始");
 
@@ -50,8 +53,6 @@ public abstract class BaseGenerator {
 			// 自動生成ファイルを作成
 			ToolUtil.createGenFileList(genFileList);
 
-		} catch (Exception e) {
-			LOG.error("自動生成処理に失敗", e);
 		} finally {
 			LOG.debug("自動生成終了");
 		}
@@ -77,8 +78,7 @@ public abstract class BaseGenerator {
 	 */
 	private ToolProperty readProp() throws URISyntaxException {
 
-		Path path = Paths
-				.get(this.getClass().getClassLoader().getResource("").toURI());
+		Path path = Paths.get(this.getClass().getClassLoader().getResource("").toURI());
 		String binDir = path.getParent().toString();
 
 		// 設定ファイルを取得
@@ -86,10 +86,8 @@ public abstract class BaseGenerator {
 		sj.add(binDir);
 		sj.add("test");
 		sj.add("tool.properties");
-		ToolProperty prop = new PropertyReader().read(sj.toString(),
-				ToolProperty.class);
-		Stream.of(prop.getTargetTables().split(","))
-				.forEach(e -> prop.addTargetTable(e));
+		ToolProperty prop = new PropertyReader().read(sj.toString(), ToolProperty.class);
+		Stream.of(prop.getTargetTables().split(",")).forEach(e -> prop.addTargetTable(e));
 
 		return prop;
 
@@ -102,17 +100,17 @@ public abstract class BaseGenerator {
 	 */
 	public static enum GenerateType implements BaseEnum {
 
-		/** entity作成 */
+		/** Entity作成 */
 		ENTITY("ENTITY", "nok-boot\\src\\main\\java\\jp\\co\\nok\\db\\entity",
 				EntityGenerator.class),
-		/** DAO */
+		/** DAO作成 */
 		DAO("DAO", "nok-boot\\src\\main\\java\\jp\\co\\nok\\db\\dao",
 				DaoGenerator.class),
 		/** DDL作成 */
-		DDL("DDL", "nok-docs\\02_design\\90_db\\01_ddl", null),
+		DDL("DDL", "nok-docs\\02_design\\90_db\\01_ddl", CreateTableGenerator.class),
 		/** DROP作成 */
-		DROP("DROP", "nok-docs\\02_design\\90_db\\02_dml", null),
-		/** TABLE_DEFINE */
+		DROP("DROP", "nok-docs\\02_design\\90_db\\02_drop", DropSqlGenerator.class),
+		/** テーブル定義作成 */
 		TABLE_DEFINE("TABLE_DEFINE", "nok-docs\\02_design\\90_db\\99_others", null);
 
 		/** 値 */

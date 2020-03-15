@@ -20,6 +20,9 @@ public class BeanFactory {
 	/** ApplicationContext */
 	private static ApplicationContext context;
 
+	/**
+	 * プライベートコンストラクタ
+	 */
 	private BeanFactory() {
 	}
 

@@ -43,8 +43,7 @@ public class FileUtil {
 			// ファイルが存在する場合
 			return path;
 		}
-		path = Files.createFile(path);
-		return path;
+		return Files.createFile(path);
 	}
 
 	/**

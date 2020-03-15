@@ -29,6 +29,14 @@ public class ApplicationComponent {
 	private String cryptMode;
 	@Value("${crypt.key}")
 	private String cryptKey;
+	@Value("${hash.algorithm}")
+	private String hashAlgorithm;
+	@Value("${hash.stretch-count}")
+	private int hashStrechCount;
+	@Value("${hash.key-length}")
+	private int hashKeyLength;
+	@Value("${hash.salt}")
+	private String hashSalt;
 
 	public String getLevel() {
 		return level;
@@ -84,6 +92,38 @@ public class ApplicationComponent {
 
 	public void setCryptKey(String cryptKey) {
 		this.cryptKey = cryptKey;
+	}
+
+	public String getHashAlgorithm() {
+		return hashAlgorithm;
+	}
+
+	public void setHashAlgorithm(String hashAlgorithm) {
+		this.hashAlgorithm = hashAlgorithm;
+	}
+
+	public int getHashStrechCount() {
+		return hashStrechCount;
+	}
+
+	public void setHashStrechCount(int hashStrechCount) {
+		this.hashStrechCount = hashStrechCount;
+	}
+
+	public int getHashKeyLength() {
+		return hashKeyLength;
+	}
+
+	public void setHashKeyLength(int hashKeyLength) {
+		this.hashKeyLength = hashKeyLength;
+	}
+
+	public String getHashSalt() {
+		return hashSalt;
+	}
+
+	public void setHashSalt(String hashSalt) {
+		this.hashSalt = hashSalt;
 	}
 
 }

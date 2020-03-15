@@ -33,8 +33,9 @@ public class EntityCrypterImpl implements EntityCrypter {
 
 		try {
 
-			for (Field field : entity.getClass().getDeclaredFields()) {
+			for (Field field : BeanUtil.getFieldList(entity.getClass())) {
 				if (!field.isAnnotationPresent(Crypt.class)) {
+					// 暗号化カラム出ない場合、次のフィールドへ
 					continue;
 				}
 
@@ -69,7 +70,7 @@ public class EntityCrypterImpl implements EntityCrypter {
 				String value = (String) BeanUtil.getAccessor(field.getName(),
 						entity.getClass(), AccessorType.GETTER).invoke(entity);
 
-				// 復号化
+				// 復号
 				value = crypter.decrypt(value);
 
 				// 値を設定

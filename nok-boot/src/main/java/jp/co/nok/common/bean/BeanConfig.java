@@ -6,8 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import jp.co.nok.common.config.CommonConfig;
-
 /**
  * Bean定義を設定するクラス
  *
@@ -15,13 +13,6 @@ import jp.co.nok.common.config.CommonConfig;
  */
 @Configuration
 public class BeanConfig implements WebMvcConfigurer {
-
-	@Bean
-	public CommonConfig commonConfig() {
-		CommonConfig commonConfig = new CommonConfig();
-		commonConfig.setName("hoge");
-		return commonConfig;
-	}
 
 	@Bean
 	public ModelMapper modelMapper() {

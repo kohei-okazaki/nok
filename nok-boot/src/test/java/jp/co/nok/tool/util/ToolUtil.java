@@ -8,18 +8,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
-import org.apache.commons.codec.digest.Crypt;
 import org.seasar.doma.GeneratedValue;
 import org.seasar.doma.GenerationType;
 import org.seasar.doma.Id;
 
 import jp.co.nok.common.log.annotation.Mask;
+import jp.co.nok.common.type.CommonFlag;
 import jp.co.nok.common.util.BeanUtil;
 import jp.co.nok.common.util.CollectionUtil;
 import jp.co.nok.common.util.FileUtil;
 import jp.co.nok.common.util.FileUtil.LineFeedType;
 import jp.co.nok.common.util.StringUtil;
+import jp.co.nok.db.annotation.Crypt;
+import jp.co.nok.tool.db.Column;
+import jp.co.nok.tool.db.Table;
 import jp.co.nok.tool.excel.Cell;
 import jp.co.nok.tool.excel.Row;
 import jp.co.nok.tool.excel.type.CellPositionType;
@@ -64,7 +68,7 @@ public class ToolUtil {
 	}
 
 	/**
-	 * 指定されたテーブル名が処理対象の行であるかどうか判定する
+	 * 指定されたテーブル名(物理)が処理対象の行であるかどうか判定する
 	 *
 	 * @param row
 	 *            行情報
@@ -78,7 +82,7 @@ public class ToolUtil {
 	}
 
 	/**
-	 * 指定された行情報から物理名を返す
+	 * 指定された行情報からテーブル名(物理)を返す
 	 *
 	 * @param row
 	 *            行情報
@@ -89,7 +93,7 @@ public class ToolUtil {
 	}
 
 	/**
-	 * 指定された行情報から論理名を返す
+	 * 指定された行情報からテーブル名(論理)を返す
 	 *
 	 * @param row
 	 *            行情報
@@ -97,6 +101,84 @@ public class ToolUtil {
 	 */
 	public static String getLogicalName(Row row) {
 		return row.getCell(CellPositionType.LOGICAL_NAME).getValue();
+	}
+
+	/**
+	 * 指定された行情報からカラムタイプを返す
+	 *
+	 * @param row
+	 *            行情報
+	 * @return カラムタイプ
+	 */
+	public static String getColumnType(Row row) {
+		StringJoiner body = new StringJoiner(StringUtil.SPACE);
+		String columnType = row.getCell(CellPositionType.COLUMN_TYPE).getValue();
+		if (isCrypt(row)) {
+			columnType = "VARBINARY";
+		}
+		String size = getSize(row);
+		body.add(columnType + size);
+		if (isSequence(row)) {
+			body.add("AUTO_INCREMENT");
+		}
+		if (isPrimaryKey(row)) {
+			body.add("NOT NULL PRIMARY KEY");
+		}
+		return body.toString();
+	}
+
+	/**
+	 * 指定された行情報からカラムサイズを返す
+	 *
+	 * @param row
+	 *            行情報
+	 * @return カラムサイズ
+	 */
+	public static String getSize(Row row) {
+		String size = row.getCell(CellPositionType.COLUMN_SIZE).getValue();
+		if (StringUtil.isBrank(size)) {
+			return StringUtil.EMPTY;
+		} else if (isCrypt(row)) {
+			return "(" + String.valueOf(Integer.valueOf(size) * 4) + ")";
+		} else {
+			return "(" + size + ")";
+		}
+	}
+
+	/**
+	 * 暗号化カラムかどうかを判定する
+	 *
+	 * @param row
+	 *            行情報
+	 * @return 暗号化カラムの場合true、それ以外の場合false
+	 */
+	public static boolean isCrypt(Row row) {
+		return CommonFlag.TRUE == CommonFlag
+				.of(row.getCell(CellPositionType.CRYPT).getValue());
+	}
+
+	/**
+	 * シーケンスカラムかどうかを判定する
+	 *
+	 * @param row
+	 *            行情報
+	 * @return シーケンスカラムの場合true、それ以外の場合false
+	 */
+	public static boolean isSequence(Row row) {
+		return CommonFlag.TRUE == CommonFlag
+				.of(row.getCell(CellPositionType.SEQUENCE).getValue());
+	}
+
+	/**
+	 * プライマリーキーかどうかを判定する
+	 *
+	 * @param row
+	 *            行情報
+	 * @return プライマリーキーの場合true、それ以外の場合false
+	 */
+	public static boolean isPrimaryKey(Row row) {
+		return CommonFlag.TRUE == CommonFlag
+				.of(row.getCell(CellPositionType.PRIMARY_KEY).getValue());
 	}
 
 	/**
@@ -134,6 +216,17 @@ public class ToolUtil {
 	}
 
 	/**
+	 * 指定された行情報からカラム名を返す
+	 *
+	 * @param row
+	 *            行情報
+	 * @return カラム名
+	 */
+	public static String getColumnName(Row row) {
+		return row.getCell(CellPositionType.COLUMN_NAME).getValue();
+	}
+
+	/**
 	 * 指定された行情報からフィールドに付与するアノテーションのMapを返す
 	 *
 	 * @param row
@@ -146,6 +239,7 @@ public class ToolUtil {
 			JavaSource source) {
 
 		Map<Class<?>, String> map = new HashMap<>();
+
 		Cell primaryKeyCell = row.getCell(CellPositionType.PRIMARY_KEY);
 		if (StringUtil.hasValue(primaryKeyCell.getValue())) {
 			map.put(Id.class, "");
@@ -411,4 +505,77 @@ public class ToolUtil {
 		return body.toString();
 	}
 
+	/**
+	 * テーブル情報リストを取得
+	 *
+	 * @param rowList
+	 *            行情報リスト
+	 * @return テーブル情報リスト
+	 */
+	public static List<Table> getTableList(List<Row> rowList) {
+
+		// header行を除外
+		List<Row> list = CollectionUtil.copyList(rowList);
+		list.remove(0);
+		List<Table> tableList = new ArrayList<>();
+		List<String> existTableList = new ArrayList<>();
+		for (Row row : list) {
+			String logicalName = row.getCell(CellPositionType.LOGICAL_NAME).getValue();
+			String physicalName = row.getCell(CellPositionType.PHYSICAL_NAME).getValue();
+			if (!containsTable(existTableList, physicalName)
+					&& !StringUtil.isEmpty(physicalName)) {
+				existTableList.add(physicalName);
+				Table table = new Table();
+				table.setLogicalName(logicalName);
+				table.setPhysicalName(physicalName);
+				tableList.add(table);
+			}
+		}
+		return tableList;
+	}
+
+	/**
+	 * テーブル情報リストにテーブル名が含まれるか判定する
+	 *
+	 * @param tableList
+	 *            テーブル情報リスト
+	 * @param tableName
+	 *            テーブル名
+	 * @return テーブル名が含まれる場合true、それ以外の場合false
+	 */
+	public static boolean containsTable(List<String> tableList, String tableName) {
+		return tableList.contains(tableName);
+	}
+
+	/**
+	 * 指定された行情報リストから<code>jp.co.nok.tool.db.Table</code>を返す
+	 *
+	 * @param rowList
+	 *            行情報リスト
+	 * @param tableName
+	 *            テーブル名
+	 * @return Tableクラス
+	 */
+	public static Table getTable(List<Row> rowList, String tableName) {
+
+		Table table = new Table();
+		table.setPhysicalName(tableName);
+		String logicalName = rowList.stream()
+				.filter(e -> isTargetTable(e, tableName))
+				.map(e -> e.getCell(CellPositionType.LOGICAL_NAME))
+				.collect(Collectors.toList())
+				.get(0)
+				.getValue();
+		table.setLogicalName(logicalName);
+		table.setColumnList(
+				rowList.stream().filter(e -> isTargetTable(e, tableName)).map(e -> {
+					Column column = new Column();
+					column.setName(getColumnName(e));
+					column.setComment(getColumnComment(e));
+					column.setType(getColumnType(e));
+					return column;
+				}).collect(Collectors.toList()));
+
+		return table;
+	}
 }

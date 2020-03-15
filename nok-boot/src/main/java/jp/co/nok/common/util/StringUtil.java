@@ -57,8 +57,7 @@ public class StringUtil {
 	 * @return List<String>
 	 */
 	public static List<String> toStrList(String target, String delim) {
-		return isEmpty(target) ? null
-				: CollectionUtil.toList(target.split(delim));
+		return isEmpty(target) ? null : CollectionUtil.toList(target.split(delim));
 	}
 
 	/**
@@ -197,8 +196,7 @@ public class StringUtil {
 	 *            対象文字列
 	 * @return 結合した文字列
 	 */
-	public String join(String delim, Predicate<String> ignoreRule,
-			String... values) {
+	public String join(String delim, Predicate<String> ignoreRule, String... values) {
 
 		if (isEmpty(delim) || CollectionUtil.isEmpty(Arrays.asList(values))) {
 			return null;

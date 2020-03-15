@@ -38,6 +38,12 @@ public class LogMessageFactory {
 	 * @return ログメッセージ
 	 */
 	public static String getLogMessage(Object bean) {
+
+		if (BeanUtil.isNull(bean)) {
+			// 指定されたBeanがNULLの場合
+			return "bean is NULL";
+		}
+
 		StringJoiner body = new StringJoiner(", ");
 		Class<?> clazz = bean.getClass();
 
@@ -123,7 +129,7 @@ public class LogMessageFactory {
 					DateFormatType.YYYYMMDDHHMMSS);
 		} else if (value instanceof LocalDate) {
 			strValue = DateUtil.toString((LocalDate) value,
-					DateFormatType.YYYYMMDDHHMMSS);
+					DateFormatType.YYYYMMDD);
 		} else {
 			strValue = value.toString();
 		}

@@ -73,8 +73,9 @@ public class DaoConfig implements Config {
 	}
 
 	/**
-	 * Daoのロガークラス
+	 * Daoのロガー
 	 *
+	 * @version 1.0.0
 	 */
 	public static class DaoLogger extends AbstractJdbcLogger<Level> {
 

@@ -3,7 +3,9 @@ package jp.co.nok.db.dao;
 import org.seasar.doma.Dao;
 import org.seasar.doma.Delete;
 import org.seasar.doma.Insert;
+import org.seasar.doma.Select;
 import org.seasar.doma.Update;
+import org.seasar.doma.boot.ConfigAutowireable;
 
 import jp.co.nok.db.entity.LoginUserData;
 
@@ -13,6 +15,7 @@ import jp.co.nok.db.entity.LoginUserData;
  * @version 1.0.0
  */
 @Dao
+@ConfigAutowireable
 public interface LoginUserDataDao extends BaseDao {
 
 	@Delete
@@ -23,5 +26,8 @@ public interface LoginUserDataDao extends BaseDao {
 
 	@Insert
 	public int insert(LoginUserData entity);
+
+	@Select
+	public LoginUserData selectById(Integer seqLoginId);
 
 }

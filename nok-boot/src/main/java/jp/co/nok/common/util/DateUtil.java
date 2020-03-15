@@ -254,6 +254,40 @@ public class DateUtil {
 	}
 
 	/**
+	 * 検査日(<code>localDate</code>)が比較日(<code>when</code>)より未来かどうか判定する<br>
+	 * <ul>
+	 * <li><code>isEquals = true</code>の場合</li>
+	 * <ul>
+	 * <li>比較日 <= 検査日の場合、true</li>
+	 * <li>検査日 < 比較日の場合、false</li>
+	 * </ul>
+	 * <li><code>isEquals = false</code>の場合</li>
+	 * <ul>
+	 * <li>比較日 < 検査日の場合、true</li>
+	 * <li>検査日 <= 比較日の場合、false</li>
+	 * </ul>
+	 * </ul>
+	 *
+	 * @param localDate
+	 *            検査日
+	 * @param when
+	 *            比較日
+	 * @param isEquals
+	 *            同時刻を超過したに含むかどうか
+	 * @return 判定結果
+	 */
+	public static boolean isAfter(LocalDate localDate,
+			LocalDate when, boolean isEquals) {
+		if (isEquals) {
+			if (localDate.isEqual(when)) {
+				return true;
+			}
+			return localDate.isAfter(when);
+		}
+		return localDate.isAfter(when);
+	}
+
+	/**
 	 * 検査日時(<code>localDateTime</code>)が比較日時(<code>when</code>)より過去どうか判定する<br>
 	 * <ul>
 	 * <li><code>isEquals = true</code>の場合</li>
@@ -315,9 +349,8 @@ public class DateUtil {
 	 */
 	public static String toString(LocalDate localDate,
 			DateFormatType formatType) {
-		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(
-				formatType.getValue(),
-				Locale.JAPANESE);
+		DateTimeFormatter dateTimeFormatter = DateTimeFormatter
+				.ofPattern(formatType.getValue(), Locale.JAPANESE);
 		return localDate.format(dateTimeFormatter);
 	}
 
@@ -333,8 +366,7 @@ public class DateUtil {
 	public static String toString(LocalDateTime localDateTime,
 			DateFormatType formatType) {
 		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(
-				formatType.getValue(),
-				Locale.JAPANESE);
+				formatType.getValue(), Locale.JAPANESE);
 		return localDateTime.format(dateTimeFormatter);
 	}
 
@@ -420,9 +452,8 @@ public class DateUtil {
 	 */
 	public static LocalDate toLocalDate(String strDate,
 			DateFormatType formatType) {
-		DateTimeFormatter dateTimeFormatter = DateTimeFormatter
-				.ofPattern(formatType.getValue());
-		return LocalDate.parse(strDate, dateTimeFormatter);
+		return LocalDate.parse(strDate,
+				DateTimeFormatter.ofPattern(formatType.getValue()));
 	}
 
 	/**
@@ -434,8 +465,7 @@ public class DateUtil {
 	 */
 	public static LocalDateTime toLocalDateTime(LocalDate localDate) {
 		return LocalDateTime.of(localDate.getYear(), localDate.getMonthValue(),
-				localDate.getDayOfMonth(), 0,
-				0, 0);
+				localDate.getDayOfMonth(), 0, 0, 0);
 	}
 
 	/**
@@ -460,12 +490,12 @@ public class DateUtil {
 		/** 東京 */
 		TOKYO("Asia/Tokyo");
 
+		/** 値 */
+		private String value;
+
 		private ZoneIdType(String value) {
 			this.value = value;
 		}
-
-		/** 値 */
-		private String value;
 
 		@Override
 		public String getValue() {

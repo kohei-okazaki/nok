@@ -22,6 +22,7 @@ import jp.co.nok.db.entity.BaseEntity;
 @Component
 public class DecryptFunction<T extends BaseEntity> implements Function<Stream<T>, T> {
 
+	/** Entity暗号化/復号処理 */
 	@Autowired
 	private EntityCrypter entityCrypter;
 

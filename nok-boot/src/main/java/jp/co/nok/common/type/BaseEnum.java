@@ -17,17 +17,6 @@ public interface BaseEnum {
 	String getValue();
 
 	/**
-	 * 指定した文字列が同じ値か検証する
-	 *
-	 * @param value
-	 *            値
-	 * @return 同じ値の場合true、それ以外の場合false
-	 */
-	public default boolean is(String value) {
-		return getValue().equals(value);
-	}
-
-	/**
 	 * 指定した値が一致する列挙型を返す<br>
 	 * 一致するenumがない場合nullを返す
 	 *

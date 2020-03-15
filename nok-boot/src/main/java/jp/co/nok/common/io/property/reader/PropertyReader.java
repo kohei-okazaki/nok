@@ -6,17 +6,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.List;
 import java.util.Properties;
-import java.util.stream.Collectors;
 
 import jp.co.nok.common.io.property.annotation.Property;
 import jp.co.nok.common.log.Logger;
 import jp.co.nok.common.log.LoggerFactory;
 import jp.co.nok.common.util.BeanUtil;
 import jp.co.nok.common.util.BeanUtil.AccessorType;
-import jp.co.nok.common.util.CollectionUtil;
 import jp.co.nok.common.util.FileUtil.FileExtension;
 import jp.co.nok.common.util.StringUtil;
 
@@ -77,16 +73,16 @@ public class PropertyReader {
 		try {
 			T t = clazz.getDeclaredConstructor().newInstance();
 
-			for (Field f : clazz.getDeclaredFields()) {
+			for (Field f : BeanUtil.getFieldList(clazz)) {
 				if (!f.isAnnotationPresent(Property.class)) {
+					// @Propertyが付与されていないフィールドの場合、次のフィールドへ
 					continue;
 				}
 
 				// プロパティファイル.プロパティ名から値を取得
 				Object value = prop.get(f.getAnnotation(Property.class).name());
-				Method setter = BeanUtil.getAccessor(f.getName(), clazz,
-						AccessorType.SETTER);
-				setter.invoke(t, value);
+				BeanUtil.getAccessor(f.getName(), clazz, AccessorType.SETTER)
+						.invoke(t, value);
 			}
 			return t;
 
@@ -106,17 +102,4 @@ public class PropertyReader {
 		return null;
 	}
 
-	/**
-	 * 指定したクラス型のフィールドに付与されている<code>@Propery</code>の項目名をリストにして返す
-	 *
-	 * @param clazz
-	 *            対象クラス
-	 * @return 項目名リスト
-	 */
-	private static List<String> getPropNameList(Class<?> clazz) {
-		return CollectionUtil.toList(clazz.getDeclaredFields()).stream()
-				.filter(e -> e.isAnnotationPresent(Property.class))
-				.map(e -> e.getAnnotation(Property.class).name())
-				.collect(Collectors.toList());
-	}
 }

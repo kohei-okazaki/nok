@@ -51,6 +51,10 @@ public class ToolProperty {
 		this.targetTables = targetTables;
 	}
 
+	public void addTargetTable(String targetTable) {
+		this.targetTableList.add(targetTable);
+	}
+
 	public String getVersion() {
 		return version;
 	}
@@ -61,10 +65,6 @@ public class ToolProperty {
 
 	public List<String> getTargetTableList() {
 		return targetTableList;
-	}
-
-	public void addTargetTable(String targetTable) {
-		this.targetTableList.add(targetTable);
 	}
 
 }

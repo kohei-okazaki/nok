@@ -7,7 +7,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: admin
-    url: jdbc:mysql://localhost:3306/kinwork?serverTimezone=JST
+    url: jdbc:mysql://localhost:3306/nokapp?serverTimezone=JST
 # Log設定
 logging:
   level:
@@ -17,9 +17,16 @@ logging:
     jp.co.nok: INFO
 # Doma設定
 doma:
+  dialect: mysql
   # SQLファイルをキャッシュ
   sql-file-repository: greedy-cache
 # 暗号設定
 crypt:
   mode: AES/ECB/PKCS5Padding
   key: 1234567890123456
+# ハッシュ化設定
+hash:
+  algorithm: PBKDF2WithHmacSHA256
+  stretch-count: 10000
+  key-length: 256
+  salt: nok12345

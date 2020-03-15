@@ -3,7 +3,7 @@ package jp.co.nok.db.util;
 import jp.co.nok.db.entity.BaseEntity;
 
 /**
- * Entity暗号化/復号化インターフェース
+ * Entity暗号化/復号インターフェース
  *
  * @version 1.0.0
  */
@@ -18,7 +18,7 @@ public interface EntityCrypter {
 	void encrypt(BaseEntity entity);
 
 	/**
-	 * 指定されたEntityクラスの復号化を行う
+	 * 指定されたEntityクラスの復号を行う
 	 *
 	 * @param entity
 	 *            基底Entityクラス

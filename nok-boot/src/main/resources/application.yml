@@ -15,6 +15,7 @@ spring:
     active: local
   thymeleaf:
     mode: HTML
+    encoding: UTF-8
   servlet:
     multipart:
       max-file-size: -1

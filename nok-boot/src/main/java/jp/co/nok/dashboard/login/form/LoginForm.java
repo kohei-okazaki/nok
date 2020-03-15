@@ -1,5 +1,7 @@
 package jp.co.nok.dashboard.login.form;
 
+import javax.validation.constraints.NotEmpty;
+
 /**
  * ログインFormクラス
  *
@@ -8,8 +10,10 @@ package jp.co.nok.dashboard.login.form;
 public class LoginForm {
 
 	/** ID */
+	@NotEmpty
 	private String id;
 	/** パスワード */
+	@NotEmpty
 	private String password;
 
 	public String getId() {
