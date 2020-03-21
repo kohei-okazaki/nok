@@ -6,8 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import jp.co.nok.common.log.Logger;
-import jp.co.nok.common.log.LoggerFactory;
 import jp.co.nok.common.type.BaseEnum;
 
 /**
@@ -16,9 +14,6 @@ import jp.co.nok.common.type.BaseEnum;
  * @version 1.0.0
  */
 public class FileUtil {
-
-	/** LOG */
-	private static final Logger LOG = LoggerFactory.getLogger(FileUtil.class);
 
 	/**
 	 * プライベートコンストラクタ

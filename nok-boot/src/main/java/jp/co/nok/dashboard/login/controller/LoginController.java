@@ -1,8 +1,5 @@
 package jp.co.nok.dashboard.login.controller;
 
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,9 +22,6 @@ import jp.co.nok.web.view.AppView;
 @RequestMapping("/login")
 public class LoginController {
 
-	@Autowired
-	private HttpSession session;
-
 	@ModelAttribute
 	public LoginForm loginUserRegistForm() {
 		return new LoginForm();
@@ -40,7 +34,8 @@ public class LoginController {
 
 	@RequestMapping(path = "/processLogin", method = { RequestMethod.GET,
 			RequestMethod.POST })
-	public String loginPost(@Validated LoginForm form, BindingResult br) {
+	public String loginPost(@SuppressWarnings("unused") @Validated LoginForm form,
+			BindingResult br) {
 		// TODO このメソッド使ってなさそうなら削除
 
 		if (br.hasErrors()) {

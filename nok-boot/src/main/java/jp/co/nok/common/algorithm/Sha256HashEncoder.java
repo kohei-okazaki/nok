@@ -79,48 +79,11 @@ public class Sha256HashEncoder {
 					.getInstance(Algorithm.SHA_256.getValue());
 			messageDigest.update(salt.getBytes());
 			result = messageDigest.digest();
-		} catch (NoSuchAlgorithmException e) {
+		} catch (@SuppressWarnings("unused") NoSuchAlgorithmException e) {
 			// SHA256を指定している為、発生しない
 		}
 
 		return result;
 	}
-
-	// /**
-	// * SHA-256で指定された値をハッシュ化する
-	// *
-	// * @param str
-	// * ハッシュ化前の文字列
-	// * @param charset
-	// * 文字コード
-	// * @return ハッシュ化後の値
-	// */
-	// public String encode(String str, Charset charset) {
-	//
-	// if (StringUtil.isEmpty(str)) {
-	// return str;
-	// }
-	//
-	// try {
-	// MessageDigest md =
-	// MessageDigest.getInstance(Algorithm.SHA_256.getValue());
-	// md.update(str.getBytes(charset.getValue()));
-	//
-	// byte[] cipherByte = md.digest();
-	//
-	// StringBuilder sb = new StringBuilder(2 * cipherByte.length);
-	// for (byte b : cipherByte) {
-	// sb.append(String.format("%02x", b & 0xff));
-	// }
-	// return sb.toString();
-	//
-	// } catch (@SuppressWarnings("unused") NoSuchAlgorithmException e) {
-	// // 基本的に発生しない
-	// } catch (@SuppressWarnings("unused") UnsupportedEncodingException e) {
-	// // 基本的に発生しない
-	// }
-	//
-	// return str;
-	// }
 
 }
