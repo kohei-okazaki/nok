@@ -1,79 +1,55 @@
 body {
-	font-family: "Lato", sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 .header-contents {
-	padding: 10px;
-	background-color: #e4e4e4;
+  background-color: #e4e4e4;
 }
 
 .footer-contents {
-	color: white;
-	padding: 10px;
-	background-color: #808080;
+  color: white;
+  padding: 5px;
+  background-color: #808080;
 }
 
-.main-head {
-	height: 150px;
-	background: #FFF;
+/*
+ * Bootstrapの.rowが左右 -15pxとなっているので
+ *左右0pxでラッピングしたrow
+ */
+.row {
+  margin-right: 0px !important;
+  margin-left: 0px !important;
 }
 
-.sidenav {
-	height: 100%;
-	background-color: #000;
-	overflow-x: hidden;
-	padding-top: 20px;
+/*
+ * <p>タグ等が下方向にpaddingされているものがあったため、このタグで無理やりPaddingをさせないようにする
+ */
+.zero-margin {
+  margin: 0px !important;
 }
 
-.main {
-	padding: 0px 10px;
+/*
+ * リストメニューのPaddingを調整
+ */
+.nok-list-menu-item {
+  padding-top: 1.25rem;
+  padding-right: 2.25rem;
+  padding-bottom: 1.25rem;
+  padding-left: 2.25rem;
 }
 
-@media screen and (max-height: 450px) {
-	.sidenav {
-		padding-top: 15px;
-	}
-}
-
-@media screen and (max-width: 450px) {
-	.login-form {
-		margin-top: 10%;
-	}
-	.register-form {
-		margin-top: 10%;
-	}
-}
-
-@media screen and (min-width: 768px) {
-	.main {
-		margin-left: 40%;
-	}
-	.sidenav {
-		width: 40%;
-		position: fixed;
-		z-index: 1;
-		top: 0;
-		left: 0;
-	}
-	.login-form {
-		margin-top: 80%;
-	}
-	.register-form {
-		margin-top: 20%;
-	}
-}
-
-.login-main-text {
-	margin-top: 20%;
-	padding: 60px;
-	color: #fff;
-}
-
-.login-main-text h2 {
-	font-weight: 300;
-}
-
+/* ボタンの種類を追加 */
 .btn-black {
-	background-color: #000 !important;
-	color: #fff;
+  background-color: #000 !important;
+  color: #fff;
+}
+
+.btn-olive {
+  background-color: olive; ! important;
+  color: #fff;
+}
+
+.btn-orange {
+  background-color: orange !important;
+  color: #000;
 }

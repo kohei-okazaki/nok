@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="ja"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{common/layout}">
 <head>
-<meta charset="UTF-8" />
 <title>TOPページ</title>
-<link th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}" rel="stylesheet" />
 </head>
 <body>
-  <h1>TOPページ</h1>
-  <a th:href="@{/common/top2}">TOP2へ</a>
-  <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
-  <script type="text/javascript" th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+  <div layout:fragment="content">
+    <a th:href="@{/common/top2}">TOP2へ</a>
+  </div>
 </body>
 </html>

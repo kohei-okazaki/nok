@@ -25,17 +25,17 @@ public class ApplicationComponent {
 	private String thymealeaf;
 	@Value("${logging.level.jp.co.nok}")
 	private String nok;
-	@Value("${crypt.mode}")
+	@Value("${nok.crypt.mode}")
 	private String cryptMode;
-	@Value("${crypt.key}")
+	@Value("${nok.crypt.key}")
 	private String cryptKey;
-	@Value("${hash.algorithm}")
+	@Value("${nok.hash.algorithm}")
 	private String hashAlgorithm;
-	@Value("${hash.stretch-count}")
+	@Value("${nok.hash.stretch-count}")
 	private int hashStrechCount;
-	@Value("${hash.key-length}")
+	@Value("${nok.hash.key-length}")
 	private int hashKeyLength;
-	@Value("${hash.salt}")
+	@Value("${nok.hash.salt}")
 	private String hashSalt;
 
 	public String getLevel() {

@@ -8,6 +8,14 @@ spring:
     username: root
     password: admin
     url: jdbc:mysql://localhost:3306/nokapp?serverTimezone=JST
+  # Flyway設定
+  flyway: 
+    url: jdbc:mysql://localhost:3306/nokapp?serverTimezone=JST
+    enabled: true
+    user: root
+    password: admin
+    baseline-on-migrate: false
+    locations: classpath:db/migration
 # Log設定
 logging:
   level:
@@ -20,15 +28,17 @@ doma:
   dialect: mysql
   # SQLファイルをキャッシュしない
   sql-file-repository: no-cache
-# 暗号設定
-crypt:
-  mode: AES/ECB/PKCS5Padding
-  key: 1234567890123456
-  # ハッシュ化設定
-hash:
-  algorithm: PBKDF2WithHmacSHA256
-  stretch-count: 10000
-  key-length: 256
-  salt: nok12345
 server:
   port: 8081
+# アプリ独自の設定
+nok:
+  # 暗号化設定
+  crypt:
+    mode: AES/ECB/PKCS5Padding
+    key: 1234567890123456
+  # ハッシュ化設定
+  hash:
+    algorithm: PBKDF2WithHmacSHA256
+    stretch-count: 10000
+    key-length: 256
+    salt: nok12345

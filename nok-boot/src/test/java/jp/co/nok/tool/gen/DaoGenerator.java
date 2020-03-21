@@ -11,7 +11,6 @@ import org.seasar.doma.Insert;
 import org.seasar.doma.Update;
 import org.seasar.doma.boot.ConfigAutowireable;
 
-import jp.co.nok.common.type.Charset;
 import jp.co.nok.common.util.FileUtil.FileExtension;
 import jp.co.nok.common.util.FileUtil.FileSeparator;
 import jp.co.nok.common.util.StringUtil;
@@ -84,7 +83,6 @@ public class DaoGenerator extends BaseGenerator {
 			}
 
 			GenerateFile generateFile = new GenerateFile();
-			generateFile.setCharset(Charset.UTF_8);
 			generateFile.setFileName(ToolUtil.toJavaFileName(table) + "Dao"
 					+ FileExtension.JAVA.getValue());
 			generateFile.setData(ToolUtil.toStrJavaSource(source, prop));

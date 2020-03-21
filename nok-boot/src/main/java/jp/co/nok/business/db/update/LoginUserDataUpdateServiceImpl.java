@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jp.co.nok.db.dao.LoginUserDataDao;
+import jp.co.nok.db.entity.LoginUserData;
 
 /**
  * ログインユーザ情報更新サービス実装クラス
@@ -15,4 +16,9 @@ public class LoginUserDataUpdateServiceImpl implements LoginUserDataUpdateServic
 
 	@Autowired
 	private LoginUserDataDao dao;
+
+	@Override
+	public void update(LoginUserData loginUserData) {
+		dao.update(loginUserData);
+	}
 }

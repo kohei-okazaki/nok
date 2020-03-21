@@ -19,7 +19,6 @@ import jp.co.nok.common.log.Logger;
 import jp.co.nok.common.log.LoggerFactory;
 import jp.co.nok.dashboard.login.form.LoginUserRegistForm;
 import jp.co.nok.db.entity.LoginUserData;
-import jp.co.nok.web.auth.login.LoginAuthDto;
 import jp.co.nok.web.view.AppView;
 
 /**
@@ -40,6 +39,11 @@ public class LoginUserRegistController {
 	private ModelMapper modelMapper;
 	@Autowired
 	private LoginUserDataCreateService loginUserCreateService;
+
+	@ModelAttribute
+	public LoginUserRegistForm loginUserRegistForm() {
+		return new LoginUserRegistForm();
+	}
 
 	/**
 	 * 登録情報入力画面
@@ -64,15 +68,13 @@ public class LoginUserRegistController {
 	 */
 	@PostMapping("/userregistconfirm")
 	public String userRegistConfirm(Model model,
-			@ModelAttribute @Validated LoginUserRegistForm loginUserRegistForm,
-			BindingResult result) {
+			@Validated LoginUserRegistForm loginUserRegistForm, BindingResult result) {
 
 		if (result.hasErrors()) {
 			model.addAttribute("errorMessage", "入力情報が不正です");
 			return AppView.LOGIN_REGIST_VIEW.getValue();
 		}
 
-		LOG.debugRes(loginUserRegistForm);
 		SessionComponent sessionComponent = modelMapper.map(loginUserRegistForm,
 				SessionComponent.class);
 		session.setAttribute("sessionComponent", sessionComponent);
@@ -98,10 +100,7 @@ public class LoginUserRegistController {
 		LOG.debugRes(loginUserData);
 		loginUserCreateService.create(loginUserData);
 
-		// ログインユーザ情報をログイン認証情報にコピーし、セッションに保持
-		LoginAuthDto loginAuthDto = modelMapper.map(loginUserData, LoginAuthDto.class);
-		sessionComponent.setLoginAuthDto(loginAuthDto);
-		model.addAttribute("loginId", loginAuthDto.getSeqLoginId());
+		model.addAttribute("loginId", loginUserData.getSeqLoginId());
 
 		return AppView.LOGIN_REGIST_PROCESS_VIEW.getValue();
 	}

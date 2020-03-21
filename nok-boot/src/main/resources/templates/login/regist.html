@@ -2,79 +2,79 @@
 <html lang="ja"
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8" />
 <title>ログインユーザ情報登録画面</title>
 <link th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}" rel="stylesheet" />
 <link th:href="@{/css/layout.css}" rel="stylesheet" />
-<!-- <link th:href=“@{/image/favicon.ico}” rel=”icon” > -->
+<link th:href="@{/images/favicon.png}" rel="icon" />
 </head>
 <body>
 
   <header class="sticky-top header-contents">
-      <div>
-          <h1>タスク管理アプリ</h1>
-      </div>
+    <div>
+      <h1 class="text-muted">タスク管理アプリ</h1>
+    </div>
   </header>
   <br>
-  <!-- container border col-7 ここから -->
+
   <div class="container border col-7">
     <br>
     <h2>ログインユーザ情報登録画面</h2>
     <br>
-    <!-- row ここから -->
     <div class="row">
-      <!-- col-md ここから -->
       <div class="col-md">
-        <form th:action="@{/login/userregistconfirm}" method="post" class="needs-validation" novalidate>
+        <form th:action="@{/login/userregistconfirm}" method="post" class="needs-validation" th:object="${loginUserRegistForm}" novalidate>
+          <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+          <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></div>
           <div class="form-group">
-            <label class="control-label" for="validationCustom01">パスワード</label>
+            <label class="control-label" for="validationCustom01" th:text="#{password}"></label><span class="badge badge-danger">必須</span>
+            <input type="password" id="validationCustom01" class="form-control" th:field="*{password}" placeholder="password1234" required />
+            <div class="valid-feedback" th:text="#{inputDone}"></div>
+            <div class="invalid-feedback" th:text="#{password} + #{required}"></div>
+          </div><!-- /.form-group -->
+          <div class="form-group">
             <a  data-toggle="modal" data-target="#exampleModal">パスワードの扱いについて</a>
-            <input type="password" id="validationCustom01" class="form-control" th:name="password" required />
-            <div class="valid-feedback">入力済</div>
-            <div class="invalid-feedback">パスワードは必須です</div>
-          </div>
+          </div><!-- /.form-group -->
           <div class="form-group">
-            <label class="control-label" for="validationCustom02">確認用パスワード</label>
-            <input type="password" id="validationCustom02" class="form-control" th:name="confirmPassword" required />
-            <div class="valid-feedback">入力済</div>
-            <div class="invalid-feedback">確認用パスワードは必須です</div>
-          </div>
+            <label class="control-label" for="validationCustom02" th:text="#{confirmPassword}"></label><span class="badge badge-danger">必須</span>
+            <input type="password" id="validationCustom02" class="form-control" th:field="*{confirmPassword}" placeholder="password1234" required />
+            <div class="valid-feedback" th:text="#{inputDone}"></div>
+            <div class="invalid-feedback" th:text="#{confirmPassword} + #{required}"></div>
+          </div><!-- /.form-group -->
           <input type="submit" class="btn btn-primary mt-1" value="登録" />
         </form>
-      </div>
-      <!-- col-md ここまで -->
-    </div>
-    <!-- row ここまで -->
+      </div><!-- /.col-md -->
+    </div><!-- /.row -->
     <br>
-  </div>
-  <!-- container border col-7 ここまで -->
+  </div><!-- /.container border col-7 -->
 
-  <!-- モーダルの設定 ここから -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+
+  <div id="exampleModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">モーダルのタイトル</h5>
+          <h5 class="modal-title" id="exampleModalLabel">パスワードの扱いについて</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
             <span aria-hidden="true">&times;</span>
           </button>
-        </div>
+        </div><!-- /.modal-header -->
         <div class="modal-body">
-          <p>モーダルのコンテンツ文。</p>
-        </div>
+          <p>この画面で入力したパスワードはアプリケーションではハッシュ化されて保存します。</p>
+          <p>ログイン後の画面で変更できます。</p>
+          <p>ご自身でパスワードを保存してください。</p>
+        </div><!-- /.modal-body -->
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-          <button type="button" class="btn btn-primary">変更を保存</button>
         </div><!-- /.modal-footer -->
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
-  <!-- モーダルの設定 ここまで -->
+  </div><!-- /.modal fade -->
 
   <footer class="fixed-bottom footer-contents">
-    <div>nok.co</div>
+    <p align="left" th:text="'&nbsp;&nbsp;&copy;' +${#dates.format(#dates.createNow(), 'yyyy')} + '&nbsp;タスク管理アプリ'"></p>
   </footer>
 
   <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>

@@ -1,6 +1,10 @@
 package jp.co.nok.dashboard.login.form;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.Length;
+
+import jp.co.nok.common.log.annotation.Mask;
 
 /**
  * ログインユーザ登録画面Form
@@ -10,12 +14,14 @@ import javax.validation.constraints.NotEmpty;
 public class LoginUserRegistForm {
 
 	/** パスワード */
-	// @Mask
-	@NotEmpty
+	@Mask
+	@NotBlank
+	@Length(min = 3, max = 15)
 	private String password;
 	/** 確認用パスワード */
-	// @Mask
-	@NotEmpty
+	@Mask
+	@NotBlank
+	@Length(min = 3, max = 15)
 	private String confirmPassword;
 
 	public String getPassword() {

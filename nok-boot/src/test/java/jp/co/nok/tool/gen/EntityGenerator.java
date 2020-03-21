@@ -7,7 +7,6 @@ import java.util.List;
 import org.seasar.doma.Entity;
 import org.seasar.doma.jdbc.entity.NamingType;
 
-import jp.co.nok.common.type.Charset;
 import jp.co.nok.common.util.FileUtil.FileExtension;
 import jp.co.nok.common.util.FileUtil.FileSeparator;
 import jp.co.nok.db.entity.BaseEntity;
@@ -76,7 +75,6 @@ public class EntityGenerator extends BaseGenerator {
 					});
 
 			GenerateFile generateFile = new GenerateFile();
-			generateFile.setCharset(Charset.UTF_8);
 			generateFile.setFileName(
 					ToolUtil.toJavaFileName(table) + FileExtension.JAVA.getValue());
 			generateFile.setData(ToolUtil.toStrJavaSource(source, prop));

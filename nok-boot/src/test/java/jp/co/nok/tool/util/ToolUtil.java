@@ -14,6 +14,8 @@ import org.seasar.doma.GeneratedValue;
 import org.seasar.doma.GenerationType;
 import org.seasar.doma.Id;
 
+import jp.co.nok.common.log.Logger;
+import jp.co.nok.common.log.LoggerFactory;
 import jp.co.nok.common.log.annotation.Mask;
 import jp.co.nok.common.type.CommonFlag;
 import jp.co.nok.common.util.BeanUtil;
@@ -41,6 +43,9 @@ import jp.co.nok.tool.source.type.ClassType;
  */
 public class ToolUtil {
 
+	/** LOG */
+	private static final Logger LOG = LoggerFactory.getLogger(ToolUtil.class);
+
 	/**
 	 * プライベートコンストラクタ
 	 */
@@ -63,6 +68,7 @@ public class ToolUtil {
 					+ FileUtil.FileSeparator.SYSTEM.getValue() + genFile.getFileName());
 			Files.write(path,
 					genFile.getData().getBytes(genFile.getCharset().getValue()));
+			LOG.debug("自動生成:" + path.toFile().getName());
 		}
 
 	}
@@ -118,12 +124,6 @@ public class ToolUtil {
 		}
 		String size = getSize(row);
 		body.add(columnType + size);
-		if (isSequence(row)) {
-			body.add("AUTO_INCREMENT");
-		}
-		if (isPrimaryKey(row)) {
-			body.add("NOT NULL PRIMARY KEY");
-		}
 		return body.toString();
 	}
 
@@ -167,6 +167,18 @@ public class ToolUtil {
 	public static boolean isSequence(Row row) {
 		return CommonFlag.TRUE == CommonFlag
 				.of(row.getCell(CellPositionType.SEQUENCE).getValue());
+	}
+
+	/**
+	 * Not NULLかどうかを判定する
+	 *
+	 * @param row
+	 *            行情報
+	 * @return Not NULLの場合true、それ以外の場合false
+	 */
+	public static boolean isNotNull(Row row) {
+		return CommonFlag.TRUE == CommonFlag
+				.of(row.getCell(CellPositionType.NOT_NULL).getValue());
 	}
 
 	/**
@@ -573,6 +585,10 @@ public class ToolUtil {
 					column.setName(getColumnName(e));
 					column.setComment(getColumnComment(e));
 					column.setType(getColumnType(e));
+					column.setPrimary(isPrimaryKey(e));
+					column.setSequence(isSequence(e));
+					column.setCrypt(isCrypt(e));
+					column.setNotNull(isNotNull(e));
 					return column;
 				}).collect(Collectors.toList()));
 

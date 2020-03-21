@@ -2,48 +2,50 @@
 <html lang="ja"
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8" />
 <title>ログイン</title>
 <link th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}" rel="stylesheet" />
 <link th:href="@{/css/layout.css}" rel="stylesheet" />
-<!-- <link th:href=“@{/image/favicon.png}” rel=”icon” /> -->
+<link th:href="@{/css/loginLayout.css}" rel="stylesheet" />
+<link th:href="@{/images/favicon.png}" rel="icon" />
 </head>
 <body>
-      <div class="sidenav">
-         <div class="login-main-text">
-            <h2>タスク管理アプリ</h2>
-            <br><br>
-            <p>アカウントを持っている場合、情報を入力しログインボタンを押してください</p>
-            <p>持っていない場合、登録ボタンを押してください</p>
-         </div>
-      </div>
-      <div class="main">
-         <div class="col-md-6 col-sm-12">
-            <div class="login-form">
-                <div th:if="${loginError}">
-                  <p>ログインに失敗しました</p>
-                </div>
-               <form th:action="@{/login/processLogin}" method="post" class="needs-validation" novalidate>
-                  <div class="form-group">
-                     <label class="control-label" for="validationCustom01">ログインID</label>
-                     <input type="text" id="validationCustom01" class="form-control" name="loginId" placeholder="12345" required />
-                     <div class="valid-feedback">入力済</div>
-                     <div class="invalid-feedback">ログインIDは必須です</div>
-                  </div>
-                  <div class="form-group">
-                     <label class="control-label" for="validationCustom02">パスワード</label>
-                     <input type="password" id="validationCustom02" class="form-control" name="password" placeholder="admin" required />
-                     <div class="valid-feedback">入力済</div>
-                     <div class="invalid-feedback">パスワードは必須です</div>
-                  </div>
-                  <input type="submit" class="btn btn-black" value="ログイン" />
-                  <input type="button" id="login-user-regist-btn" class="btn btn-secondary" value="登録" />
-               </form>
-            </div>
-         </div>
-      </div>
+  <div class="sidenav">
+    <div class="login-main-text">
+      <h2>タスク管理アプリ</h2>
+      <br><br>
+      <p>アカウントを持っている場合、情報を入力しログインボタンを押してください</p>
+      <p>持っていない場合、登録ボタンを押してください</p>
+    </div><!-- /.login-main-text -->
+  </div><!-- /.sidenav -->
+  <div class="main">
+    <div class="col-md-6 col-sm-12">
+      <div class="login-form">
+        <div class="alert alert-danger" role="alert" th:if="${loginError}">ログインに失敗しました</div>
+        <div class="alert alert-info" role="alert" th:if="${isLogout}" th:text="${infoMessage}"></div>
+        <form th:action="@{/login/processLogin}" method="post" class="needs-validation" novalidate>
+          <div class="form-group">
+            <label class="control-label" for="validationCustom01">ログインID</label>
+            <input type="text" id="validationCustom01" class="form-control" name="loginId" placeholder="12345" required />
+            <div class="valid-feedback">入力済</div>
+            <div class="invalid-feedback">ログインIDは必須です</div>
+          </div><!-- /.form-group -->
+          <div class="form-group">
+            <label class="control-label" for="validationCustom02">パスワード</label>
+            <input type="password" id="validationCustom02" class="form-control" name="password" placeholder="password1234" required />
+            <div class="valid-feedback">入力済</div>
+            <div class="invalid-feedback">パスワードは必須です</div>
+          </div><!-- /.form-group -->
+          <input type="submit" class="btn btn-black" value="ログイン" />
+          <input type="button" id="login-user-regist-btn" class="btn btn-secondary" value="登録" />
+        </form>
+      </div><!-- /.login-form -->
+    </div><!-- /.col-md-6 col-sm-12 -->
+  </div><!-- /.main -->
+
   <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
   <script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
   <script th:src="@{/js/common.js}"></script>

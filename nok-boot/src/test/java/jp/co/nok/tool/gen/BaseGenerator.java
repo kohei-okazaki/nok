@@ -111,7 +111,8 @@ public abstract class BaseGenerator {
 		/** DROP作成 */
 		DROP("DROP", "nok-docs\\02_design\\90_db\\02_drop", DropSqlGenerator.class),
 		/** テーブル定義作成 */
-		TABLE_DEFINE("TABLE_DEFINE", "nok-docs\\02_design\\90_db\\99_others", null);
+		TABLE_DEFINE("TABLE_DEFINE", "nok-docs\\02_design\\90_db\\99_others",
+				TableDefineGenerator.class);
 
 		/** 値 */
 		private String value;

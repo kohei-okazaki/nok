@@ -3,7 +3,8 @@ package jp.co.nok.tool.gen;
 import jp.co.nok.common.type.Charset;
 
 /**
- * 自動生成ファイル情報を保持するクラス
+ * 自動生成ファイル情報を保持するクラス<br>
+ * 基本的にSQLファイルもJavaファイルも文字コードはUTF-8とする
  *
  * @version 1.0.0
  */
@@ -16,7 +17,7 @@ public class GenerateFile {
 	/** ファイル内容 */
 	private String data;
 	/** 文字コード */
-	private Charset charset;
+	private Charset charset = Charset.UTF_8;
 
 	public String getOutputPath() {
 		return outputPath;

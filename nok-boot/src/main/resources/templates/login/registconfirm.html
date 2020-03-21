@@ -2,52 +2,41 @@
 <html lang="ja"
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8" />
 <title>ログインユーザ情報登録画面</title>
 <link th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}" rel="stylesheet" />
 <link th:href="@{/css/layout.css}" rel="stylesheet" />
-<!-- <link th:href=“@{/image/favicon.ico}” rel=”icon” > -->
+<link th:href="@{/images/favicon.png}" rel="icon" />
 </head>
 <body>
 
   <header class="sticky-top header-contents">
-      <div>
-          <h1>タスク管理アプリ</h1>
-      </div>
+    <div>
+      <h1>タスク管理アプリ</h1>
+    </div>
   </header>
   <br>
-  <!-- container border col-7 ここから -->
-  <div class="container border col-7">
+
+  <div class="container border col-7"><!-- container border col-7 ここから -->
     <br>
     <h2>ログインユーザ情報登録画面</h2>
     <br>
-    <!-- row ここから -->
-    <div class="row">
-      <!-- col-md ここから -->
-      <div class="col-md">
+    <div class="row"><!-- row ここから -->
+      <div class="col-md"><!-- col-md ここから -->
         <form th:action="@{/login/userregistprocess}" method="post">
-          <div class="form-group">
-            <label class="control-label">パスワード</label>
-            <input type="password" class="form-control" th:name="password" disabled />
-          </div>
-          <div class="form-group">
-            <label class="control-label">確認用パスワード</label>
-            <input type="password" class="form-control" th:name="confirmPassword" disabled />
-          </div>
+          <p>先程のパスワードでユーザを作成します</p>
           <input type="submit" class="btn btn-primary mt-1" value="登録" />
         </form>
-      </div>
-      <!-- col-md ここまで -->
-    </div>
-    <!-- row ここまで -->
+      </div><!-- col-md ここまで -->
+    </div><!-- row ここまで -->
     <br>
-  </div>
-  <!-- container border col-7 ここまで -->
+  </div><!-- container border col-7 ここまで -->
 
   <footer class="fixed-bottom footer-contents">
-    <div>nok.co</div>
+    <p align="left" th:text="'&nbsp;&nbsp;&copy;' +${#dates.format(#dates.createNow(), 'yyyy')} + '&nbsp;タスク管理アプリ'"></p>
   </footer>
 
   <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>

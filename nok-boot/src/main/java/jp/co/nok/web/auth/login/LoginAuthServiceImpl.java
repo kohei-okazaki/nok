@@ -37,17 +37,6 @@ public class LoginAuthServiceImpl implements UserDetailsService {
 			throws UsernameNotFoundException {
 
 		if (StringUtil.isEmpty(username)) {
-			SessionComponent comp = (SessionComponent) httpSession
-					.getAttribute(SessionComponent.KEY);
-			if (comp != null) {
-				LoginAuthDto dto = comp.getLoginAuthDto();
-				if (dto != null) {
-					username = dto.getUsername();
-				}
-			}
-		}
-
-		if (StringUtil.isEmpty(username)) {
 			LoggerFactory.getLogger(this.getClass())
 					.warn("指定したログインIDが無効です。ログインID:" + username);
 			throw new UsernameNotFoundException("指定したログインIDが無効です。ログインID:" + username);
@@ -63,6 +52,12 @@ public class LoginAuthServiceImpl implements UserDetailsService {
 					username);
 		}
 		LoginAuthDto loginAuthDto = mapper.map(entity, LoginAuthDto.class);
+
+		// ログインユーザ認証情報をHTTPSessionに保存
+		SessionComponent component = new SessionComponent();
+		component.setLoginAuthDto(loginAuthDto);
+		httpSession.setAttribute(SessionComponent.KEY, component);
+
 		return loginAuthDto;
 	}
 

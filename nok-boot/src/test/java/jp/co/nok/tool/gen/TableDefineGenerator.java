@@ -6,30 +6,32 @@ import java.util.StringJoiner;
 
 import jp.co.nok.common.util.FileUtil.FileSeparator;
 import jp.co.nok.common.util.StringUtil;
+import jp.co.nok.tool.db.Table;
 import jp.co.nok.tool.util.ToolUtil;
 
 /**
- * drop.sqlの自動生成クラス
+ * table-define.sqlの自動生成クラス
  *
  * @version 1.0.0
  */
-public class DropSqlGenerator extends BaseGenerator {
+public class TableDefineGenerator extends BaseGenerator {
 
 	@Override
 	List<GenerateFile> generateImpl() throws Exception {
 
+		List<Table> tableList = ToolUtil.getTableList(excel.getRowList());
 		StringJoiner body = new StringJoiner(StringUtil.NEW_LINE);
-		ToolUtil.getTableList(excel.getRowList()).stream().forEach(e -> {
+		tableList.stream().forEach(e -> {
 			body.add("-- " + e.getLogicalName());
-			body.add("DROP TABLE IF EXISTS " + e.getPhysicalName() + ";");
+			body.add("SHOW COLUMNS FROM " + e.getPhysicalName() + ";");
 		});
 
 		// 自動生成ファイル
 		GenerateFile generateFile = new GenerateFile();
-		generateFile.setFileName("drop.sql");
+		generateFile.setFileName("table-define.sql");
 		generateFile.setData(body.toString());
 		generateFile.setOutputPath(prop.getBaseDir() + FileSeparator.SYSTEM.getValue()
-				+ GenerateType.DROP.getPath());
+				+ GenerateType.TABLE_DEFINE.getPath());
 		return Arrays.asList(generateFile);
 	}
 

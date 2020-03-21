@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
-import jp.co.nok.common.type.Charset;
 import jp.co.nok.common.util.FileUtil.FileExtension;
 import jp.co.nok.common.util.FileUtil.FileSeparator;
 import jp.co.nok.common.util.FileUtil.LineFeedType;
@@ -38,6 +37,9 @@ public class CreateTableGenerator extends BaseGenerator {
 				String comment = e.getComment();
 				String name = e.getName();
 				String type = e.getType();
+				boolean isSequence = e.isSequence();
+				boolean isNotNull = e.isNotNull();
+				boolean isPrimary = e.isPrimary();
 
 				StringBuilder sb = new StringBuilder();
 				sb.append("-- ");
@@ -47,6 +49,9 @@ public class CreateTableGenerator extends BaseGenerator {
 				sb.append("  " + name);
 				sb.append(StringUtil.SPACE);
 				sb.append(type);
+				sb.append(isSequence ? " AUTO_INCREMENT" : "");
+				sb.append(isNotNull ? " NOT NULL" : "");
+				sb.append(isPrimary ? " PRIMARY KEY" : "");
 				sb.append(" COMMENT '");
 				sb.append(comment);
 				sb.append("'");
@@ -58,7 +63,6 @@ public class CreateTableGenerator extends BaseGenerator {
 			body.add(");");
 
 			GenerateFile generateFile = new GenerateFile();
-			generateFile.setCharset(Charset.UTF_8);
 			generateFile.setFileName(tableName + FileExtension.SQL.getValue());
 			generateFile.setData(body.toString());
 			generateFile.setOutputPath(prop.getBaseDir() + FileSeparator.SYSTEM.getValue()

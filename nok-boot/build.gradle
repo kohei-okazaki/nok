@@ -16,6 +16,10 @@ configurations {
 	}
 }
 
+bootJar {
+	launchScript()
+}
+
 repositories {
 	mavenCentral()
 }
@@ -28,13 +32,15 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-aop'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.security:spring-security-web'
 	implementation 'org.springframework.security:spring-security-config'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 
 	// MySQL
 	implementation 'mysql:mysql-connector-java:8.0.19'
-
+	// flyway
+	implementation 'org.flywaydb:flyway-core:6.3.1'
 	// Doma
 	annotationProcessor 'org.seasar.doma.boot:doma-spring-boot-starter:1.2.1'
 	implementation ('org.seasar.doma.boot:doma-spring-boot-starter:1.2.1') {
@@ -52,6 +58,7 @@ dependencies {
 	implementation 'org.modelmapper.extensions:modelmapper-spring:2.3.6'
 	implementation 'org.apache.poi:poi:4.1.2'
 	implementation 'org.apache.poi:poi-ooxml:4.1.2'
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.4.1'
 
 	// フロントライブラリを定義
 	implementation 'org.webjars:jquery:3.4.1'
