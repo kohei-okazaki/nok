@@ -4,7 +4,7 @@ import java.util.stream.Stream;
 
 /**
  * 列挙型の基底インターフェース
- * 
+ *
  * @version 1.0.0
  */
 public interface BaseEnum {
@@ -15,17 +15,6 @@ public interface BaseEnum {
 	 * @return value
 	 */
 	String getValue();
-
-	/**
-	 * 指定した文字列が同じ値か検証する
-	 *
-	 * @param value
-	 *            値
-	 * @return 同じ値の場合true、それ以外の場合false
-	 */
-	public default boolean is(String value) {
-		return getValue().equals(value);
-	}
 
 	/**
 	 * 指定した値が一致する列挙型を返す<br>

@@ -10,6 +10,8 @@ import jp.co.nok.db.entity.BaseEntity;
 /**
  * Daoのリスナークラス
  *
+ * @param <T>
+ *            Entity
  * @version 1.0.0
  */
 public class AppDaoListener<T extends BaseEntity> implements EntityListener<T> {
@@ -22,6 +24,8 @@ public class AppDaoListener<T extends BaseEntity> implements EntityListener<T> {
 
 	@Override
 	public void preInsert(T entity, PreInsertContext<T> context) {
+		// バージョン情報の設定
+		entity.setVersion(Integer.valueOf(1));
 		// 登録日時の設定
 		entity.setRegDate(DateUtil.getSysDate());
 		// 更新日時の設定
@@ -30,6 +34,8 @@ public class AppDaoListener<T extends BaseEntity> implements EntityListener<T> {
 
 	@Override
 	public void preUpdate(T entity, PreUpdateContext<T> context) {
+		// バージョン情報の設定
+		entity.setVersion(Integer.valueOf(entity.getVersion() + 1));
 		// 更新日時の設定
 		entity.setUpdateDate(DateUtil.getSysDate());
 	}

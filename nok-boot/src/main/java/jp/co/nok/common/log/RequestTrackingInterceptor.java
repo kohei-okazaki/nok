@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
 import jp.co.nok.common.util.StringUtil;
 
@@ -26,6 +27,11 @@ public final class RequestTrackingInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
+
+		if (handler instanceof ResourceHttpRequestHandler) {
+			// 静的リソースの場合、トレースを行わない
+			return true;
+		}
 
 		// 現在時刻を保持
 		START_TIME_HOLDER.set(System.nanoTime());
@@ -62,11 +68,11 @@ public final class RequestTrackingInterceptor implements HandlerInterceptor {
 	 *
 	 * @param request
 	 *            リクエスト
-	 * @return
+	 * @return トラックID
 	 */
 	private String getTrackId(HttpServletRequest request) {
 		String trackId = request.getHeader(HEADER_X_TRACK_ID);
-		if (trackId == null) {
+		if (StringUtil.isBrank(trackId)) {
 			trackId = StringUtil.getRandamStr(15);
 		}
 		return trackId;

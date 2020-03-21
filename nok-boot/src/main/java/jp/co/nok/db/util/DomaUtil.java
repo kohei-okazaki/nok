@@ -32,9 +32,7 @@ public class DomaUtil {
 	 * @return SelectOptions
 	 */
 	public static SelectOptions createSelectOptions(Pageable pageable) {
-		int page = pageable.getPage();
-		int perpage = pageable.getPerpage();
-		return createSelectOptions(page, perpage);
+		return createSelectOptions(pageable.getPage(), pageable.getPerpage());
 	}
 
 	/**

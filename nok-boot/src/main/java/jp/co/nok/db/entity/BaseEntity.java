@@ -3,6 +3,7 @@ package jp.co.nok.db.entity;
 import java.time.LocalDateTime;
 
 import org.seasar.doma.Entity;
+import org.seasar.doma.Version;
 
 import jp.co.nok.db.listener.AppDaoListener;
 
@@ -15,24 +16,20 @@ import jp.co.nok.db.listener.AppDaoListener;
 public abstract class BaseEntity {
 
 	/** バージョン */
-	// @Version
-	// private Integer version;
-	/** 登録ユーザ */
-	// private String regUser;
+	@Version
+	private Integer version;
 	/** 登録日時 */
 	private LocalDateTime regDate;
 	/** 更新ユーザ */
-	// private String updateUser;
-	/** 更新ユーザ */
 	private LocalDateTime updateDate;
 
-	// public String getRegUser() {
-	// return regUser;
-	// }
-	//
-	// public void setRegUser(String regUser) {
-	// this.regUser = regUser;
-	// }
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
 
 	public LocalDateTime getRegDate() {
 		return regDate;
@@ -41,14 +38,6 @@ public abstract class BaseEntity {
 	public void setRegDate(LocalDateTime regDate) {
 		this.regDate = regDate;
 	}
-
-	// public String getUpdateUser() {
-	// return updateUser;
-	// }
-	//
-	// public void setUpdateUser(String updateUser) {
-	// this.updateUser = updateUser;
-	// }
 
 	public LocalDateTime getUpdateDate() {
 		return updateDate;

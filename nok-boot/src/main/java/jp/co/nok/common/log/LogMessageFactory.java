@@ -22,8 +22,7 @@ import jp.co.nok.common.util.DateUtil.DateFormatType;
 public class LogMessageFactory {
 
 	/** LOG */
-	private final static Logger LOG = LoggerFactory
-			.getLogger(LogMessageFactory.class);
+	private final static Logger LOG = LoggerFactory.getLogger(LogMessageFactory.class);
 
 	/**
 	 * プライベートコンストラクタ
@@ -39,6 +38,12 @@ public class LogMessageFactory {
 	 * @return ログメッセージ
 	 */
 	public static String getLogMessage(Object bean) {
+
+		if (BeanUtil.isNull(bean)) {
+			// 指定されたBeanがNULLの場合
+			return "bean is NULL";
+		}
+
 		StringJoiner body = new StringJoiner(", ");
 		Class<?> clazz = bean.getClass();
 
@@ -51,8 +56,7 @@ public class LogMessageFactory {
 			if (MaskExecutor.isMask(f)) {
 				body.add(name + "=" + MaskExecutor.getMask(f));
 			} else {
-				body.add(name + "="
-						+ editValue(getValue(bean, name)));
+				body.add(name + "=" + editValue(getValue(bean, name)));
 			}
 		}
 		return clazz.getName() + " " + body.toString();
@@ -69,8 +73,7 @@ public class LogMessageFactory {
 	 */
 	private static String getLogParamName(Field field) {
 		LogParam annotation = field.getAnnotation(LogParam.class);
-		return BeanUtil.isNull(annotation) ? field.getName()
-				: annotation.name();
+		return BeanUtil.isNull(annotation) ? field.getName() : annotation.name();
 	}
 
 	/**
@@ -126,7 +129,7 @@ public class LogMessageFactory {
 					DateFormatType.YYYYMMDDHHMMSS);
 		} else if (value instanceof LocalDate) {
 			strValue = DateUtil.toString((LocalDate) value,
-					DateFormatType.YYYYMMDDHHMMSS);
+					DateFormatType.YYYYMMDD);
 		} else {
 			strValue = value.toString();
 		}

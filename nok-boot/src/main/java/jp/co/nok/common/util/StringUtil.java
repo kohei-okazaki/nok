@@ -9,6 +9,8 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.util.StringUtils;
 
+import jp.co.nok.common.type.Charset;
+
 /**
  * 文字列操作のUtilクラス
  *
@@ -36,7 +38,12 @@ public class StringUtil {
 	public static final String THRASH = "/";
 	/** アンダースコア */
 	public static final String UNDER_SCORE = "_";
+	/** タブ */
+	public static final String TAB = "	";
 
+	/**
+	 * プライベートコンストラクタ
+	 */
 	private StringUtil() {
 	}
 
@@ -50,8 +57,7 @@ public class StringUtil {
 	 * @return List<String>
 	 */
 	public static List<String> toStrList(String target, String delim) {
-		return isEmpty(target) ? null
-				: CollectionUtil.toList(target.split(delim));
+		return isEmpty(target) ? null : CollectionUtil.toList(target.split(delim));
 	}
 
 	/**
@@ -190,8 +196,7 @@ public class StringUtil {
 	 *            対象文字列
 	 * @return 結合した文字列
 	 */
-	public String join(String delim, Predicate<String> ignoreRule,
-			String... values) {
+	public String join(String delim, Predicate<String> ignoreRule, String... values) {
 
 		if (isEmpty(delim) || CollectionUtil.isEmpty(Arrays.asList(values))) {
 			return null;

@@ -1,0 +1,2 @@
+-- ログインユーザ情報
+SHOW COLUMNS FROM LOGIN_USER_DATA;

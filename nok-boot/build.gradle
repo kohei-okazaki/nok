@@ -16,6 +16,10 @@ configurations {
 	}
 }
 
+bootJar {
+	launchScript()
+}
+
 repositories {
 	mavenCentral()
 }
@@ -27,29 +31,45 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-logging'
 	implementation 'org.springframework.boot:spring-boot-starter-aop'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-	//implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.security:spring-security-web'
+	implementation 'org.springframework.security:spring-security-config'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+
+	// MySQL
+	implementation 'mysql:mysql-connector-java:8.0.19'
+	// flyway
+	implementation 'org.flywaydb:flyway-core:6.3.1'
+	// Doma
+	annotationProcessor 'org.seasar.doma.boot:doma-spring-boot-starter:1.2.1'
+	implementation ('org.seasar.doma.boot:doma-spring-boot-starter:1.2.1') {
+		// Domaの依存関係追加時、SpringBootを除外
+		exclude group: 'org.springframework.boot'
+	}
+	implementation ('org.seasar.doma.boot:doma-spring-boot-core:1.2.1') {
+		// Domaの依存関係追加時、SpringBootを除外
+		exclude group: 'org.springframework.boot'
+	}
+
+	// その他ライブラリ
+	implementation 'org.apache.commons:commons-lang3:3.9'
+	implementation 'org.modelmapper:modelmapper:2.3.6'
+	implementation 'org.modelmapper.extensions:modelmapper-spring:2.3.6'
+	implementation 'org.apache.poi:poi:4.1.2'
+	implementation 'org.apache.poi:poi-ooxml:4.1.2'
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.4.1'
+
+	// フロントライブラリを定義
+	implementation 'org.webjars:jquery:3.4.1'
+	implementation 'org.webjars:jquery-ui:1.12.1'
+	implementation 'org.webjars:bootstrap:4.4.1-1'
+
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.19'
+
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
-
-	//implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.2.5.RELEASE'
-	//implementation group: 'org.springframework.boot', name: 'spring-boot-starter-logging', version: '2.2.5.RELEASE'
-	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
-	annotationProcessor group: 'org.seasar.doma.boot', name: 'doma-spring-boot-starter', version: '1.2.1'
-	compile(group: 'org.seasar.doma.boot', name: 'doma-spring-boot-starter', version: '1.2.1') {
-		// Domaの依存関係追加時、SpringBootを除外
-		exclude group: 'org.springframework.boot'
-	}
-	compile(group: 'org.seasar.doma.boot', name: 'doma-spring-boot-core', version: '1.2.1') {
-		// Domaの依存関係追加時、SpringBootを除外
-		exclude group: 'org.springframework.boot'
-	}
-	compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.6'
-	compile group: 'org.modelmapper.extensions', name: 'modelmapper-spring', version: '2.3.6'
-	compile group: 'org.apache.poi', name: 'poi', version: '4.1.2'
-	compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.2'
 
 }
 
