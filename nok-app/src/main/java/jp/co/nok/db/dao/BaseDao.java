@@ -6,5 +6,5 @@ package jp.co.nok.db.dao;
  * @version 1.0.0
  */
 public interface BaseDao {
-	// マーカーインターフェース
+    // マーカーインターフェース
 }

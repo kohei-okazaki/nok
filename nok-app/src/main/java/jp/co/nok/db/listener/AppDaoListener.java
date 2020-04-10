@@ -16,27 +16,27 @@ import jp.co.nok.db.entity.BaseEntity;
  */
 public class AppDaoListener<T extends BaseEntity> implements EntityListener<T> {
 
-	/**
-	 * デフォルトコンストラクタ
-	 */
-	public AppDaoListener() {
-	}
+    /**
+     * デフォルトコンストラクタ
+     */
+    public AppDaoListener() {
+    }
 
-	@Override
-	public void preInsert(T entity, PreInsertContext<T> context) {
-		// バージョン情報の設定
-		entity.setVersion(Integer.valueOf(1));
-		// 登録日時の設定
-		entity.setRegDate(DateUtil.getSysDate());
-		// 更新日時の設定
-		entity.setUpdateDate(DateUtil.getSysDate());
-	}
+    @Override
+    public void preInsert(T entity, PreInsertContext<T> context) {
+        // バージョン情報の設定
+        entity.setVersion(Integer.valueOf(1));
+        // 登録日時の設定
+        entity.setRegDate(DateUtil.getSysDate());
+        // 更新日時の設定
+        entity.setUpdateDate(DateUtil.getSysDate());
+    }
 
-	@Override
-	public void preUpdate(T entity, PreUpdateContext<T> context) {
-		// バージョン情報の設定
-		entity.setVersion(Integer.valueOf(entity.getVersion() + 1));
-		// 更新日時の設定
-		entity.setUpdateDate(DateUtil.getSysDate());
-	}
+    @Override
+    public void preUpdate(T entity, PreUpdateContext<T> context) {
+        // バージョン情報の設定
+        entity.setVersion(Integer.valueOf(entity.getVersion() + 1));
+        // 更新日時の設定
+        entity.setUpdateDate(DateUtil.getSysDate());
+    }
 }

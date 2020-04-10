@@ -22,45 +22,45 @@ import jp.co.nok.web.view.AppView;
 @RequestMapping("/login")
 public class LoginController {
 
-	@ModelAttribute
-	public LoginForm loginUserRegistForm() {
-		return new LoginForm();
-	}
+    @ModelAttribute
+    public LoginForm loginUserRegistForm() {
+        return new LoginForm();
+    }
 
-	@GetMapping
-	public String index() {
-		return AppView.LOGIN_VIEW.getValue();
-	}
+    @GetMapping
+    public String index() {
+        return AppView.LOGIN_VIEW.getValue();
+    }
 
-	@RequestMapping(path = "/processLogin", method = { RequestMethod.GET,
-			RequestMethod.POST })
-	public String loginPost(@SuppressWarnings("unused") @Validated LoginForm form,
-			BindingResult br) {
-		// TODO このメソッド使ってなさそうなら削除
+    @RequestMapping(path = "/processLogin", method = { RequestMethod.GET,
+            RequestMethod.POST })
+    public String loginPost(@SuppressWarnings("unused") @Validated LoginForm form,
+            BindingResult br) {
+        // TODO このメソッド使ってなさそうなら削除
 
-		if (br.hasErrors()) {
-			// 入力チェックエラーがある場合は、ログイン画面に戻る
-			return AppView.LOGIN_VIEW.getValue();
-		}
+        if (br.hasErrors()) {
+            // 入力チェックエラーがある場合は、ログイン画面に戻る
+            return AppView.LOGIN_VIEW.getValue();
+        }
 
-		return "forward:/success";
-	}
+        return "forward:/success";
+    }
 
-	@RequestMapping(path = "/success", method = { RequestMethod.GET, RequestMethod.POST })
-	public String success() {
-		return AppView.TOP_VIEW.getValue();
-	}
+    @RequestMapping(path = "/success", method = { RequestMethod.GET, RequestMethod.POST })
+    public String success() {
+        return AppView.TOP_VIEW.getValue();
+    }
 
-	@GetMapping("/error")
-	public String error(Model model) {
-		model.addAttribute("loginError", true);
-		return AppView.LOGIN_VIEW.getValue();
-	}
+    @GetMapping("/error")
+    public String error(Model model) {
+        model.addAttribute("loginError", true);
+        return AppView.LOGIN_VIEW.getValue();
+    }
 
-	@GetMapping("/logout")
-	public String logout(RedirectAttributes redirectAttributes) {
-		redirectAttributes.addFlashAttribute("isLogout", true);
-		redirectAttributes.addFlashAttribute("infoMessage", "ログアウトしました");
-		return "redirect:/login";
-	}
+    @GetMapping("/logout")
+    public String logout(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("isLogout", true);
+        redirectAttributes.addFlashAttribute("infoMessage", "ログアウトしました");
+        return "redirect:/login";
+    }
 }

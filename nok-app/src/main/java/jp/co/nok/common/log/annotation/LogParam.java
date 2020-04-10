@@ -19,10 +19,10 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 public @interface LogParam {
 
-	/**
-	 * 名前
-	 *
-	 * @return 名前
-	 */
-	String name();
+    /**
+     * 名前
+     *
+     * @return 名前
+     */
+    String name();
 }

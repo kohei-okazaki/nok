@@ -22,43 +22,43 @@ import jp.co.nok.db.entity.LoginUserData;
 @Service("loginAuthService")
 public class LoginAuthServiceImpl implements UserDetailsService {
 
-	/** ログインユーザ情報検索サービス */
-	@Autowired
-	private LoginUserDataSearchService loginUserDataSearchService;
-	/** データマッピング */
-	@Autowired
-	private ModelMapper mapper;
-	/** HttpSession情報 */
-	@Autowired
-	private HttpSession httpSession;
+    /** ログインユーザ情報検索サービス */
+    @Autowired
+    private LoginUserDataSearchService loginUserDataSearchService;
+    /** データマッピング */
+    @Autowired
+    private ModelMapper mapper;
+    /** HttpSession情報 */
+    @Autowired
+    private HttpSession httpSession;
 
-	@Override
-	public LoginAuthDto loadUserByUsername(String username)
-			throws UsernameNotFoundException {
+    @Override
+    public LoginAuthDto loadUserByUsername(String username)
+            throws UsernameNotFoundException {
 
-		if (StringUtil.isEmpty(username)) {
-			LoggerFactory.getLogger(this.getClass())
-					.warn("指定したログインIDが無効です。ログインID:" + username);
-			throw new UsernameNotFoundException("指定したログインIDが無効です。ログインID:" + username);
-		}
+        if (StringUtil.isEmpty(username)) {
+            LoggerFactory.getLogger(this.getClass())
+                    .warn("指定したログインIDが無効です。ログインID:" + username);
+            throw new UsernameNotFoundException("指定したログインIDが無効です。ログインID:" + username);
+        }
 
-		LoginUserData entity = loginUserDataSearchService
-				.selectById(Integer.valueOf(username));
+        LoginUserData entity = loginUserDataSearchService
+                .selectById(Integer.valueOf(username));
 
-		if (entity == null) {
-			LoggerFactory.getLogger(this.getClass())
-					.warn("指定したログインIDが存在しません。ログインID:" + username);
-			throw new UsernameNotFoundException("指定したログインIDが存在しません。ログインID:" +
-					username);
-		}
-		LoginAuthDto loginAuthDto = mapper.map(entity, LoginAuthDto.class);
+        if (entity == null) {
+            LoggerFactory.getLogger(this.getClass())
+                    .warn("指定したログインIDが存在しません。ログインID:" + username);
+            throw new UsernameNotFoundException("指定したログインIDが存在しません。ログインID:" +
+                    username);
+        }
+        LoginAuthDto loginAuthDto = mapper.map(entity, LoginAuthDto.class);
 
-		// ログインユーザ認証情報をHTTPSessionに保存
-		SessionComponent component = new SessionComponent();
-		component.setLoginAuthDto(loginAuthDto);
-		httpSession.setAttribute(SessionComponent.KEY, component);
+        // ログインユーザ認証情報をHTTPSessionに保存
+        SessionComponent component = new SessionComponent();
+        component.setLoginAuthDto(loginAuthDto);
+        httpSession.setAttribute(SessionComponent.KEY, component);
 
-		return loginAuthDto;
-	}
+        return loginAuthDto;
+    }
 
 }

@@ -9,24 +9,24 @@ import jp.co.nok.tool.excel.type.ColumnType;
  */
 public class Cell {
 
-	/** 値 */
-	private String value;
+    /** 値 */
+    private String value;
 
-	/**
-	 * コンストラクタ
-	 *
-	 * @param value
-	 *            値
-	 */
-	public Cell(String value) {
-		this.value = value;
-	}
+    /**
+     * コンストラクタ
+     *
+     * @param value
+     *            値
+     */
+    public Cell(String value) {
+        this.value = value;
+    }
 
-	public String getValue() {
-		return value;
-	}
+    public String getValue() {
+        return value;
+    }
 
-	public ColumnType getColumnType() {
-		return ColumnType.of(this.value);
-	}
+    public ColumnType getColumnType() {
+        return ColumnType.of(this.value);
+    }
 }

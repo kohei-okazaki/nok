@@ -18,10 +18,10 @@ import java.lang.annotation.Target;
 @Target(FIELD)
 public @interface Property {
 
-	/**
-	 * 名前
-	 *
-	 * @return name
-	 */
-	String name();
+    /**
+     * 名前
+     *
+     * @return name
+     */
+    String name();
 }

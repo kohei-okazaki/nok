@@ -13,31 +13,31 @@ import jp.co.nok.common.log.annotation.Mask;
  */
 public class LoginUserRegistForm {
 
-	/** パスワード */
-	@Mask
-	@NotBlank
-	@Length(min = 3, max = 15)
-	private String password;
-	/** 確認用パスワード */
-	@Mask
-	@NotBlank
-	@Length(min = 3, max = 15)
-	private String confirmPassword;
+    /** パスワード */
+    @Mask
+    @NotBlank
+    @Length(min = 3, max = 15)
+    private String password;
+    /** 確認用パスワード */
+    @Mask
+    @NotBlank
+    @Length(min = 3, max = 15)
+    private String confirmPassword;
 
-	public String getPassword() {
-		return password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public String getConfirmPassword() {
-		return confirmPassword;
-	}
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
 
-	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
-	}
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
 
 }

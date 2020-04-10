@@ -16,20 +16,20 @@ import jp.co.nok.db.entity.LoginUserData;
 @Service
 public class LoginUserDataCreateServiceImpl implements LoginUserDataCreateService {
 
-	@Autowired
-	private LoginUserDataDao dao;
-	@Autowired
-	private Sha256HashEncoder sha256HashEncoder;
+    @Autowired
+    private LoginUserDataDao dao;
+    @Autowired
+    private Sha256HashEncoder sha256HashEncoder;
 
-	@Override
-	public void create(LoginUserData loginUserData) {
+    @Override
+    public void create(LoginUserData loginUserData) {
 
-		// パスワード(SHA-256でハッシュ化)
-		loginUserData.setPassword(sha256HashEncoder.encode(loginUserData.getPassword()));
-		// パスワード有効期限(システム日時 + 12ヶ月)
-		loginUserData.setPasswordExpire(
-				DateUtil.addMonth(DateUtil.toLocalDate(DateUtil.getSysDate()), 12));
-		dao.insert(loginUserData);
-	}
+        // パスワード(SHA-256でハッシュ化)
+        loginUserData.setPassword(sha256HashEncoder.encode(loginUserData.getPassword()));
+        // パスワード有効期限(システム日時 + 12ヶ月)
+        loginUserData.setPasswordExpire(
+                DateUtil.addMonth(DateUtil.toLocalDate(DateUtil.getSysDate()), 12));
+        dao.insert(loginUserData);
+    }
 
 }

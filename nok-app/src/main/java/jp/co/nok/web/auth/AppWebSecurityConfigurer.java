@@ -21,63 +21,63 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class AppWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
-	/** 認証処理を行わないURI */
-	private static final String[] PERMIT_URIS = new String[] { "/login",
-			"/login/userregist", "/login/userregistconfirm", "/login/userregistprocess",
-			"/login/login-error", "/css/**", "/js/**", "/webjars/**" };
-	/** ログイン認証サービス */
-	@Autowired
-	@Qualifier("loginAuthService")
-	private UserDetailsService userService;
-	/** パスワードEncoder */
-	@Autowired
-	@Qualifier("passwordEncoderImpl")
-	private PasswordEncoder passwordEncoder;
+    /** 認証処理を行わないURI */
+    private static final String[] PERMIT_URIS = new String[] { "/login",
+            "/login/userregist", "/login/userregistconfirm", "/login/userregistprocess",
+            "/login/login-error", "/css/**", "/js/**", "/webjars/**" };
+    /** ログイン認証サービス */
+    @Autowired
+    @Qualifier("loginAuthService")
+    private UserDetailsService userService;
+    /** パスワードEncoder */
+    @Autowired
+    @Qualifier("passwordEncoderImpl")
+    private PasswordEncoder passwordEncoder;
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
 
-		http.authorizeRequests()
-				// ログイン等の画面URIと静的ファイルを許可
-				.antMatchers(PERMIT_URIS)
-				.permitAll()
-				.anyRequest()
-				.authenticated();
+        http.authorizeRequests()
+                // ログイン等の画面URIと静的ファイルを許可
+                .antMatchers(PERMIT_URIS)
+                .permitAll()
+                .anyRequest()
+                .authenticated();
 
-		http.formLogin()
-				// ログイン処理をするURL
-				.loginProcessingUrl("/login/processLogin")
-				// ログイン画面のURL
-				.loginPage("/login")
-				// 認証失敗時のURL
-				.failureUrl("/login/error")
-				// 認証成功時のURL
-				.successForwardUrl("/login/success")
-				// ログインIDのパラメータ名
-				.usernameParameter("loginId")
-				// パスワードのパラメータ名
-				.passwordParameter("password")
-				.permitAll();
+        http.formLogin()
+                // ログイン処理をするURL
+                .loginProcessingUrl("/login/processLogin")
+                // ログイン画面のURL
+                .loginPage("/login")
+                // 認証失敗時のURL
+                .failureUrl("/login/error")
+                // 認証成功時のURL
+                .successForwardUrl("/login/success")
+                // ログインIDのパラメータ名
+                .usernameParameter("loginId")
+                // パスワードのパラメータ名
+                .passwordParameter("password")
+                .permitAll();
 
-		http.logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/login/logout"))
-				.deleteCookies("SESSION", "JSESSIONID")
-				// ログアウトのURL
-				.logoutUrl("/login/logout")
-				// ログアウト成功URL
-				.logoutSuccessUrl("/login")
-				.invalidateHttpSession(true);
+        http.logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/login/logout"))
+                .deleteCookies("SESSION", "JSESSIONID")
+                // ログアウトのURL
+                .logoutUrl("/login/logout")
+                // ログアウト成功URL
+                .logoutSuccessUrl("/login")
+                .invalidateHttpSession(true);
 
-	}
+    }
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
-	}
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
+    }
 
-	@Override
-	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/css/**", "/js/**", "/webjars/**");
-	}
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/css/**", "/js/**", "/webjars/**");
+    }
 
 }

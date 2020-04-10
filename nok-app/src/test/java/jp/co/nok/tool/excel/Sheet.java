@@ -10,25 +10,25 @@ import java.util.List;
  */
 public class Sheet {
 
-	/** 名前 */
-	private String name;
-	/** 行リスト */
-	private List<Row> rowList = new ArrayList<>();
+    /** 名前 */
+    private String name;
+    /** 行リスト */
+    private List<Row> rowList = new ArrayList<>();
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public List<Row> getRowList() {
-		return rowList;
-	}
+    public List<Row> getRowList() {
+        return rowList;
+    }
 
-	public void addRow(Row row) {
-		this.rowList.add(row);
-	}
+    public void addRow(Row row) {
+        this.rowList.add(row);
+    }
 
 }

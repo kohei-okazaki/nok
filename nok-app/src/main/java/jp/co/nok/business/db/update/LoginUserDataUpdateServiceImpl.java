@@ -14,11 +14,11 @@ import jp.co.nok.db.entity.LoginUserData;
 @Service
 public class LoginUserDataUpdateServiceImpl implements LoginUserDataUpdateService {
 
-	@Autowired
-	private LoginUserDataDao dao;
+    @Autowired
+    private LoginUserDataDao dao;
 
-	@Override
-	public void update(LoginUserData loginUserData) {
-		dao.update(loginUserData);
-	}
+    @Override
+    public void update(LoginUserData loginUserData) {
+        dao.update(loginUserData);
+    }
 }

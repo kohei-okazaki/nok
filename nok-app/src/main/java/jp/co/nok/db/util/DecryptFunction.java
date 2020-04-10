@@ -22,19 +22,19 @@ import jp.co.nok.db.entity.BaseEntity;
 @Component
 public class DecryptFunction<T extends BaseEntity> implements Function<Stream<T>, T> {
 
-	/** Entity暗号化/復号処理 */
-	@Autowired
-	private EntityCrypter entityCrypter;
+    /** Entity暗号化/復号処理 */
+    @Autowired
+    private EntityCrypter entityCrypter;
 
-	@Override
-	public T apply(Stream<T> t) {
+    @Override
+    public T apply(Stream<T> t) {
 
-		List<T> list = t.map(e -> {
-			entityCrypter.decrypt(e);
-			return e;
-		}).collect(Collectors.toList());
+        List<T> list = t.map(e -> {
+            entityCrypter.decrypt(e);
+            return e;
+        }).collect(Collectors.toList());
 
-		return CollectionUtil.isEmpty(list) ? null : list.get(0);
-	}
+        return CollectionUtil.isEmpty(list) ? null : list.get(0);
+    }
 
 }

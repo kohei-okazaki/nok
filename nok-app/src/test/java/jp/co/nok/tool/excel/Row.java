@@ -12,18 +12,18 @@ import jp.co.nok.tool.excel.type.CellPositionType;
  */
 public class Row {
 
-	/** セルリスト */
-	private List<Cell> cellList = new ArrayList<>();
+    /** セルリスト */
+    private List<Cell> cellList = new ArrayList<>();
 
-	public void addCell(Cell cell) {
-		this.cellList.add(cell);
-	}
+    public void addCell(Cell cell) {
+        this.cellList.add(cell);
+    }
 
-	public List<Cell> getCellList() {
-		return cellList;
-	}
+    public List<Cell> getCellList() {
+        return cellList;
+    }
 
-	public Cell getCell(CellPositionType type) {
-		return this.cellList.get(type.getPosition());
-	}
+    public Cell getCell(CellPositionType type) {
+        return this.cellList.get(type.getPosition());
+    }
 }

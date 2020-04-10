@@ -19,10 +19,10 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 public @interface Mask {
 
-	/**
-	 * マスク文字列
-	 *
-	 * @return value
-	 */
-	String value() default "****";
+    /**
+     * マスク文字列
+     *
+     * @return value
+     */
+    String value() default "****";
 }

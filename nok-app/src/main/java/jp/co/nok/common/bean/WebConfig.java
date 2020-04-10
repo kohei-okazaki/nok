@@ -18,19 +18,19 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-	@Autowired
-	private RequestTrackingInterceptor interceptor;
-	@Autowired
-	private LoginAuthInterceptor loginAuthInterceptor;
+    @Autowired
+    private RequestTrackingInterceptor interceptor;
+    @Autowired
+    private LoginAuthInterceptor loginAuthInterceptor;
 
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(interceptor);
-		registry.addInterceptor(loginAuthInterceptor);
-	}
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(interceptor);
+        registry.addInterceptor(loginAuthInterceptor);
+    }
 
-	@Bean
-	public LayoutDialect layoutDialect() {
-		return new LayoutDialect();
-	}
+    @Bean
+    public LayoutDialect layoutDialect() {
+        return new LayoutDialect();
+    }
 }
