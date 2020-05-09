@@ -38,9 +38,9 @@ dependencies {
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 
     // MySQL
-    implementation 'mysql:mysql-connector-java:8.0.19'
+    implementation 'mysql:mysql-connector-java:8.0.20'
     // flyway
-    implementation 'org.flywaydb:flyway-core:6.3.2'
+    implementation 'org.flywaydb:flyway-core:6.4.1'
     // Doma
     annotationProcessor 'org.seasar.doma.boot:doma-spring-boot-starter:1.2.1'
     implementation ('org.seasar.doma.boot:doma-spring-boot-starter:1.2.1') {
@@ -55,7 +55,7 @@ dependencies {
     // その他ライブラリ
     implementation 'org.apache.commons:commons-lang3:3.10'
     implementation 'org.modelmapper:modelmapper:2.3.7'
-    implementation 'org.modelmapper.extensions:modelmapper-spring:2.3.6'
+    implementation 'org.modelmapper.extensions:modelmapper-spring:2.3.7'
     implementation 'org.apache.poi:poi:4.1.2'
     implementation 'org.apache.poi:poi-ooxml:4.1.2'
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.4.1'
