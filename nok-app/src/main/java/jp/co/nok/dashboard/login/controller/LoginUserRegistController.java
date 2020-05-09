@@ -30,79 +30,79 @@ import jp.co.nok.web.view.AppView;
 @RequestMapping("/login")
 public class LoginUserRegistController {
 
-	/** LOG */
-	private static final Logger LOG = LoggerFactory
-			.getLogger(LoginUserRegistController.class);
-	@Autowired
-	private HttpSession session;
-	@Autowired
-	private ModelMapper modelMapper;
-	@Autowired
-	private LoginUserDataCreateService loginUserCreateService;
+    /** LOG */
+    private static final Logger LOG = LoggerFactory
+            .getLogger(LoginUserRegistController.class);
+    @Autowired
+    private HttpSession session;
+    @Autowired
+    private ModelMapper modelMapper;
+    @Autowired
+    private LoginUserDataCreateService loginUserCreateService;
 
-	@ModelAttribute
-	public LoginUserRegistForm loginUserRegistForm() {
-		return new LoginUserRegistForm();
-	}
+    @ModelAttribute
+    public LoginUserRegistForm loginUserRegistForm() {
+        return new LoginUserRegistForm();
+    }
 
-	/**
-	 * 登録情報入力画面
-	 *
-	 * @return ログインユーザ登録View
-	 */
-	@GetMapping("/userregist")
-	public String userRegist() {
-		return AppView.LOGIN_REGIST_VIEW.getValue();
-	}
+    /**
+     * 登録情報入力画面
+     *
+     * @return ログインユーザ登録View
+     */
+    @GetMapping("/userregist")
+    public String userRegist() {
+        return AppView.LOGIN_REGIST_VIEW.getValue();
+    }
 
-	/**
-	 * 登録情報入力確認画面
-	 *
-	 * @param model
-	 *            Model
-	 * @param loginUserRegistForm
-	 *            ログインユーザ情報登録Form
-	 * @param result
-	 *            validation結果
-	 * @return ログインユーザ登録確認View
-	 */
-	@PostMapping("/userregistconfirm")
-	public String userRegistConfirm(Model model,
-			@Validated LoginUserRegistForm loginUserRegistForm, BindingResult result) {
+    /**
+     * 登録情報入力確認画面
+     *
+     * @param model
+     *            Model
+     * @param loginUserRegistForm
+     *            ログインユーザ情報登録Form
+     * @param result
+     *            validation結果
+     * @return ログインユーザ登録確認View
+     */
+    @PostMapping("/userregistconfirm")
+    public String userRegistConfirm(Model model,
+            @Validated LoginUserRegistForm loginUserRegistForm, BindingResult result) {
 
-		if (result.hasErrors()) {
-			model.addAttribute("errorMessage", "入力情報が不正です");
-			return AppView.LOGIN_REGIST_VIEW.getValue();
-		}
+        if (result.hasErrors()) {
+            model.addAttribute("errorMessage", "入力情報が不正です");
+            return AppView.LOGIN_REGIST_VIEW.getValue();
+        }
 
-		SessionComponent sessionComponent = modelMapper.map(loginUserRegistForm,
-				SessionComponent.class);
-		session.setAttribute("sessionComponent", sessionComponent);
-		return AppView.LOGIN_REGIST_CONFIRM_VIEW.getValue();
-	}
+        SessionComponent sessionComponent = modelMapper.map(loginUserRegistForm,
+                SessionComponent.class);
+        session.setAttribute("sessionComponent", sessionComponent);
+        return AppView.LOGIN_REGIST_CONFIRM_VIEW.getValue();
+    }
 
-	/**
-	 * 登録完了画面
-	 *
-	 * @param model
-	 *            Model
-	 * @return ログインユーザ登録完了View
-	 */
-	@PostMapping("/userregistprocess")
-	public String userRegistProcess(Model model) {
+    /**
+     * 登録完了画面
+     *
+     * @param model
+     *            Model
+     * @return ログインユーザ登録完了View
+     */
+    @PostMapping("/userregistprocess")
+    public String userRegistProcess(Model model) {
 
-		SessionComponent sessionComponent = (SessionComponent) session
-				.getAttribute(SessionComponent.KEY);
-		LOG.debugRes(sessionComponent);
+        SessionComponent sessionComponent = (SessionComponent) session
+                .getAttribute(SessionComponent.KEY);
+        LOG.debugRes(sessionComponent);
 
-		LoginUserData loginUserData = modelMapper.map(sessionComponent,
-				LoginUserData.class);
-		LOG.debugRes(loginUserData);
-		loginUserCreateService.create(loginUserData);
+        LoginUserData loginUserData = modelMapper.map(sessionComponent,
+                LoginUserData.class);
+        LOG.debugRes(loginUserData);
+        loginUserCreateService.create(loginUserData);
 
-		model.addAttribute("loginId", loginUserData.getSeqLoginId());
+        model.addAttribute("loginId", loginUserData.getSeqLoginId());
 
-		return AppView.LOGIN_REGIST_PROCESS_VIEW.getValue();
-	}
+        return AppView.LOGIN_REGIST_PROCESS_VIEW.getValue();
+    }
 
 }

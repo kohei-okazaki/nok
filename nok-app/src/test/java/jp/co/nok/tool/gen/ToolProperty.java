@@ -12,59 +12,59 @@ import jp.co.nok.common.io.property.annotation.Property;
  */
 public class ToolProperty {
 
-	/** 基底パス */
-	@Property(name = "tool.basedir")
-	private String baseDir;
-	/** 自動生成ツールExcelまでのパス */
-	@Property(name = "tool.excel.path")
-	private String excelPath;
-	/** 処理対象テーブルリスト */
-	@Property(name = "tool.target.tables")
-	private String targetTables;
-	/** バージョン情報 */
-	@Property(name = "tool.version")
-	private String version;
-	/** 処理対象テーブルリスト */
-	private List<String> targetTableList = new ArrayList<>();
+    /** 基底パス */
+    @Property(name = "tool.basedir")
+    private String baseDir;
+    /** 自動生成ツールExcelまでのパス */
+    @Property(name = "tool.excel.path")
+    private String excelPath;
+    /** 処理対象テーブルリスト */
+    @Property(name = "tool.target.tables")
+    private String targetTables;
+    /** バージョン情報 */
+    @Property(name = "tool.version")
+    private String version;
+    /** 処理対象テーブルリスト */
+    private List<String> targetTableList = new ArrayList<>();
 
-	public String getBaseDir() {
-		return baseDir;
-	}
+    public String getBaseDir() {
+        return baseDir;
+    }
 
-	public void setBaseDir(String baseDir) {
-		this.baseDir = baseDir;
-	}
+    public void setBaseDir(String baseDir) {
+        this.baseDir = baseDir;
+    }
 
-	public String getExcelPath() {
-		return excelPath;
-	}
+    public String getExcelPath() {
+        return excelPath;
+    }
 
-	public void setExcelPath(String excelPath) {
-		this.excelPath = excelPath;
-	}
+    public void setExcelPath(String excelPath) {
+        this.excelPath = excelPath;
+    }
 
-	public String getTargetTables() {
-		return targetTables;
-	}
+    public String getTargetTables() {
+        return targetTables;
+    }
 
-	public void setTargetTables(String targetTables) {
-		this.targetTables = targetTables;
-	}
+    public void setTargetTables(String targetTables) {
+        this.targetTables = targetTables;
+    }
 
-	public void addTargetTable(String targetTable) {
-		this.targetTableList.add(targetTable);
-	}
+    public void addTargetTable(String targetTable) {
+        this.targetTableList.add(targetTable);
+    }
 
-	public String getVersion() {
-		return version;
-	}
+    public String getVersion() {
+        return version;
+    }
 
-	public void setVersion(String version) {
-		this.version = version;
-	}
+    public void setVersion(String version) {
+        this.version = version;
+    }
 
-	public List<String> getTargetTableList() {
-		return targetTableList;
-	}
+    public List<String> getTargetTableList() {
+        return targetTableList;
+    }
 
 }

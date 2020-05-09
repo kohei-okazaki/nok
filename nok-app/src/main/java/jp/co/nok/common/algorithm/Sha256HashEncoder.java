@@ -22,68 +22,68 @@ import jp.co.nok.common.type.Algorithm;
 @Component
 public class Sha256HashEncoder {
 
-	/** アプリケーション設定情報 */
-	@Autowired
-	private ApplicationComponent component;
+    /** アプリケーション設定情報 */
+    @Autowired
+    private ApplicationComponent component;
 
-	/**
-	 * SHA-256でハッシュ化を行う
-	 *
-	 * @param str
-	 *            平文文字列
-	 * @return SHA-256でハッシュ化後の文字列
-	 */
-	public String encode(String str) {
+    /**
+     * SHA-256でハッシュ化を行う
+     *
+     * @param str
+     *            平文文字列
+     * @return SHA-256でハッシュ化後の文字列
+     */
+    public String encode(String str) {
 
-		try {
-			char[] passCharArray = str.toCharArray();
-			byte[] hashedSalt = getHashedSalt(component.getHashSalt());
+        try {
+            char[] passCharArray = str.toCharArray();
+            byte[] hashedSalt = getHashedSalt(component.getHashSalt());
 
-			PBEKeySpec keySpec = new PBEKeySpec(passCharArray, hashedSalt,
-					component.getHashStrechCount(), component.getHashKeyLength());
+            PBEKeySpec keySpec = new PBEKeySpec(passCharArray, hashedSalt,
+                    component.getHashStrechCount(), component.getHashKeyLength());
 
-			SecretKeyFactory skf = SecretKeyFactory
-					.getInstance(component.getHashAlgorithm());
+            SecretKeyFactory skf = SecretKeyFactory
+                    .getInstance(component.getHashAlgorithm());
 
-			SecretKey secretKey = skf.generateSecret(keySpec);
+            SecretKey secretKey = skf.generateSecret(keySpec);
 
-			byte[] passByteAry = secretKey.getEncoded();
+            byte[] passByteAry = secretKey.getEncoded();
 
-			// 生成されたバイト配列を16進数の文字列に変換
-			StringBuilder sb = new StringBuilder(64);
-			for (byte b : passByteAry) {
-				sb.append(String.format("%02x", b & 0xff));
-			}
-			return sb.toString();
+            // 生成されたバイト配列を16進数の文字列に変換
+            StringBuilder sb = new StringBuilder(64);
+            for (byte b : passByteAry) {
+                sb.append(String.format("%02x", b & 0xff));
+            }
+            return sb.toString();
 
-		} catch (InvalidKeySpecException e) {
-			throw new RuntimeException("秘密鍵情報が不正です", e);
-		} catch (NoSuchAlgorithmException e) {
-			throw new RuntimeException("アルゴリズムの指定が不正です", e);
-		}
-	}
+        } catch (InvalidKeySpecException e) {
+            throw new RuntimeException("秘密鍵情報が不正です", e);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("アルゴリズムの指定が不正です", e);
+        }
+    }
 
-	/**
-	 * ソルトをハッシュ化して返却します<br>
-	 * ※ハッシュアルゴリズムはSHA-256を使用
-	 *
-	 * @param salt
-	 *            ソルト
-	 * @return ハッシュ化されたバイト配列のソルト
-	 */
-	private static byte[] getHashedSalt(String salt) {
+    /**
+     * ソルトをハッシュ化して返却します<br>
+     * ※ハッシュアルゴリズムはSHA-256を使用
+     *
+     * @param salt
+     *            ソルト
+     * @return ハッシュ化されたバイト配列のソルト
+     */
+    private static byte[] getHashedSalt(String salt) {
 
-		byte[] result = null;
-		try {
-			MessageDigest messageDigest = MessageDigest
-					.getInstance(Algorithm.SHA_256.getValue());
-			messageDigest.update(salt.getBytes());
-			result = messageDigest.digest();
-		} catch (@SuppressWarnings("unused") NoSuchAlgorithmException e) {
-			// SHA256を指定している為、発生しない
-		}
+        byte[] result = null;
+        try {
+            MessageDigest messageDigest = MessageDigest
+                    .getInstance(Algorithm.SHA_256.getValue());
+            messageDigest.update(salt.getBytes());
+            result = messageDigest.digest();
+        } catch (@SuppressWarnings("unused") NoSuchAlgorithmException e) {
+            // SHA256を指定している為、発生しない
+        }
 
-		return result;
-	}
+        return result;
+    }
 
 }

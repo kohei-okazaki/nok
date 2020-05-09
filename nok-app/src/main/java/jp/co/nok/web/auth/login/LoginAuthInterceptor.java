@@ -19,30 +19,30 @@ import jp.co.nok.common.log.LoggerFactory;
 @Component
 public class LoginAuthInterceptor implements HandlerInterceptor {
 
-	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
-			Object handler) throws Exception {
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
+            Object handler) throws Exception {
 
-		if (handler instanceof ResourceHttpRequestHandler) {
-			// 静的リソースの場合、ログイン認証を行わない
-			return true;
-		}
+        if (handler instanceof ResourceHttpRequestHandler) {
+            // 静的リソースの場合、ログイン認証を行わない
+            return true;
+        }
 
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Object o = auth.getPrincipal();
-		if (o instanceof LoginAuthDto) {
-			LoginAuthDto dto = (LoginAuthDto) o;
-			if (dto != null) {
-				LoggerFactory.getLogger(this.getClass()).debugRes(dto);
-			}
-		}
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Object o = auth.getPrincipal();
+        if (o instanceof LoginAuthDto) {
+            LoginAuthDto dto = (LoginAuthDto) o;
+            if (dto != null) {
+                LoggerFactory.getLogger(this.getClass()).debugRes(dto);
+            }
+        }
 
-		System.out.println(request.getRequestURI());
-		if ("q".equals(request.getRequestURI())) {
-			response.sendRedirect("/login/error");
-		}
+        System.out.println(request.getRequestURI());
+        if ("q".equals(request.getRequestURI())) {
+            response.sendRedirect("/login/error");
+        }
 
-		return true;
-	}
+        return true;
+    }
 
 }

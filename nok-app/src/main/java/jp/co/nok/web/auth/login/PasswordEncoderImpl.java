@@ -15,18 +15,18 @@ import jp.co.nok.common.algorithm.Sha256HashEncoder;
 @Service("passwordEncoderImpl")
 public class PasswordEncoderImpl implements PasswordEncoder {
 
-	/** ハッシュ関数 */
-	@Autowired
-	private Sha256HashEncoder encoder;
+    /** ハッシュ関数 */
+    @Autowired
+    private Sha256HashEncoder encoder;
 
-	@Override
-	public String encode(CharSequence rawPassword) {
-		return encoder.encode(rawPassword.toString());
-	}
+    @Override
+    public String encode(CharSequence rawPassword) {
+        return encoder.encode(rawPassword.toString());
+    }
 
-	@Override
-	public boolean matches(CharSequence rawPassword, String encodedPassword) {
-		return this.encode(rawPassword).equals(encodedPassword);
-	}
+    @Override
+    public boolean matches(CharSequence rawPassword, String encodedPassword) {
+        return this.encode(rawPassword).equals(encodedPassword);
+    }
 
 }

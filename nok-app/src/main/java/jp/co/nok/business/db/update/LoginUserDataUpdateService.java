@@ -9,6 +9,6 @@ import jp.co.nok.db.entity.LoginUserData;
  */
 public interface LoginUserDataUpdateService {
 
-	void update(LoginUserData loginUserData);
+    void update(LoginUserData loginUserData);
 
 }

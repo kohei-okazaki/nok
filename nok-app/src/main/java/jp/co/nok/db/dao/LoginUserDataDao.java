@@ -18,16 +18,16 @@ import jp.co.nok.db.entity.LoginUserData;
 @ConfigAutowireable
 public interface LoginUserDataDao extends BaseDao {
 
-	@Delete
-	public int delete(LoginUserData entity);
+    @Delete
+    public int delete(LoginUserData entity);
 
-	@Update
-	public int update(LoginUserData entity);
+    @Update
+    public int update(LoginUserData entity);
 
-	@Insert
-	public int insert(LoginUserData entity);
+    @Insert
+    public int insert(LoginUserData entity);
 
-	@Select
-	public LoginUserData selectById(Integer seqLoginId);
+    @Select
+    public LoginUserData selectById(Integer seqLoginId);
 
 }

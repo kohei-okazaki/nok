@@ -14,13 +14,13 @@ import jp.co.nok.db.entity.LoginUserData;
 @Service
 public class LoginUserDataSearchServiceImpl implements LoginUserDataSearchService {
 
-	/** ログインユーザ情報Dao */
-	@Autowired
-	private LoginUserDataDao dao;
+    /** ログインユーザ情報Dao */
+    @Autowired
+    private LoginUserDataDao dao;
 
-	@Override
-	public LoginUserData selectById(Integer id) {
-		return dao.selectById(id);
-	}
+    @Override
+    public LoginUserData selectById(Integer id) {
+        return dao.selectById(id);
+    }
 
 }

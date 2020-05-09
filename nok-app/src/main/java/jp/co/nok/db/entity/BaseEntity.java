@@ -15,36 +15,36 @@ import jp.co.nok.db.listener.AppDaoListener;
 @Entity(listener = AppDaoListener.class)
 public abstract class BaseEntity {
 
-	/** バージョン */
-	@Version
-	private Integer version;
-	/** 登録日時 */
-	private LocalDateTime regDate;
-	/** 更新ユーザ */
-	private LocalDateTime updateDate;
+    /** バージョン */
+    @Version
+    private Integer version;
+    /** 登録日時 */
+    private LocalDateTime regDate;
+    /** 更新ユーザ */
+    private LocalDateTime updateDate;
 
-	public Integer getVersion() {
-		return version;
-	}
+    public Integer getVersion() {
+        return version;
+    }
 
-	public void setVersion(Integer version) {
-		this.version = version;
-	}
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
 
-	public LocalDateTime getRegDate() {
-		return regDate;
-	}
+    public LocalDateTime getRegDate() {
+        return regDate;
+    }
 
-	public void setRegDate(LocalDateTime regDate) {
-		this.regDate = regDate;
-	}
+    public void setRegDate(LocalDateTime regDate) {
+        this.regDate = regDate;
+    }
 
-	public LocalDateTime getUpdateDate() {
-		return updateDate;
-	}
+    public LocalDateTime getUpdateDate() {
+        return updateDate;
+    }
 
-	public void setUpdateDate(LocalDateTime updateDate) {
-		this.updateDate = updateDate;
-	}
+    public void setUpdateDate(LocalDateTime updateDate) {
+        this.updateDate = updateDate;
+    }
 
 }

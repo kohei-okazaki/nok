@@ -9,12 +9,12 @@ import jp.co.nok.db.entity.LoginUserData;
  */
 public interface LoginUserDataCreateService {
 
-	/**
-	 * ログインユーザ情報を登録する
-	 *
-	 * @param loginUserData
-	 *            ログインユーザ情報
-	 */
-	void create(LoginUserData loginUserData);
+    /**
+     * ログインユーザ情報を登録する
+     *
+     * @param loginUserData
+     *            ログインユーザ情報
+     */
+    void create(LoginUserData loginUserData);
 
 }

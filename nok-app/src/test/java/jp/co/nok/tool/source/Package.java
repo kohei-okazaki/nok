@@ -7,22 +7,22 @@ package jp.co.nok.tool.source;
  */
 public class Package {
 
-	/** 値 */
-	private String value;
+    /** 値 */
+    private String value;
 
-	public Package(String value) {
-		this.value = value;
-	}
+    public Package(String value) {
+        this.value = value;
+    }
 
-	public String getValue() {
-		return value;
-	}
+    public String getValue() {
+        return value;
+    }
 
-	@Override
-	public String toString() {
-		String prefix = "package ";
-		String suffix = ";";
-		return prefix + value + suffix;
-	}
+    @Override
+    public String toString() {
+        String prefix = "package ";
+        String suffix = ";";
+        return prefix + value + suffix;
+    }
 
 }

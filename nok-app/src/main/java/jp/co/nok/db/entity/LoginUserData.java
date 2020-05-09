@@ -19,49 +19,49 @@ import jp.co.nok.db.annotation.Crypt;
 @Entity(naming = NamingType.SNAKE_UPPER_CASE)
 public class LoginUserData extends BaseEntity {
 
-	/** ログインID */
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Id
-	private Integer seqLoginId;
-	/** メールアドレス */
-	@Mask
-	@Crypt
-	private String mailAddress;
-	/** パスワード */
-	private String password;
-	/** パスワード有効期限 */
-	private LocalDate passwordExpire;
+    /** ログインID */
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    private Integer seqLoginId;
+    /** メールアドレス */
+    @Mask
+    @Crypt
+    private String mailAddress;
+    /** パスワード */
+    private String password;
+    /** パスワード有効期限 */
+    private LocalDate passwordExpire;
 
-	public void setSeqLoginId(Integer seqLoginId) {
-		this.seqLoginId = seqLoginId;
-	}
+    public void setSeqLoginId(Integer seqLoginId) {
+        this.seqLoginId = seqLoginId;
+    }
 
-	public Integer getSeqLoginId() {
-		return seqLoginId;
-	}
+    public Integer getSeqLoginId() {
+        return seqLoginId;
+    }
 
-	public void setMailAddress(String mailAddress) {
-		this.mailAddress = mailAddress;
-	}
+    public void setMailAddress(String mailAddress) {
+        this.mailAddress = mailAddress;
+    }
 
-	public String getMailAddress() {
-		return mailAddress;
-	}
+    public String getMailAddress() {
+        return mailAddress;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setPasswordExpire(LocalDate passwordExpire) {
-		this.passwordExpire = passwordExpire;
-	}
+    public void setPasswordExpire(LocalDate passwordExpire) {
+        this.passwordExpire = passwordExpire;
+    }
 
-	public LocalDate getPasswordExpire() {
-		return passwordExpire;
-	}
+    public LocalDate getPasswordExpire() {
+        return passwordExpire;
+    }
 
 }

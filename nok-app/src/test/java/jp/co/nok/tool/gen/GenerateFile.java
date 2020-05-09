@@ -10,45 +10,45 @@ import jp.co.nok.common.type.Charset;
  */
 public class GenerateFile {
 
-	/** 出力先ファイルパス */
-	private String outputPath;
-	/** ファイル名 */
-	private String fileName;
-	/** ファイル内容 */
-	private String data;
-	/** 文字コード */
-	private Charset charset = Charset.UTF_8;
+    /** 出力先ファイルパス */
+    private String outputPath;
+    /** ファイル名 */
+    private String fileName;
+    /** ファイル内容 */
+    private String data;
+    /** 文字コード */
+    private Charset charset = Charset.UTF_8;
 
-	public String getOutputPath() {
-		return outputPath;
-	}
+    public String getOutputPath() {
+        return outputPath;
+    }
 
-	public void setOutputPath(String outputPath) {
-		this.outputPath = outputPath;
-	}
+    public void setOutputPath(String outputPath) {
+        this.outputPath = outputPath;
+    }
 
-	public String getFileName() {
-		return fileName;
-	}
+    public String getFileName() {
+        return fileName;
+    }
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 
-	public String getData() {
-		return data;
-	}
+    public String getData() {
+        return data;
+    }
 
-	public void setData(String data) {
-		this.data = data;
-	}
+    public void setData(String data) {
+        this.data = data;
+    }
 
-	public Charset getCharset() {
-		return charset;
-	}
+    public Charset getCharset() {
+        return charset;
+    }
 
-	public void setCharset(Charset charset) {
-		this.charset = charset;
-	}
+    public void setCharset(Charset charset) {
+        this.charset = charset;
+    }
 
 }
