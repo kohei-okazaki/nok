@@ -39,13 +39,84 @@
     <div class="content-wrapper">
       <div class="row">
         <div class="col-xs-4">
-          <div class="list-group">
-            <a href="#" class="list-group-item nok-list-menu-item">勤怠管理</a>
-            <a href="#" class="list-group-item nok-list-menu-item">SNS</a>
-            <a href="#" class="list-group-item nok-list-menu-item">タスク管理</a>
-            <a href="#" class="list-group-item nok-list-menu-item">メモ管理</a>
-            <a href="#" class="list-group-item nok-list-menu-item">ユーザ情報</a>
-          </div><!-- /.list-group -->
+          <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="card">
+              <div class="card-header" role="tab" id="heading1">
+                <h4 class="mb-0">
+                  <a class="text-body d-block p-3 m-n3" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="true" aria-controls="collapse1">勤怠管理</a>
+                </h4>
+              </div><!-- /.card-header -->
+              <div id="collapse1" class="collapse" role="tabpanel" aria-labelledby="heading1" data-parent="#accordion">
+                <div class="card-body">
+                  <ul>
+                    <li><a href="#" target="content">勤怠登録</a></li>
+                    <li><a href="#" target="content">勤怠履歴確認</a></li>
+                  </ul>
+                </div><!-- /.card-body -->
+              </div><!-- /.collapse -->
+            </div><!-- /.card -->
+
+            <div class="card">
+              <div class="card-header" role="tab" id="heading2">
+                <h4 class="mb-0">
+                  <a class="text-body d-block p-3 m-n3" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="true" aria-controls="collapse2">SNS</a>
+                </h4>
+              </div><!-- /.card-header -->
+              <div id="collapse2" class="collapse" role="tabpanel" aria-labelledby="heading2" data-parent="#accordion">
+                <div class="card-body">
+                  <ul>
+                    <li><a href="#" target="content">投稿一覧</a></li>
+                    <li><a href="#" target="content">投稿する</a></li>
+                  </ul>
+                </div><!-- /.card-body -->
+              </div><!-- /.collapse -->
+            </div><!-- /.card -->
+
+            <div class="card">
+              <div class="card-header" role="tab" id="heading3">
+                <h4 class="mb-0">
+                  <a class="text-body d-block p-3 m-n3" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="true" aria-controls="collapse3">タスク管理</a>
+                </h4>
+              </div><!-- /.card-header -->
+              <div id="collapse3" class="collapse" role="tabpanel" aria-labelledby="heading3" data-parent="#accordion">
+                <div class="card-body">
+                  <ul>
+                    <li><a href="#" target="content">タスク一覧</a></li>
+                  </ul>
+                </div><!-- /.card-body -->
+              </div><!-- /.collapse -->
+            </div><!-- /.card -->
+
+            <div class="card">
+              <div class="card-header" role="tab" id="heading4">
+                <h4 class="mb-0">
+                  <a class="text-body d-block p-3 m-n3" data-toggle="collapse" href="#collapse4" role="button" aria-expanded="true" aria-controls="collapse4">メモ管理</a>
+                </h4>
+              </div><!-- /.card-header -->
+              <div id="collapse4" class="collapse" role="tabpanel" aria-labelledby="heading4" data-parent="#accordion">
+                <div class="card-body">
+                  <ul>
+                    <li><a href="#" target="content">メモ一覧</a></li>
+                  </ul>
+                </div><!-- /.card-body -->
+              </div><!-- /.collapse -->
+            </div><!-- /.card -->
+
+            <div class="card">
+              <div class="card-header" role="tab" id="heading5">
+                <h4 class="mb-0">
+                  <a class="text-body d-block p-3 m-n3" data-toggle="collapse" href="#collapse5" role="button" aria-expanded="true" aria-controls="collapse5">ユーザ情報管理</a>
+                </h4>
+              </div><!-- /.card-header -->
+              <div id="collapse5" class="collapse" role="tabpanel" aria-labelledby="heading5" data-parent="#accordion">
+                <div class="card-body">
+                  <ul>
+                    <li><a href="#" target="content">設定</a></li>
+                  </ul>
+                </div><!-- /.card-body -->
+              </div><!-- /.collapse -->
+            </div><!-- /.card -->
+          </div>
 
         </div><!-- /.col-xs-4 -->
         <div class="col-xs-8">
