@@ -14,7 +14,7 @@
 </head>
 <body>
   <header class="sticky-top header-contents">
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark ">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
       <h1 class="text-muted zero-margin">タスク管理アプリ</h1>
       <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav">
@@ -30,21 +30,23 @@
           <li class="nav-item">
             <a class="nav-link" th:href="@{/login/logout}">ログアウト</a>
           </li><!-- /.nav-item -->
-        </ul>
+        </ul><!-- /.navbar-nav -->
       </div><!-- /.collapse navbar-collapse justify-content-end -->
-    </nav>
-  </header>
+    </nav><!-- /.navbar navbar-expand-sm navbar-dark bg-dark -->
+  </header><!-- /.sticky-top header-contents -->
 
   <div class="content">
     <div class="content-wrapper">
       <div class="row">
         <div class="col-xs-4">
           <div class="list-group">
-            <a href="#" class="list-group-item nok-list-menu-item">ユーザ情報</a>
-            <a href="#" class="list-group-item nok-list-menu-item">メモ追加</a>
-            <a href="#" class="list-group-item nok-list-menu-item">メモ一覧</a>
+            <a href="#" class="list-group-item nok-list-menu-item">勤怠管理</a>
+            <a href="#" class="list-group-item nok-list-menu-item">SNS</a>
             <a href="#" class="list-group-item nok-list-menu-item">タスク管理</a>
-          </div>
+            <a href="#" class="list-group-item nok-list-menu-item">メモ管理</a>
+            <a href="#" class="list-group-item nok-list-menu-item">ユーザ情報</a>
+          </div><!-- /.list-group -->
+
         </div><!-- /.col-xs-4 -->
         <div class="col-xs-8">
           <section layout:fragment="content" class="content">
@@ -57,8 +59,9 @@
 
   <footer class="fixed-bottom footer-contents">
     <p class=" zero-margin" align="left" th:text="'&nbsp;&nbsp;&copy;' +${#dates.format(#dates.createNow(), 'yyyy')} + '&nbsp;NOK'"></p>
-  </footer>
+  </footer><!-- /.fixed-bottom footer-contents -->
   <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
   <script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+  <script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

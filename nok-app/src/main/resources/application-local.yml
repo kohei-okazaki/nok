@@ -29,7 +29,7 @@ doma:
   # SQLファイルをキャッシュしない
   sql-file-repository: no-cache
 server:
-  port: 8081
+  port: 88
 # アプリ独自の設定
 nok:
   # 暗号化設定
