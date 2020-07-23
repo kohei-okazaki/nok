@@ -14,11 +14,12 @@
 <body>
 
   <header class="sticky-top header-contents">
-    <div>
-      <h1>タスク管理アプリ</h1>
-    </div>
-  </header><!-- ./sticky-top header-contents -->
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+      <h1 class="text-muted zero-margin">NOK</h1>
+    </nav>
+  </header>
   <br>
+
   <div class="container border col-7">
     <br>
     <h2>ログインユーザ情報登録画面</h2>
@@ -52,7 +53,7 @@
   </div><!-- ./container border col-7 -->
 
   <footer class="fixed-bottom footer-contents">
-    <p align="left" th:text="'&nbsp;&nbsp;&copy;' +${#dates.format(#dates.createNow(), 'yyyy')} + '&nbsp;NOK'"></p>
+    <p class="zero-margin" align="left" th:text="'&nbsp;&nbsp;&copy;' +${#dates.format(#dates.createNow(), 'yyyy')} + '&nbsp;NOK'"></p>
   </footer><!-- ./fixed-bottom footer-contents -->
 
   <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>

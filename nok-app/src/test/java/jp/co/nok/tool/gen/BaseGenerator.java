@@ -17,7 +17,8 @@ import jp.co.nok.tool.excel.ExcelReader;
 import jp.co.nok.tool.util.ToolUtil;
 
 /**
- * 自動生成基底クラス
+ * 自動生成基底クラス<br>
+ * 自動生成ツールを作成する場合、本クラスを継承し{@linkplain #generateImpl()}に実際の自動生成処理を記述する
  *
  * @version 1.0.0
  */

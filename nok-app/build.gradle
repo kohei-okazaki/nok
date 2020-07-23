@@ -38,9 +38,9 @@ dependencies {
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 
     // MySQL
-    implementation 'mysql:mysql-connector-java:8.0.20'
+    implementation 'mysql:mysql-connector-java:8.0.21'
     // flyway
-    implementation 'org.flywaydb:flyway-core:6.5.0'
+    implementation 'org.flywaydb:flyway-core:6.5.1'
     // Doma
     annotationProcessor 'org.seasar.doma.boot:doma-spring-boot-starter:1.2.1'
     implementation ('org.seasar.doma.boot:doma-spring-boot-starter:1.2.1') {

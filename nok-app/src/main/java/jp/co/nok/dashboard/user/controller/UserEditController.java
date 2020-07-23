@@ -24,8 +24,7 @@ import jp.co.nok.web.view.AppView;
 public class UserEditController {
 
     /** LOG */
-    private static final Logger LOG = LoggerFactory
-            .getLogger(UserEditController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UserEditController.class);
 
     @ModelAttribute
     public UserEditForm userEditForm() {
