@@ -80,7 +80,6 @@ public class JavaSource {
      * classJavaDocを返す
      *
      * @return classJavaDoc
-     *
      */
     public String getClassJavaDoc() {
         return classJavaDoc;
@@ -91,7 +90,6 @@ public class JavaSource {
      *
      * @param classJavaDoc
      *            classJavaDoc
-     *
      */
     public void setClassJavaDoc(String classJavaDoc) {
         this.classJavaDoc = classJavaDoc;
@@ -234,7 +232,6 @@ public class JavaSource {
      * classAnnotationMapを返す
      *
      * @return classAnnotationMap
-     *
      */
     public Map<Class<?>, String> getClassAnnotationMap() {
         return classAnnotationMap;

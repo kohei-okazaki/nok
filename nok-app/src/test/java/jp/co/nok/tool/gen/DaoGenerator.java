@@ -144,7 +144,7 @@ public class DaoGenerator extends BaseGenerator {
 
             @Override
             public String toString() {
-                final String TAB = StringUtil.TAB;
+                final String TAB = "    ";
                 StringJoiner body = new StringJoiner(StringUtil.NEW_LINE);
                 for (Entry<Class<?>, String> entry : annotationMap.entrySet()) {
                     body.add(TAB + "@" + entry.getKey().getSimpleName()
@@ -188,7 +188,7 @@ public class DaoGenerator extends BaseGenerator {
 
             @Override
             public String toString() {
-                final String TAB = StringUtil.TAB;
+                final String TAB = "    ";
                 StringJoiner body = new StringJoiner(StringUtil.NEW_LINE);
                 for (Entry<Class<?>, String> entry : annotationMap.entrySet()) {
                     body.add(TAB + "@" + entry.getKey().getSimpleName()
@@ -231,7 +231,7 @@ public class DaoGenerator extends BaseGenerator {
 
             @Override
             public String toString() {
-                final String TAB = "	";
+                final String TAB = "    ";
                 StringJoiner body = new StringJoiner(StringUtil.NEW_LINE);
                 for (Entry<Class<?>, String> entry : annotationMap.entrySet()) {
                     body.add(TAB + "@" + entry.getKey().getSimpleName()

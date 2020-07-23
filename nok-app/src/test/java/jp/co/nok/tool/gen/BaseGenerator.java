@@ -101,10 +101,10 @@ public abstract class BaseGenerator {
     public static enum GenerateType implements BaseEnum {
 
         /** Entity作成 */
-        ENTITY("ENTITY", "nok-boot\\src\\main\\java\\jp\\co\\nok\\db\\entity",
+        ENTITY("ENTITY", "nok-app\\src\\main\\java\\jp\\co\\nok\\db\\entity",
                 EntityGenerator.class),
         /** DAO作成 */
-        DAO("DAO", "nok-boot\\src\\main\\java\\jp\\co\\nok\\db\\dao",
+        DAO("DAO", "nok-app\\src\\main\\java\\jp\\co\\nok\\db\\dao",
                 DaoGenerator.class),
         /** DDL作成 */
         DDL("DDL", "nok-docs\\02_design\\90_db\\01_ddl", CreateTableGenerator.class),

@@ -8,9 +8,6 @@ import org.seasar.doma.GenerationType;
 import org.seasar.doma.Id;
 import org.seasar.doma.jdbc.entity.NamingType;
 
-import jp.co.nok.common.log.annotation.Mask;
-import jp.co.nok.db.annotation.Crypt;
-
 /**
  * ログインユーザ情報 Entity
  *
@@ -20,13 +17,9 @@ import jp.co.nok.db.annotation.Crypt;
 public class LoginUserData extends BaseEntity {
 
     /** ログインID */
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer seqLoginId;
-    /** メールアドレス */
-    @Mask
-    @Crypt
-    private String mailAddress;
     /** パスワード */
     private String password;
     /** パスワード有効期限 */
@@ -38,14 +31,6 @@ public class LoginUserData extends BaseEntity {
 
     public Integer getSeqLoginId() {
         return seqLoginId;
-    }
-
-    public void setMailAddress(String mailAddress) {
-        this.mailAddress = mailAddress;
-    }
-
-    public String getMailAddress() {
-        return mailAddress;
     }
 
     public void setPassword(String password) {

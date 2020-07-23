@@ -37,7 +37,7 @@ public class LogMessageFactory {
      *            Bean
      * @return ログメッセージ
      */
-    public static String getLogMessage(Object bean) {
+    public static String toString(Object bean) {
 
         if (BeanUtil.isNull(bean)) {
             // 指定されたBeanがNULLの場合

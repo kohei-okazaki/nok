@@ -18,11 +18,11 @@ public class ToolInvoker {
      *            使わない
      */
     public static void main(String[] args) {
-        // GenerateInvoker.invoke(GenerateType.TABLE_DEFINE);
+        GenerateInvoker.invoke(GenerateType.TABLE_DEFINE);
         GenerateInvoker.invoke(GenerateType.DDL);
         // GenerateInvoker.invoke(GenerateType.DROP);
-        // GenerateInvoker.invoke(GenerateType.ENTITY);
-        // GenerateInvoker.invoke(GenerateType.DAO);
+        GenerateInvoker.invoke(GenerateType.ENTITY);
+        GenerateInvoker.invoke(GenerateType.DAO);
 
     }
 

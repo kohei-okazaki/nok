@@ -93,11 +93,11 @@ public class LoginUserRegistController {
 
         SessionComponent sessionComponent = (SessionComponent) session
                 .getAttribute(SessionComponent.KEY);
-        LOG.debugRes(sessionComponent);
+        LOG.debugBean(sessionComponent);
 
         LoginUserData loginUserData = modelMapper.map(sessionComponent,
                 LoginUserData.class);
-        LOG.debugRes(loginUserData);
+        LOG.debugBean(loginUserData);
         loginUserCreateService.create(loginUserData);
 
         model.addAttribute("loginId", loginUserData.getSeqLoginId());

@@ -92,7 +92,7 @@ public class Field {
     @Override
     public String toString() {
 
-        final String TAB = StringUtil.TAB;
+        final String TAB = "    ";
 
         /* JavaDoc作成 */
         String javadocPrefix = "/**";

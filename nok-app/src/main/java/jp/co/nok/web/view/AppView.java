@@ -10,22 +10,22 @@ import jp.co.nok.common.type.BaseEnum;
  */
 public enum AppView implements BaseEnum {
 
-    /** ログインView */
+    /** ログインView:/login/index */
     LOGIN_VIEW("/login/index"),
-    /** TOPView */
+    /** TOPView:/common/top */
     TOP_VIEW("/common/top"),
-    /** ログインユーザ登録View */
+    /** ログインユーザ登録View:/login/regist */
     LOGIN_REGIST_VIEW("/login/regist"),
-    /** ログインユーザ登録確認View */
+    /** ログインユーザ登録確認View:/login/registconfirm */
     LOGIN_REGIST_CONFIRM_VIEW("/login/registconfirm"),
-    /** ログインユーザ登録完了View */
+    /** ログインユーザ登録完了View:/login/registprocess */
     LOGIN_REGIST_PROCESS_VIEW("/login/registprocess"),
-    /** ログインユーザ設定変更View */
-    LOGIN_EDIT_VIEW("/login/edit"),
-    /** ログインユーザ設定変更確認View */
-    LOGIN_EDIT_CONFIRM_VIEW("/login/editconfirm"),
-    /** ログインユーザ設定変更完了View */
-    LOGIN_EDIT_PROCESS_VIEW("/login/editprocess");
+    /** ログインユーザ設定変更View:/user/edit */
+    USER_EDIT_VIEW("/user/edit"),
+    /** ログインユーザ設定変更確認View:/user/editconfirm */
+    USER_EDIT_CONFIRM_VIEW("/user/editconfirm"),
+    /** ログインユーザ設定変更完了View:/user/editprocess */
+    USER_EDIT_PROCESS_VIEW("/user/editprocess");
 
     /** パス */
     private String value;
@@ -37,14 +37,6 @@ public enum AppView implements BaseEnum {
     @Override
     public String getValue() {
         return this.value;
-    }
-
-    public String toRedirect() {
-        return "redirect:" + this.value;
-    }
-
-    public String toForward() {
-        return "forward:" + this.value;
     }
 
 }
