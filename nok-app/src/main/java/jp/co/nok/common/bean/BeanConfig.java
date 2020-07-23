@@ -1,5 +1,10 @@
 package jp.co.nok.common.bean;
 
+import java.util.Arrays;
+import java.util.List;
+
+import org.modelmapper.AbstractConverter;
+import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.MessageSource;
@@ -26,6 +31,8 @@ public class BeanConfig implements WebMvcConfigurer {
         ModelMapper modelMapper = new ModelMapper();
         org.modelmapper.config.Configuration conf = modelMapper.getConfiguration();
         conf.setMatchingStrategy(MatchingStrategies.STRICT);
+
+        modelMapper.addConverter(fromStringToBooleanConverter());
         return modelMapper;
     }
 
@@ -41,6 +48,24 @@ public class BeanConfig implements WebMvcConfigurer {
         LocalValidatorFactoryBean lvfb = new LocalValidatorFactoryBean();
         lvfb.setValidationMessageSource(messageSource);
         return lvfb;
+    }
+
+    /**
+     * StringをBooleanに変換するConverterクラスを返す
+     *
+     * @return Converter
+     */
+    private Converter<String, Boolean> fromStringToBooleanConverter() {
+        return new AbstractConverter<String, Boolean>() {
+            /** true対象文字列 */
+            private final List<String> TRUE_STR_LIST = Arrays.asList("1", "true", "TRUE",
+                    "Y");
+
+            @Override
+            public Boolean convert(String source) {
+                return TRUE_STR_LIST.contains(source);
+            }
+        };
     }
 
 }

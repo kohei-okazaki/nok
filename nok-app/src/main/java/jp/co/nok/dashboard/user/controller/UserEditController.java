@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import jp.co.nok.business.db.user.dto.UserEditDto;
-import jp.co.nok.business.db.user.service.UserEditService;
+import jp.co.nok.business.user.dto.UserEditDto;
+import jp.co.nok.business.user.service.UserEditService;
 import jp.co.nok.common.component.SessionComponent;
 import jp.co.nok.common.log.Logger;
 import jp.co.nok.common.log.LoggerFactory;

@@ -1,6 +1,6 @@
-package jp.co.nok.business.db.user.service;
+package jp.co.nok.business.user.service;
 
-import jp.co.nok.business.db.user.dto.UserEditDto;
+import jp.co.nok.business.user.dto.UserEditDto;
 
 /**
  * ユーザ情報変更画面のサービスインターフェース

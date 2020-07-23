@@ -1,11 +1,11 @@
-package jp.co.nok.business.db.user.service;
+package jp.co.nok.business.user.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jp.co.nok.business.db.create.MailUserDataCreateService;
 import jp.co.nok.business.db.update.LoginUserDataUpdateService;
-import jp.co.nok.business.db.user.dto.UserEditDto;
+import jp.co.nok.business.user.dto.UserEditDto;
 
 /**
  * ユーザ情報変更画面のサービス実装クラス
@@ -18,7 +18,7 @@ public class UserEditServiceImpl implements UserEditService {
     /** ログインユーザ情報更新サービス */
     @Autowired
     private LoginUserDataUpdateService loginUserDataUpdateService;
-    /** ユーザメール情報作成サービス */
+    /** メールユーザ情報作成サービス */
     @Autowired
     private MailUserDataCreateService mailUserDataCreateService;
 

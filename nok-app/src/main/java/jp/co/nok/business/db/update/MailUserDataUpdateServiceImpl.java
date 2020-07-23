@@ -7,14 +7,14 @@ import jp.co.nok.db.dao.MailUserDataDao;
 import jp.co.nok.db.entity.MailUserData;
 
 /**
- * ユーザメール情報更新サービス実装クラス
+ * メールユーザ情報更新サービス実装クラス
  *
  * @version 1.0.0
  */
 @Service
 public class MailUserDataUpdateServiceImpl implements MailUserDataUpdateService {
 
-    /** ユーザメール情報Dao */
+    /** メールユーザ情報Dao */
     @Autowired
     private MailUserDataDao dao;
 
