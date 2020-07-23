@@ -51,7 +51,7 @@ public class LoginUserRegistController {
      * @return ログインユーザ登録View
      */
     @GetMapping("/userregist")
-    public String userRegist() {
+    public String regist() {
         return AppView.LOGIN_REGIST_VIEW.getValue();
     }
 
@@ -67,7 +67,7 @@ public class LoginUserRegistController {
      * @return ログインユーザ登録確認View
      */
     @PostMapping("/userregistconfirm")
-    public String userRegistConfirm(Model model,
+    public String registConfirm(Model model,
             @Validated LoginUserRegistForm loginUserRegistForm, BindingResult result) {
 
         if (result.hasErrors()) {
@@ -89,7 +89,7 @@ public class LoginUserRegistController {
      * @return ログインユーザ登録完了View
      */
     @PostMapping("/userregistprocess")
-    public String userRegistProcess(Model model) {
+    public String registProcess(Model model) {
 
         SessionComponent sessionComponent = (SessionComponent) session
                 .getAttribute(SessionComponent.KEY);

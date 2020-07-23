@@ -19,7 +19,13 @@ public enum AppView implements BaseEnum {
     /** ログインユーザ登録確認View */
     LOGIN_REGIST_CONFIRM_VIEW("/login/registconfirm"),
     /** ログインユーザ登録完了View */
-    LOGIN_REGIST_PROCESS_VIEW("/login/registprocess");
+    LOGIN_REGIST_PROCESS_VIEW("/login/registprocess"),
+    /** ログインユーザ設定変更View */
+    LOGIN_EDIT_VIEW("/login/edit"),
+    /** ログインユーザ設定変更確認View */
+    LOGIN_EDIT_CONFIRM_VIEW("/login/editconfirm"),
+    /** ログインユーザ設定変更完了View */
+    LOGIN_EDIT_PROCESS_VIEW("/login/editprocess");
 
     /** パス */
     private String value;
