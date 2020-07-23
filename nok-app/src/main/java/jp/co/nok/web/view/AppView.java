@@ -11,32 +11,39 @@ import jp.co.nok.common.type.BaseEnum;
 public enum AppView implements BaseEnum {
 
     /** ログインView:/login/index */
-    LOGIN_VIEW("/login/index"),
+    LOGIN_VIEW("/login/index", "index"),
     /** TOPView:/common/top */
-    TOP_VIEW("/common/top"),
+    TOP_VIEW("/common/top", "top"),
     /** ログインユーザ登録View:/login/regist */
-    LOGIN_REGIST_VIEW("/login/regist"),
+    LOGIN_REGIST_VIEW("/login/regist", "regist"),
     /** ログインユーザ登録確認View:/login/registconfirm */
-    LOGIN_REGIST_CONFIRM_VIEW("/login/registconfirm"),
+    LOGIN_REGIST_CONFIRM_VIEW("/login/registconfirm", "registconfirm"),
     /** ログインユーザ登録完了View:/login/registprocess */
-    LOGIN_REGIST_PROCESS_VIEW("/login/registprocess"),
+    LOGIN_REGIST_PROCESS_VIEW("/login/registprocess", "registprocess"),
     /** ログインユーザ設定変更View:/user/edit */
-    USER_EDIT_VIEW("/user/edit"),
+    USER_EDIT_VIEW("/user/edit", "edit"),
     /** ログインユーザ設定変更確認View:/user/editconfirm */
-    USER_EDIT_CONFIRM_VIEW("/user/editconfirm"),
+    USER_EDIT_CONFIRM_VIEW("/user/editconfirm", "editconfirm"),
     /** ログインユーザ設定変更完了View:/user/editprocess */
-    USER_EDIT_PROCESS_VIEW("/user/editprocess");
+    USER_EDIT_PROCESS_VIEW("/user/editprocess", "editprocess");
 
     /** パス */
     private String value;
+    /** リダイレクトパス */
+    private String redirectPath;
 
-    private AppView(String value) {
+    private AppView(String value, String redirectPath) {
         this.value = value;
+        this.redirectPath = redirectPath;
     }
 
     @Override
     public String getValue() {
         return this.value;
+    }
+
+    public String toRedirect() {
+        return "redirect:/" + this.redirectPath;
     }
 
 }

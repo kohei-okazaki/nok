@@ -22,7 +22,7 @@
             <div th:if="${session['sessionComponent'] != null}">
               <div th:if="${session['sessionComponent'].loginAuthDto != null}">
                 <div th:if="${session['sessionComponent'].loginAuthDto.seqLoginId != null}">
-                  <a class="nav-link" href="#" th:text="${'ログインID : ' + session['sessionComponent'].loginAuthDto.seqLoginId}"></a>
+                  <a class="nav-link" th:href="@{/top}" th:text="${'ログインID : ' + session['sessionComponent'].loginAuthDto.seqLoginId}"></a>
                 </div>
               </div>
             </div>

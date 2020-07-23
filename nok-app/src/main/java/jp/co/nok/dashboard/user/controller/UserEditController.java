@@ -1,5 +1,8 @@
 package jp.co.nok.dashboard.user.controller;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.nok.common.component.SessionComponent;
 import jp.co.nok.common.log.Logger;
 import jp.co.nok.common.log.LoggerFactory;
 import jp.co.nok.dashboard.user.form.UserEditForm;
@@ -25,6 +29,9 @@ public class UserEditController {
 
     /** LOG */
     private static final Logger LOG = LoggerFactory.getLogger(UserEditController.class);
+    /** セッション情報 */
+    @Autowired
+    private HttpSession session;
 
     @ModelAttribute
     public UserEditForm userEditForm() {
@@ -53,8 +60,21 @@ public class UserEditController {
      * @return ユーザ情報設定変更確認View
      */
     @PostMapping("/editconfirm")
-    public String editConfirm(Model model,
-            @Validated UserEditForm userEditForm, BindingResult result) {
+    public String editConfirm(Model model, @Validated UserEditForm userEditForm,
+            BindingResult result) {
+
+        if (result.hasErrors()) {
+            return AppView.USER_EDIT_VIEW.toRedirect();
+        }
+
+        SessionComponent sessionComponent = (SessionComponent) session
+                .getAttribute(SessionComponent.KEY);
+        sessionComponent.setUserEditForm(userEditForm);
+        session.setAttribute(SessionComponent.KEY, sessionComponent);
+        LOG.debug("sessionにUserEditFormを設定");
+
+        model.addAttribute("userEditForm", userEditForm);
+
         return AppView.USER_EDIT_CONFIRM_VIEW.getValue();
     }
 
@@ -67,6 +87,11 @@ public class UserEditController {
      */
     @PostMapping("/editprocess")
     public String editProcess(Model model) {
+
+        SessionComponent sessionComponent = (SessionComponent) session
+                .getAttribute(SessionComponent.KEY);
+        UserEditForm form = sessionComponent.getUserEditForm();
+
         return AppView.USER_EDIT_PROCESS_VIEW.getValue();
     }
 
