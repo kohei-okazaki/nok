@@ -17,8 +17,8 @@ import org.seasar.doma.jdbc.entity.NamingType;
 public class LoginUserData extends BaseEntity {
 
     /** ログインID */
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Integer seqLoginId;
     /** パスワード */
     private String password;

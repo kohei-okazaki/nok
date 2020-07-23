@@ -14,6 +14,7 @@ import jp.co.nok.db.entity.LoginUserData;
 @Service
 public class LoginUserDataUpdateServiceImpl implements LoginUserDataUpdateService {
 
+    /** ログインユーザ情報Dao */
     @Autowired
     private LoginUserDataDao dao;
 

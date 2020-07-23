@@ -2,6 +2,7 @@ package jp.co.nok.dashboard.user.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.nok.business.db.user.dto.UserEditDto;
+import jp.co.nok.business.db.user.service.UserEditService;
 import jp.co.nok.common.component.SessionComponent;
 import jp.co.nok.common.log.Logger;
 import jp.co.nok.common.log.LoggerFactory;
@@ -32,6 +35,12 @@ public class UserEditController {
     /** セッション情報 */
     @Autowired
     private HttpSession session;
+    /** ユーザ情報変更サービス */
+    @Autowired
+    private UserEditService userEditService;
+    /** ModelMapper */
+    @Autowired
+    private ModelMapper modelMapper;
 
     @ModelAttribute
     public UserEditForm userEditForm() {
@@ -91,6 +100,8 @@ public class UserEditController {
         SessionComponent sessionComponent = (SessionComponent) session
                 .getAttribute(SessionComponent.KEY);
         UserEditForm form = sessionComponent.getUserEditForm();
+        UserEditDto dto = modelMapper.map(form, UserEditDto.class);
+        userEditService.edit(dto);
 
         return AppView.USER_EDIT_PROCESS_VIEW.getValue();
     }

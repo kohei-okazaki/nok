@@ -17,10 +17,10 @@ import jp.co.nok.db.annotation.Crypt;
 @Entity(naming = NamingType.SNAKE_UPPER_CASE)
 public class MailUserData extends BaseEntity {
 
-    /** ユーザメールID */
+    /** メールユーザID */
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private Integer seqSerMailId;
+    private Integer seqMailUserId;
     /** ログインID */
     private Integer seqLoginId;
     /** メールアドレス */
@@ -28,12 +28,12 @@ public class MailUserData extends BaseEntity {
     @Crypt
     private String mailAddress;
 
-    public void setSeqSerMailId(Integer seqSerMailId) {
-        this.seqSerMailId = seqSerMailId;
+    public void setSeqMailUserId(Integer seqMailUserId) {
+        this.seqMailUserId = seqMailUserId;
     }
 
-    public Integer getSeqSerMailId() {
-        return seqSerMailId;
+    public Integer getSeqMailUserId() {
+        return seqMailUserId;
     }
 
     public void setSeqLoginId(Integer seqLoginId) {
