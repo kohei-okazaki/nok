@@ -20,23 +20,26 @@
           <br>
           <form th:action="@{/user/editprocess}" method="post" class="needs-validation" novalidate>
 
-            <div class="form-group">
-              <label class="control-label" th:text="#{seqLoginId}"></label>
-              <label th:text="${session['sessionComponent'].loginAuthDto.seqLoginId}"></label>
-            </div><!-- /.form-group -->
+            <table class="table">
+              <tr class="form-group zero-margin">
+                <td><label class="control-label zero-margin" th:text="#{seqLoginId}"></label></td>
+                <td><label class="zero-margin" th:text="${session['sessionComponent'].loginAuthDto.seqLoginId}"></label></td>
+              </tr><!-- /.form-group -->
+              <tr class="form-group">
+              <tr class="form-group" th:if="${userEditForm.isPasswordEditFlag} == 'true'">
+                <td><label class="control-label zero-margin" th:text="#{password}"></label></td>
+                <td><label class="zero-margin" th:text="${userEditForm.password}"></label></td>
+              </tr><!-- /.form-group -->
+              <tr class="form-group">
+                <td><label class="control-label zero-margin" th:text="#{mailAddress}"></label></td>
+                <td><label class="zero-margin" th:text="${userEditForm.mailAddress}"></label></td>
+              </tr><!-- /.form-group -->
 
-            <div class="form-group" th:if="${userEditForm.isPasswordEditFlag} == '1'">
-              <!-- パスワードを変更する場合 -->
-              <label class="control-label" th:text="#{password}"></label>
-              <label th:text="${userEditForm.password}"></label>
-            </div><!-- /.form-group -->
+              <tr class="form-group">
+                <td colspan="2"><input type="submit" class="btn btn-outline-primary mt-1" value="登録" /></td>
+              </tr>
 
-            <div class="form-group">
-              <label class="control-label" th:text="#{mailAddress}"></label>
-              <label th:text="${userEditForm.mailAddress}"></label>
-            </div><!-- /.form-group -->
-
-            <input type="submit" class="btn btn-outline-primary mt-1" value="登録" />
+            </table><!-- /.table -->
           </form><!-- /.needs-validation -->
           <br>
         </div><!-- /.col-lg -->

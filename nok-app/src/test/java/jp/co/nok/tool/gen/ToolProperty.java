@@ -18,6 +18,9 @@ public class ToolProperty {
     /** 自動生成ツールExcelまでのパス */
     @Property(name = "tool.excel.path")
     private String excelPath;
+    /** Daoで使用するSQLを格納するディレクトリ */
+    @Property(name = "tool.dao.sql.dir.path")
+    private String sqlDirPath;
     /** 処理対象テーブルリスト */
     @Property(name = "tool.target.tables")
     private String targetTables;
@@ -41,6 +44,14 @@ public class ToolProperty {
 
     public void setExcelPath(String excelPath) {
         this.excelPath = excelPath;
+    }
+
+    public String getSqlDirPath() {
+        return sqlDirPath;
+    }
+
+    public void setSqlDirPath(String sqlDirPath) {
+        this.sqlDirPath = sqlDirPath;
     }
 
     public String getTargetTables() {

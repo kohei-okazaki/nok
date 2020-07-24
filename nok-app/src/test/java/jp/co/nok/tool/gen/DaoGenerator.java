@@ -1,5 +1,7 @@
 package jp.co.nok.tool.gen;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
@@ -11,6 +13,7 @@ import org.seasar.doma.Insert;
 import org.seasar.doma.Update;
 import org.seasar.doma.boot.ConfigAutowireable;
 
+import jp.co.nok.common.util.FileUtil;
 import jp.co.nok.common.util.FileUtil.FileExtension;
 import jp.co.nok.common.util.FileUtil.FileSeparator;
 import jp.co.nok.common.util.StringUtil;
@@ -89,10 +92,38 @@ public class DaoGenerator extends BaseGenerator {
             generateFile.setOutputPath(prop.getBaseDir() + FileSeparator.SYSTEM.getValue()
                     + GenerateType.DAO.getPath());
 
+            // Daoディレクトリを作成
+            mkdir(generateFile);
+
             list.add(generateFile);
         }
 
         return list;
+    }
+
+    /**
+     * Daoで使用するSQLファイルを格納するディレクトリを作成する
+     *
+     * @param generateFile
+     *            自動生成ファイル
+     * @throws IOException
+     *             ディレクトリの作成に失敗した場合
+     */
+    private void mkdir(GenerateFile generateFile) throws IOException {
+
+        String parent = prop.getSqlDirPath();
+        String dirName = generateFile.getFileName().replace(FileExtension.JAVA.getValue(),
+                StringUtil.EMPTY);
+        String dirPath = parent + File.separator + dirName;
+
+        boolean isExists = FileUtil.isExists(dirPath);
+        if (isExists) {
+            LOG.debug(dirPath + "が存在するため、ディレクトリを作成しない");
+            return;
+        }
+
+        FileUtil.mkdir(dirPath);
+        LOG.debug(dirPath + "が存在しないため、ディレクトリを作成");
     }
 
     /**

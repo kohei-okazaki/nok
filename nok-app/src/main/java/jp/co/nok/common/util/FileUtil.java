@@ -1,5 +1,6 @@
 package jp.co.nok.common.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -22,6 +23,53 @@ public class FileUtil {
     }
 
     /**
+     * 指定した<code>path</code>の{@linkplain Path}オブジェクトを返す
+     *
+     * @param path
+     *            ファイルパス
+     * @return Path
+     */
+    public static Path getPath(String path) {
+        return Paths.get(path);
+    }
+
+    /**
+     * 指定した<code>path</code>の{@linkplain File}オブジェクトを返す
+     *
+     * @param path
+     *            パス
+     * @return File
+     */
+    public static File getFile(String path) {
+        return getPath(path).toFile();
+    }
+
+    /**
+     * 指定した<code>path</code>までのファイルオブジェクトが存在するかどうか判定する
+     *
+     * @param path
+     *            パス
+     * @return 存在するtrue, それ以外の場合false
+     */
+    public static boolean isExists(String path) {
+        return Files.exists(getPath(path));
+        // return getFile(path).exists();
+    }
+
+    /**
+     * 指定したパスのディレクトリを作成する
+     *
+     * @param path
+     *            ディレクトリパス
+     * @return 作成後の{@linkplain Path}
+     * @throws IOException
+     *             ディレクトリの作成に失敗した場合
+     */
+    public static Path mkdir(String path) throws IOException {
+        return Files.createDirectory(getPath(path));
+    }
+
+    /**
      * ファイルを作成する<br>
      * ファイルが存在しない場合のみ、作成
      *
@@ -33,7 +81,7 @@ public class FileUtil {
      */
     public static Path createFile(String filePath) throws IOException {
 
-        Path path = Paths.get(filePath);
+        Path path = getPath(filePath);
         if (Files.exists(path)) {
             // ファイルが存在する場合
             return path;

@@ -9,6 +9,8 @@ import jp.co.nok.common.log.annotation.Mask;
  */
 public class UserEditDto {
 
+    /** ログインID */
+    private Integer seqLoginId;
     /** パスワード変更フラグ */
     private Boolean passwordEditFlag;
     /** パスワード */
@@ -17,6 +19,14 @@ public class UserEditDto {
     /** メールアドレス */
     @Mask
     private String mailAddress;
+
+    public Integer getSeqLoginId() {
+        return seqLoginId;
+    }
+
+    public void setSeqLoginId(Integer seqLoginId) {
+        this.seqLoginId = seqLoginId;
+    }
 
     public Boolean getPasswordEditFlag() {
         return passwordEditFlag;

@@ -80,7 +80,6 @@ public class UserEditController {
                 .getAttribute(SessionComponent.KEY);
         sessionComponent.setUserEditForm(userEditForm);
         session.setAttribute(SessionComponent.KEY, sessionComponent);
-        LOG.debug("sessionにUserEditFormを設定");
 
         model.addAttribute("userEditForm", userEditForm);
 
@@ -101,6 +100,8 @@ public class UserEditController {
                 .getAttribute(SessionComponent.KEY);
         UserEditForm form = sessionComponent.getUserEditForm();
         UserEditDto dto = modelMapper.map(form, UserEditDto.class);
+        dto.setSeqLoginId(sessionComponent.getLoginAuthDto().getSeqLoginId());
+
         userEditService.edit(dto);
 
         return AppView.USER_EDIT_PROCESS_VIEW.getValue();

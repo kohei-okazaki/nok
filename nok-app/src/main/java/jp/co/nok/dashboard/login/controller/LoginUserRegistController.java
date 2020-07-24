@@ -93,11 +93,9 @@ public class LoginUserRegistController {
 
         SessionComponent sessionComponent = (SessionComponent) session
                 .getAttribute(SessionComponent.KEY);
-        LOG.debugBean(sessionComponent);
 
         LoginUserData loginUserData = modelMapper.map(sessionComponent,
                 LoginUserData.class);
-        LOG.debugBean(loginUserData);
         loginUserCreateService.create(loginUserData);
 
         model.addAttribute("loginId", loginUserData.getSeqLoginId());
