@@ -1,0 +1,4 @@
+SELECT
+  *
+FROM
+  REGULAR_WORK_MT;

@@ -1,5 +1,7 @@
 package jp.co.nok.dashboard.work.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.nok.business.db.select.RegularWorkMtSearchService;
 import jp.co.nok.dashboard.work.form.RegularEntryForm;
+import jp.co.nok.db.entity.RegularWorkMt;
 import jp.co.nok.web.view.AppView;
 
 /**
@@ -27,6 +31,9 @@ public class RegularEntryController {
     /** セッション情報 */
     @Autowired
     private HttpSession session;
+    /** 定時情報マスタ検索サービス */
+    @Autowired
+    private RegularWorkMtSearchService regularWorkMtSearchService;
 
     @ModelAttribute
     public RegularEntryForm regularEntryForm() {
@@ -42,6 +49,10 @@ public class RegularEntryController {
      */
     @GetMapping("/entry")
     public String entry(Model model) {
+
+        List<RegularWorkMt> mtList = regularWorkMtSearchService.selectAll();
+        model.addAttribute("mtList", mtList);
+
         return AppView.WORK_REGULAR_ENTRY_VIEW.getValue();
     }
 
@@ -61,9 +72,11 @@ public class RegularEntryController {
             BindingResult result) {
 
         if (result.hasErrors()) {
-            return AppView.WORK_REGULAR_ENTRY_VIEW.toRedirect();
+            return AppView.WORK_REGULAR_ENTRY_VIEW.getValue();
         }
 
+        List<RegularWorkMt> mtList = regularWorkMtSearchService.selectAll();
+        model.addAttribute("mtList", mtList);
         model.addAttribute("entrySuccess", "1");
         return AppView.WORK_REGULAR_ENTRY_VIEW.getValue();
     }

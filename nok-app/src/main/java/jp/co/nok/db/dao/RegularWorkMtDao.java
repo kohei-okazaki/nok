@@ -1,8 +1,11 @@
 package jp.co.nok.db.dao;
 
+import java.util.List;
+
 import org.seasar.doma.Dao;
 import org.seasar.doma.Delete;
 import org.seasar.doma.Insert;
+import org.seasar.doma.Select;
 import org.seasar.doma.Update;
 import org.seasar.doma.boot.ConfigAutowireable;
 
@@ -25,5 +28,8 @@ public interface RegularWorkMtDao extends BaseDao {
 
     @Insert
     public int insert(RegularWorkMt entity);
+
+    @Select
+    public List<RegularWorkMt> selectAll();
 
 }
