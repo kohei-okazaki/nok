@@ -2,8 +2,7 @@ package jp.co.nok.dashboard.work.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.nok.business.db.create.RegularWorkMtCreateService;
 import jp.co.nok.business.db.select.RegularWorkMtSearchService;
 import jp.co.nok.dashboard.work.form.RegularEntryForm;
 import jp.co.nok.db.entity.RegularWorkMt;
@@ -28,12 +28,15 @@ import jp.co.nok.web.view.AppView;
 @RequestMapping("/work/regular")
 public class RegularEntryController {
 
-    /** セッション情報 */
+    /** ModelMapper */
     @Autowired
-    private HttpSession session;
+    private ModelMapper modelMapper;
     /** 定時情報マスタ検索サービス */
     @Autowired
     private RegularWorkMtSearchService regularWorkMtSearchService;
+    /** 定時情報マスタ作成サービス */
+    @Autowired
+    private RegularWorkMtCreateService regularWorkMtCreateService;
 
     @ModelAttribute
     public RegularEntryForm regularEntryForm() {
@@ -74,6 +77,9 @@ public class RegularEntryController {
         if (result.hasErrors()) {
             return AppView.WORK_REGULAR_ENTRY_VIEW.getValue();
         }
+
+        RegularWorkMt mt = modelMapper.map(form, RegularWorkMt.class);
+        regularWorkMtCreateService.create(mt);
 
         List<RegularWorkMt> mtList = regularWorkMtSearchService.selectAll();
         model.addAttribute("mtList", mtList);

@@ -1,5 +1,7 @@
 package jp.co.nok.dashboard.work.form;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -11,15 +13,23 @@ public class RegularEntryForm {
 
     /** 始業時刻(時) */
     @NotBlank
+    @Min(value = 0)
+    @Max(value = 23)
     private String beginHour;
     /** 始業時刻(分) */
     @NotBlank
+    @Min(value = 0)
+    @Max(value = 59)
     private String beginMinute;
     /** 終業時刻(時) */
     @NotBlank
+    @Min(value = 0)
+    @Max(value = 23)
     private String endHour;
     /** 終業時刻(分) */
     @NotBlank
+    @Min(value = 0)
+    @Max(value = 59)
     private String endMinute;
 
     public String getBeginHour() {

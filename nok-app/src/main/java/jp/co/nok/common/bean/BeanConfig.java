@@ -33,6 +33,8 @@ public class BeanConfig implements WebMvcConfigurer {
         conf.setMatchingStrategy(MatchingStrategies.STRICT);
 
         modelMapper.addConverter(fromStringToBooleanConverter());
+        modelMapper.addConverter(fromStringToIntegerConverter());
+
         return modelMapper;
     }
 
@@ -65,6 +67,25 @@ public class BeanConfig implements WebMvcConfigurer {
             public Boolean convert(String source) {
                 return TRUE_STR_LIST.contains(source);
             }
+        };
+    }
+
+    /**
+     * StringをIntegerに変換するConverterクラスを返す
+     *
+     * @return Converter
+     */
+    private Converter<String, Integer> fromStringToIntegerConverter() {
+        return new AbstractConverter<String, Integer>() {
+
+            @Override
+            protected Integer convert(String source) {
+                if (source == null) {
+                    return null;
+                }
+                return Integer.valueOf(source);
+            }
+
         };
     }
 
