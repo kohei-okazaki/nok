@@ -43,6 +43,16 @@ public class DaoGenerator extends BaseGenerator {
 
         for (String table : prop.getTargetTableList()) {
 
+            String outputPath = prop.getBaseDir() + FileSeparator.SYSTEM.getValue()
+                    + GenerateType.DAO.getPath();
+            String daoName = ToolUtil.toJavaFileName(table) + "Dao"
+                    + FileExtension.JAVA.getValue();
+
+            if (FileUtil.isExists(outputPath + File.separator + daoName)) {
+                LOG.debug(daoName + "は既に作成済の為、スキップ");
+                continue;
+            }
+
             LOG.debug("テーブル名:" + table);
 
             JavaSource source = new JavaSource();
@@ -86,13 +96,10 @@ public class DaoGenerator extends BaseGenerator {
             }
 
             GenerateFile generateFile = new GenerateFile();
-            generateFile.setFileName(ToolUtil.toJavaFileName(table) + "Dao"
-                    + FileExtension.JAVA.getValue());
+            generateFile.setFileName(daoName);
             generateFile.setData(ToolUtil.toStrJavaSource(source, prop));
-            generateFile.setOutputPath(prop.getBaseDir() + FileSeparator.SYSTEM.getValue()
-                    + GenerateType.DAO.getPath());
+            generateFile.setOutputPath(outputPath);
 
-            // Daoディレクトリを作成
             mkdir(generateFile);
 
             list.add(generateFile);

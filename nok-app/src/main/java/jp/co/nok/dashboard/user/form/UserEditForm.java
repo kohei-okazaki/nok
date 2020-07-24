@@ -1,5 +1,7 @@
 package jp.co.nok.dashboard.user.form;
 
+import javax.validation.constraints.NotBlank;
+
 import jp.co.nok.common.log.annotation.Mask;
 
 /**
@@ -10,12 +12,14 @@ import jp.co.nok.common.log.annotation.Mask;
 public class UserEditForm {
 
     /** パスワード変更フラグ */
+    @NotBlank
     private String passwordEditFlag;
     /** パスワード */
     @Mask
     private String password;
     /** メールアドレス */
     @Mask
+    @NotBlank
     private String mailAddress;
 
     public String getPasswordEditFlag() {

@@ -6,14 +6,14 @@
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{common/layout}">
 <head>
-<title>ユーザ情報変更画面</title>
+<title>定時時刻登録</title>
 </head>
 <body>
   <div layout:fragment="content">
     <br>
     <div class="container border col-10">
       <br>
-      <h2>ユーザ情報変更</h2>
+      <h2>定時時刻登録</h2>
       <br>
       <div class="row">
         <div class="col-lg">
@@ -28,46 +28,45 @@
                 <td><label class="zero-margin" th:text="${session['sessionComponent'].loginAuthDto.seqLoginId}"></label></td>
               </tr><!-- /.form-group -->
 
-              <tr>
-                <td colspan="2" class="form-group">
-                  <div id="password_area">
-                    <label class="control-label" th:text="#{password}"></label>
-                    <input type="password" class="form-control" th:field="*{password}" />
-                  </div><!-- /#password_area -->
+              <tr class="form-group">
+                <td colspan="2">
                   <div class="custom-control custom-radio">
                     <input type="radio" id="password-edit-on" class="custom-control-input" name="passwordEditFlag" value="true" onclick="on('password_area');" checked>
                     <label class="custom-control-label" for="password-edit-on">パスワードを変更する</label>
-                  </div><!-- /.custom-control custom-radio -->
+                  </div>
                   <div class="custom-control custom-radio">
                     <input type="radio" id="password-edit-off" class="custom-control-input" name="passwordEditFlag" value="false" onclick="off('password_area');">
                     <label class="custom-control-label" for="password-edit-off">パスワードを変更しない</label>
-                  </div><!-- /.custom-control custom-radio -->
-                </td><!-- /.form-group -->
-              </tr>
-
-              <tr class="form-group">
-                <td colspan="2">
-                  <label class="control-label" for="validationCustom01" th:text="#{mailAddress}"></label>
-                  <span class="badge badge-danger">必須</span>
-                  <input type="text" id="validationCustom01" class="form-control" th:field="*{mailAddress}" required />
-                  <div class="valid-feedback" th:text="#{inputDone}"></div>
-                  <div class="invalid-feedback" th:text="#{mailAddress} + #{required}"></div>
+                  </div>
+                  <div id="password_area" >
+                    <label class="control-label" for="validationCustom01" th:text="#{password}"></label><span class="badge badge-danger">必須</span>
+                    <input type="password" id="validationCustom01" class="form-control" th:field="*{password}" placeholder="password1234" required />
+                    <div class="valid-feedback" th:text="#{inputDone}"></div>
+                    <div class="invalid-feedback" th:text="#{password} + #{required}"></div>
+                  </div>
                 </td>
               </tr><!-- /.form-group -->
 
               <tr class="form-group">
+                <td colspan="2">
+                  <label class="control-label" for="validationCustom02" th:text="#{mailAddress}"></label><span class="badge badge-danger">必須</span>
+                  <input type="text" id="validationCustom02" class="form-control" th:field="*{mailAddress}" />
+                  <div class="valid-feedback" th:text="#{inputDone}"></div>
+                  <div class="invalid-feedback" th:text="#{mailAddress} + #{required}"></div>
+                </td>
+              </tr>
+
+              <tr class="form-group">
                 <td colspan="2"><input type="submit" class="btn btn-outline-primary mt-1" value="登録" /></td>
-              </tr><!-- /.form-group -->
+              </tr>
 
-            </table><!-- /.table -->
+            </table>
 
-          </form><!-- /.needs-validation -->
+          </form>
           <br>
-        </div><!-- /.col-lg -->
-      </div><!-- /.row -->
+        </div>
+      </div>
     </div><!-- /.container.border.col-10 -->
-    <script>
-    </script>
   </div>
 </body>
 </html>

@@ -50,7 +50,7 @@ public class LoginUserRegistController {
      *
      * @return ログインユーザ登録View
      */
-    @GetMapping("/userregist")
+    @GetMapping("/regist")
     public String regist() {
         return AppView.LOGIN_REGIST_VIEW.getValue();
     }
@@ -66,19 +66,18 @@ public class LoginUserRegistController {
      *            validation結果
      * @return ログインユーザ登録確認View
      */
-    @PostMapping("/userregistconfirm")
+    @PostMapping("/registconfirm")
     public String registConfirm(Model model,
             @Validated LoginUserRegistForm loginUserRegistForm, BindingResult result) {
 
         if (result.hasErrors()) {
-            model.addAttribute("errorMessage", "入力情報が不正です");
             return AppView.LOGIN_REGIST_VIEW.getValue();
         }
 
         SessionComponent sessionComponent = modelMapper.map(loginUserRegistForm,
                 SessionComponent.class);
         LOG.debugBean(sessionComponent);
-        session.setAttribute("sessionComponent", sessionComponent);
+        session.setAttribute(SessionComponent.KEY, sessionComponent);
 
         return AppView.LOGIN_REGIST_CONFIRM_VIEW.getValue();
     }
@@ -90,7 +89,7 @@ public class LoginUserRegistController {
      *            Model
      * @return ログインユーザ登録完了View
      */
-    @PostMapping("/userregistprocess")
+    @PostMapping("/registprocess")
     public String registProcess(Model model) {
 
         SessionComponent sessionComponent = (SessionComponent) session

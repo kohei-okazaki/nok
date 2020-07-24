@@ -110,7 +110,7 @@ public class UserEditServiceImpl implements UserEditService {
                 .selectBySeqLoginId(seqLoginId);
 
         UserEditDto dto = new UserEditDto();
-        dto.setMailAddress(mailUserData.getMailAddress());
+        dto.setMailAddress(mailUserData == null ? null : mailUserData.getMailAddress());
 
         return dto;
     }

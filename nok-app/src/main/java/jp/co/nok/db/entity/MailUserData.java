@@ -24,8 +24,8 @@ public class MailUserData extends BaseEntity {
     /** ログインID */
     private Integer seqLoginId;
     /** メールアドレス */
-    @Mask
     @Crypt
+    @Mask
     private String mailAddress;
 
     public void setSeqMailUserId(Integer seqMailUserId) {

@@ -11,6 +11,18 @@
 <link th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}" rel="stylesheet" />
 <link th:href="@{/css/layout.css}" rel="stylesheet" />
 <link th:href="@{/images/favicon.png}" rel="icon" />
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.bundle.min.js}"></script>
+<!-- <script th:src="@{/js/common.js}"></script> -->
+<script>
+  function on(target_id) {
+    document.getElementById(target_id).style.display = "block";
+  }
+  function off(target_id) {
+    document.getElementById(target_id).style.display = "none";
+  }
+</script>
 </head>
 <body>
   <header class="sticky-top header-contents">
@@ -51,6 +63,8 @@
                   <ul>
                     <li><a href="#">勤怠登録</a></li>
                     <li><a href="#">履歴確認</a></li>
+                    <li><a th:href="@{/work/regular/entry}">定時登録</a></li>
+                    <li><a href="#">ユーザ定時登録</a></li>
                   </ul>
                 </div><!-- /.card-body -->
               </div><!-- /.collapse -->
@@ -131,16 +145,6 @@
   <footer class="fixed-bottom footer-contents">
     <p class="zero-margin" align="left" th:text="'&nbsp;&nbsp;&copy;' +${#dates.format(#dates.createNow(), 'yyyy')} + '&nbsp;NOK'"></p>
   </footer><!-- /.fixed-bottom footer-contents -->
-  <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
-  <script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
-  <script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.bundle.min.js}"></script>
-  <script>
-    function on(target_id) {
-      document.getElementById(target_id).style.display="block";
-    }
-    function off(target_id) {
-      document.getElementById(target_id).style.display="none";
-    }
-  </script>
+
 </body>
 </html>

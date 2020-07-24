@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jp.co.nok.business.user.dto.UserEditDto;
 import jp.co.nok.business.user.service.UserEditService;
 import jp.co.nok.common.component.SessionComponent;
+import jp.co.nok.common.log.Logger;
+import jp.co.nok.common.log.LoggerFactory;
 import jp.co.nok.dashboard.user.form.UserEditForm;
 import jp.co.nok.web.view.AppView;
 
@@ -28,13 +30,13 @@ import jp.co.nok.web.view.AppView;
 @RequestMapping("/user")
 public class UserEditController {
 
-    /** セッション情報 */
+    /** LOG */
+    private static final Logger LOG = LoggerFactory
+            .getLogger(UserEditController.class);
     @Autowired
     private HttpSession session;
-    /** ユーザ情報変更サービス */
     @Autowired
     private UserEditService userEditService;
-    /** ModelMapper */
     @Autowired
     private ModelMapper modelMapper;
 
@@ -47,6 +49,7 @@ public class UserEditController {
                 .getUserEditDto(sessionComponent.getLoginAuthDto().getSeqLoginId());
 
         UserEditForm form = modelMapper.map(dto, UserEditForm.class);
+        LOG.debugBean(form);
 
         return form;
     }
@@ -77,12 +80,14 @@ public class UserEditController {
             BindingResult result) {
 
         if (result.hasErrors()) {
-            return AppView.USER_EDIT_VIEW.toRedirect();
+            return AppView.USER_EDIT_VIEW.getValue();
         }
 
         SessionComponent sessionComponent = (SessionComponent) session
                 .getAttribute(SessionComponent.KEY);
         sessionComponent.setUserEditForm(userEditForm);
+        LOG.debugBean(sessionComponent);
+
         session.setAttribute(SessionComponent.KEY, sessionComponent);
 
         model.addAttribute("userEditForm", userEditForm);

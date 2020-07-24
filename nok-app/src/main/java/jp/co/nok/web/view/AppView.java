@@ -14,6 +14,8 @@ public enum AppView implements BaseEnum {
     LOGIN_VIEW("/login/index", "index"),
     /** TOPView:/common/top */
     TOP_VIEW("/common/top", "top"),
+    /** エラー画面のView */
+    APP_ERROR_VIEW("/common/error", "error"),
     /** ログインユーザ登録View:/login/regist */
     LOGIN_REGIST_VIEW("/login/regist", "regist"),
     /** ログインユーザ登録確認View:/login/registconfirm */
@@ -25,7 +27,10 @@ public enum AppView implements BaseEnum {
     /** ログインユーザ設定変更確認View:/user/editconfirm */
     USER_EDIT_CONFIRM_VIEW("/user/editconfirm", "editconfirm"),
     /** ログインユーザ設定変更完了View:/user/editprocess */
-    USER_EDIT_PROCESS_VIEW("/user/editprocess", "editprocess");
+    USER_EDIT_PROCESS_VIEW("/user/editprocess", "editprocess"),
+    /** 定時時刻登録画面 */
+    WORK_REGULAR_ENTRY_VIEW("/work/regularentry", "entry"),
+    ;
 
     /** パス */
     private String value;
