@@ -10,7 +10,7 @@ import jp.co.nok.common.log.annotation.Mask;
 public class UserEditForm {
 
     /** パスワード変更フラグ */
-    private String isPasswordEditFlag;
+    private String passwordEditFlag;
     /** パスワード */
     @Mask
     private String password;
@@ -18,12 +18,12 @@ public class UserEditForm {
     @Mask
     private String mailAddress;
 
-    public String getIsPasswordEditFlag() {
-        return isPasswordEditFlag;
+    public String getPasswordEditFlag() {
+        return passwordEditFlag;
     }
 
-    public void setIsPasswordEditFlag(String isPasswordEditFlag) {
-        this.isPasswordEditFlag = isPasswordEditFlag;
+    public void setPasswordEditFlag(String passwordEditFlag) {
+        this.passwordEditFlag = passwordEditFlag;
     }
 
     public String getPassword() {

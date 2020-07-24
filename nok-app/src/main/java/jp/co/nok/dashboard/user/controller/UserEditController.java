@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jp.co.nok.business.user.dto.UserEditDto;
 import jp.co.nok.business.user.service.UserEditService;
 import jp.co.nok.common.component.SessionComponent;
-import jp.co.nok.common.log.Logger;
-import jp.co.nok.common.log.LoggerFactory;
 import jp.co.nok.dashboard.user.form.UserEditForm;
 import jp.co.nok.web.view.AppView;
 
@@ -30,8 +28,6 @@ import jp.co.nok.web.view.AppView;
 @RequestMapping("/user")
 public class UserEditController {
 
-    /** LOG */
-    private static final Logger LOG = LoggerFactory.getLogger(UserEditController.class);
     /** セッション情報 */
     @Autowired
     private HttpSession session;
@@ -44,7 +40,15 @@ public class UserEditController {
 
     @ModelAttribute
     public UserEditForm userEditForm() {
-        return new UserEditForm();
+
+        SessionComponent sessionComponent = (SessionComponent) session
+                .getAttribute(SessionComponent.KEY);
+        UserEditDto dto = userEditService
+                .getUserEditDto(sessionComponent.getLoginAuthDto().getSeqLoginId());
+
+        UserEditForm form = modelMapper.map(dto, UserEditForm.class);
+
+        return form;
     }
 
     /**

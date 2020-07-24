@@ -1,6 +1,7 @@
 package jp.co.nok.business.db.select;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import jp.co.nok.db.dao.MailUserDataDao;
 import jp.co.nok.db.entity.MailUserData;
@@ -10,6 +11,7 @@ import jp.co.nok.db.entity.MailUserData;
  *
  * @version 1.0.0
  */
+@Service
 public class MailUserDataSearchServiceImpl implements MailUserDataSearchService {
 
     /** メールユーザ情報Dao */

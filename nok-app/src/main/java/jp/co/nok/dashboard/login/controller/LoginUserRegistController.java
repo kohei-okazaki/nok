@@ -77,7 +77,9 @@ public class LoginUserRegistController {
 
         SessionComponent sessionComponent = modelMapper.map(loginUserRegistForm,
                 SessionComponent.class);
+        LOG.debugBean(sessionComponent);
         session.setAttribute("sessionComponent", sessionComponent);
+
         return AppView.LOGIN_REGIST_CONFIRM_VIEW.getValue();
     }
 
@@ -96,6 +98,8 @@ public class LoginUserRegistController {
 
         LoginUserData loginUserData = modelMapper.map(sessionComponent,
                 LoginUserData.class);
+        LOG.debugBean(loginUserData);
+
         loginUserCreateService.create(loginUserData);
 
         model.addAttribute("loginId", loginUserData.getSeqLoginId());

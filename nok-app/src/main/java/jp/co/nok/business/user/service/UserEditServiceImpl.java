@@ -1,5 +1,6 @@
 package jp.co.nok.business.user.service;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -14,7 +15,6 @@ import jp.co.nok.business.db.update.MailUserDataUpdateService;
 import jp.co.nok.business.user.dto.UserEditDto;
 import jp.co.nok.common.log.Logger;
 import jp.co.nok.common.log.LoggerFactory;
-import jp.co.nok.common.util.DateUtil;
 import jp.co.nok.db.entity.LoginUserData;
 import jp.co.nok.db.entity.MailUserData;
 
@@ -50,41 +50,69 @@ public class UserEditServiceImpl implements UserEditService {
     /** メールユーザ情報更新サービス */
     @Autowired
     private MailUserDataUpdateService mailUserDataUpdateService;
+    /** ModelMapper */
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public void edit(UserEditDto dto) {
 
-        // トランザクション開始
+        LOG.debugBean(dto);
+
         TransactionStatus status = transactionManager
                 .getTransaction(defaultTransactionDefinition);
 
         try {
 
-            if (dto.getPasswordEditFlag().booleanValue()) {
-                // パスワードを変更する場合
+            if (dto.getPasswordEditFlag() != null
+                    && dto.getPasswordEditFlag().booleanValue()) {
+
                 LoginUserData loginUserData = loginUserDataSearchService
                         .selectById(dto.getSeqLoginId());
                 loginUserData.setPassword(dto.getPassword());
-                loginUserData.setPasswordExpire(DateUtil
-                        .addMonth(DateUtil.toLocalDate(DateUtil.getSysDate()), 12));
 
-                // ログインユーザ情報 更新
                 loginUserDataUpdateService.update(loginUserData);
-
+                LOG.debugBean(loginUserData);
             }
 
-            // メールユーザ情報を検索
             MailUserData mailUserData = mailUserDataSearchService
                     .selectBySeqLoginId(dto.getSeqLoginId());
-            // 正常にDB更新出来た場合、コミット
+
+            if (mailUserData == null) {
+
+                mailUserData = new MailUserData();
+                modelMapper.map(dto, mailUserData);
+
+                mailUserDataCreateService.create(mailUserData);
+
+            } else {
+
+                mailUserData.setMailAddress(dto.getMailAddress());
+
+                mailUserDataUpdateService.update(mailUserData);
+            }
+
+            LOG.debugBean(mailUserData);
             transactionManager.commit(status);
 
         } catch (Exception e) {
-            // 登録処理中にエラーが起きた場合、ロールバック
             transactionManager.rollback(status);
             LOG.error("ユーザ情報変更処理をrollbackしました", e);
+            throw e;
         }
 
+    }
+
+    @Override
+    public UserEditDto getUserEditDto(Integer seqLoginId) {
+
+        MailUserData mailUserData = mailUserDataSearchService
+                .selectBySeqLoginId(seqLoginId);
+
+        UserEditDto dto = new UserEditDto();
+        dto.setMailAddress(mailUserData.getMailAddress());
+
+        return dto;
     }
 
 }
