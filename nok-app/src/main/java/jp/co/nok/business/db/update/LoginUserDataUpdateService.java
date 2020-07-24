@@ -9,6 +9,12 @@ import jp.co.nok.db.entity.LoginUserData;
  */
 public interface LoginUserDataUpdateService {
 
+    /**
+     * ログインユーザ情報を更新する
+     *
+     * @param loginUserData
+     *            ログインユーザ情報
+     */
     void update(LoginUserData loginUserData);
 
 }

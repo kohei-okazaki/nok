@@ -34,8 +34,6 @@ public class AppDaoListener<T extends BaseEntity> implements EntityListener<T> {
 
     @Override
     public void preUpdate(T entity, PreUpdateContext<T> context) {
-        // バージョン情報の設定
-        entity.setVersion(Integer.valueOf(entity.getVersion() + 1));
         // 更新日時の設定
         entity.setUpdateDate(DateUtil.getSysDate());
     }

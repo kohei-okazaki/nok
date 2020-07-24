@@ -17,7 +17,8 @@ import jp.co.nok.tool.excel.ExcelReader;
 import jp.co.nok.tool.util.ToolUtil;
 
 /**
- * 自動生成基底クラス
+ * 自動生成基底クラス<br>
+ * 自動生成ツールを作成する場合、本クラスを継承し{@linkplain #generateImpl()}に実際の自動生成処理を記述する
  *
  * @version 1.0.0
  */
@@ -101,10 +102,10 @@ public abstract class BaseGenerator {
     public static enum GenerateType implements BaseEnum {
 
         /** Entity作成 */
-        ENTITY("ENTITY", "nok-boot\\src\\main\\java\\jp\\co\\nok\\db\\entity",
+        ENTITY("ENTITY", "nok-app\\src\\main\\java\\jp\\co\\nok\\db\\entity",
                 EntityGenerator.class),
         /** DAO作成 */
-        DAO("DAO", "nok-boot\\src\\main\\java\\jp\\co\\nok\\db\\dao",
+        DAO("DAO", "nok-app\\src\\main\\java\\jp\\co\\nok\\db\\dao",
                 DaoGenerator.class),
         /** DDL作成 */
         DDL("DDL", "nok-docs\\02_design\\90_db\\01_ddl", CreateTableGenerator.class),

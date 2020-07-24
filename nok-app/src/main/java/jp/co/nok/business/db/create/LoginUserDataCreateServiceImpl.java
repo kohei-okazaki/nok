@@ -16,8 +16,10 @@ import jp.co.nok.db.entity.LoginUserData;
 @Service
 public class LoginUserDataCreateServiceImpl implements LoginUserDataCreateService {
 
+    /** ログインユーザ情報Dao */
     @Autowired
     private LoginUserDataDao dao;
+    /** SHA256変換クラス */
     @Autowired
     private Sha256HashEncoder sha256HashEncoder;
 

@@ -5,6 +5,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import jp.co.nok.common.algorithm.Sha256HashEncoder;
+import jp.co.nok.common.log.Logger;
+import jp.co.nok.common.log.LoggerFactory;
 
 /**
  * パスワードエンコードクラス<br>
@@ -15,12 +17,15 @@ import jp.co.nok.common.algorithm.Sha256HashEncoder;
 @Service("passwordEncoderImpl")
 public class PasswordEncoderImpl implements PasswordEncoder {
 
+    /** LOG */
+    private static final Logger LOG = LoggerFactory.getLogger(PasswordEncoderImpl.class);
     /** ハッシュ関数 */
     @Autowired
     private Sha256HashEncoder encoder;
 
     @Override
     public String encode(CharSequence rawPassword) {
+        LOG.debug(rawPassword.toString());
         return encoder.encode(rawPassword.toString());
     }
 

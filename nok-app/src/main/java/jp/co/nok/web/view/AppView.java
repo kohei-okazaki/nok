@@ -10,22 +10,36 @@ import jp.co.nok.common.type.BaseEnum;
  */
 public enum AppView implements BaseEnum {
 
-    /** ログインView */
-    LOGIN_VIEW("/login/index"),
-    /** TOPView */
-    TOP_VIEW("/common/top"),
-    /** ログインユーザ登録View */
-    LOGIN_REGIST_VIEW("/login/regist"),
-    /** ログインユーザ登録確認View */
-    LOGIN_REGIST_CONFIRM_VIEW("/login/registconfirm"),
-    /** ログインユーザ登録完了View */
-    LOGIN_REGIST_PROCESS_VIEW("/login/registprocess");
+    /** ログインView:/login/index */
+    LOGIN_VIEW("/login/index", "index"),
+    /** TOPView:/common/top */
+    TOP_VIEW("/common/top", "top"),
+    /** エラー画面のView */
+    APP_ERROR_VIEW("/common/error", "error"),
+    /** ログインユーザ登録View:/login/regist */
+    LOGIN_REGIST_VIEW("/login/regist", "regist"),
+    /** ログインユーザ登録確認View:/login/registconfirm */
+    LOGIN_REGIST_CONFIRM_VIEW("/login/registconfirm", "registconfirm"),
+    /** ログインユーザ登録完了View:/login/registprocess */
+    LOGIN_REGIST_PROCESS_VIEW("/login/registprocess", "registprocess"),
+    /** ログインユーザ設定変更View:/user/edit */
+    USER_EDIT_VIEW("/user/edit", "edit"),
+    /** ログインユーザ設定変更確認View:/user/editconfirm */
+    USER_EDIT_CONFIRM_VIEW("/user/editconfirm", "editconfirm"),
+    /** ログインユーザ設定変更完了View:/user/editprocess */
+    USER_EDIT_PROCESS_VIEW("/user/editprocess", "editprocess"),
+    /** 定時時刻登録画面View:/work/regularentry */
+    WORK_REGULAR_ENTRY_VIEW("/work/regularentry", "regularentry"),
+    ;
 
     /** パス */
     private String value;
+    /** リダイレクトパス */
+    private String redirectPath;
 
-    private AppView(String value) {
+    private AppView(String value, String redirectPath) {
         this.value = value;
+        this.redirectPath = redirectPath;
     }
 
     @Override
@@ -34,11 +48,7 @@ public enum AppView implements BaseEnum {
     }
 
     public String toRedirect() {
-        return "redirect:" + this.value;
-    }
-
-    public String toForward() {
-        return "forward:" + this.value;
+        return "redirect:/" + this.redirectPath;
     }
 
 }

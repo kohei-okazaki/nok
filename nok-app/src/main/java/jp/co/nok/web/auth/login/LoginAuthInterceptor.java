@@ -33,10 +33,11 @@ public class LoginAuthInterceptor implements HandlerInterceptor {
         if (o instanceof LoginAuthDto) {
             LoginAuthDto dto = (LoginAuthDto) o;
             if (dto != null) {
-                LoggerFactory.getLogger(this.getClass()).debugRes(dto);
+                LoggerFactory.getLogger(this.getClass()).debugBean(dto);
             }
         }
 
+        // TODO
         System.out.println(request.getRequestURI());
         if ("q".equals(request.getRequestURI())) {
             response.sendRedirect("/login/error");

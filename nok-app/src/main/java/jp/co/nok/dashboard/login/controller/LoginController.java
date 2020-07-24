@@ -48,7 +48,8 @@ public class LoginController {
 
     @RequestMapping(path = "/success", method = { RequestMethod.GET, RequestMethod.POST })
     public String success() {
-        return AppView.TOP_VIEW.getValue();
+        // ログイン成功時、TOP画面にRedirectする
+        return "redirect:/top";
     }
 
     @GetMapping("/error")

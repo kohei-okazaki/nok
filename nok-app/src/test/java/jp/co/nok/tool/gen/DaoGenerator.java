@@ -1,5 +1,7 @@
 package jp.co.nok.tool.gen;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
@@ -11,6 +13,7 @@ import org.seasar.doma.Insert;
 import org.seasar.doma.Update;
 import org.seasar.doma.boot.ConfigAutowireable;
 
+import jp.co.nok.common.util.FileUtil;
 import jp.co.nok.common.util.FileUtil.FileExtension;
 import jp.co.nok.common.util.FileUtil.FileSeparator;
 import jp.co.nok.common.util.StringUtil;
@@ -39,6 +42,16 @@ public class DaoGenerator extends BaseGenerator {
         List<GenerateFile> list = new ArrayList<>();
 
         for (String table : prop.getTargetTableList()) {
+
+            String outputPath = prop.getBaseDir() + FileSeparator.SYSTEM.getValue()
+                    + GenerateType.DAO.getPath();
+            String daoName = ToolUtil.toJavaFileName(table) + "Dao"
+                    + FileExtension.JAVA.getValue();
+
+            if (FileUtil.isExists(outputPath + File.separator + daoName)) {
+                LOG.debug(daoName + "は既に作成済の為、スキップ");
+                continue;
+            }
 
             LOG.debug("テーブル名:" + table);
 
@@ -83,16 +96,41 @@ public class DaoGenerator extends BaseGenerator {
             }
 
             GenerateFile generateFile = new GenerateFile();
-            generateFile.setFileName(ToolUtil.toJavaFileName(table) + "Dao"
-                    + FileExtension.JAVA.getValue());
+            generateFile.setFileName(daoName);
             generateFile.setData(ToolUtil.toStrJavaSource(source, prop));
-            generateFile.setOutputPath(prop.getBaseDir() + FileSeparator.SYSTEM.getValue()
-                    + GenerateType.DAO.getPath());
+            generateFile.setOutputPath(outputPath);
+
+            mkdir(generateFile);
 
             list.add(generateFile);
         }
 
         return list;
+    }
+
+    /**
+     * Daoで使用するSQLファイルを格納するディレクトリを作成する
+     *
+     * @param generateFile
+     *            自動生成ファイル
+     * @throws IOException
+     *             ディレクトリの作成に失敗した場合
+     */
+    private void mkdir(GenerateFile generateFile) throws IOException {
+
+        String parent = prop.getSqlDirPath();
+        String dirName = generateFile.getFileName().replace(FileExtension.JAVA.getValue(),
+                StringUtil.EMPTY);
+        String dirPath = parent + File.separator + dirName;
+
+        boolean isExists = FileUtil.isExists(dirPath);
+        if (isExists) {
+            LOG.debug(dirPath + "が存在するため、ディレクトリを作成しない");
+            return;
+        }
+
+        FileUtil.mkdir(dirPath);
+        LOG.debug(dirPath + "が存在しないため、ディレクトリを作成");
     }
 
     /**
@@ -144,7 +182,7 @@ public class DaoGenerator extends BaseGenerator {
 
             @Override
             public String toString() {
-                final String TAB = StringUtil.TAB;
+                final String TAB = "    ";
                 StringJoiner body = new StringJoiner(StringUtil.NEW_LINE);
                 for (Entry<Class<?>, String> entry : annotationMap.entrySet()) {
                     body.add(TAB + "@" + entry.getKey().getSimpleName()
@@ -188,7 +226,7 @@ public class DaoGenerator extends BaseGenerator {
 
             @Override
             public String toString() {
-                final String TAB = StringUtil.TAB;
+                final String TAB = "    ";
                 StringJoiner body = new StringJoiner(StringUtil.NEW_LINE);
                 for (Entry<Class<?>, String> entry : annotationMap.entrySet()) {
                     body.add(TAB + "@" + entry.getKey().getSimpleName()
@@ -231,7 +269,7 @@ public class DaoGenerator extends BaseGenerator {
 
             @Override
             public String toString() {
-                final String TAB = "	";
+                final String TAB = "    ";
                 StringJoiner body = new StringJoiner(StringUtil.NEW_LINE);
                 for (Entry<Class<?>, String> entry : annotationMap.entrySet()) {
                     body.add(TAB + "@" + entry.getKey().getSimpleName()

@@ -10,4 +10,5 @@ import jp.co.nok.db.entity.LoginUserData;
 public interface LoginUserDataSearchService {
 
     LoginUserData selectById(Integer id);
+
 }

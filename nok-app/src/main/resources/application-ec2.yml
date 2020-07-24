@@ -1,6 +1,6 @@
 spring:
   # プロファイル設定
-  profiles: aws
+  profiles: ec2
   # DB設定
   datasource:
     platform: mysql

@@ -28,8 +28,8 @@ public class Logger {
      * @param bean
      *            Bean
      */
-    public void debugRes(Object bean) {
-        logger.debug(LogMessageFactory.getLogMessage(bean));
+    public void debugBean(Object bean) {
+        logger.debug(LogMessageFactory.toString(bean));
     }
 
     /**
@@ -60,8 +60,8 @@ public class Logger {
      * @param bean
      *            Bean
      */
-    public void infoRes(Object bean) {
-        logger.info(LogMessageFactory.getLogMessage(bean));
+    public void infoBean(Object bean) {
+        logger.info(LogMessageFactory.toString(bean));
     }
 
     /**
@@ -92,8 +92,8 @@ public class Logger {
      * @param bean
      *            Bean
      */
-    public void warnRes(Object bean) {
-        logger.warn(LogMessageFactory.getLogMessage(bean));
+    public void warnBean(Object bean) {
+        logger.warn(LogMessageFactory.toString(bean));
     }
 
     /**
@@ -104,8 +104,8 @@ public class Logger {
      * @param t
      *            例外
      */
-    public void warnRes(Object bean, Throwable t) {
-        logger.warn(LogMessageFactory.getLogMessage(bean), t);
+    public void warnBean(Object bean, Throwable t) {
+        logger.warn(LogMessageFactory.toString(bean), t);
     }
 
     /**
@@ -148,8 +148,8 @@ public class Logger {
      * @param bean
      *            Bean
      */
-    public void errorRes(Object bean) {
-        logger.error(LogMessageFactory.getLogMessage(bean));
+    public void errorBean(Object bean) {
+        logger.error(LogMessageFactory.toString(bean));
     }
 
     /**
@@ -160,8 +160,8 @@ public class Logger {
      * @param t
      *            例外
      */
-    public void errorRes(Object bean, Throwable t) {
-        logger.error(LogMessageFactory.getLogMessage(bean), t);
+    public void errorBean(Object bean, Throwable t) {
+        logger.error(LogMessageFactory.toString(bean), t);
     }
 
     /**

@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import jp.co.nok.web.auth.login.PasswordEncoderImpl;
+
 /**
  * アプリの認証設定クラス
  *
@@ -29,7 +31,7 @@ public class AppWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Autowired
     @Qualifier("loginAuthService")
     private UserDetailsService userService;
-    /** パスワードEncoder */
+    /** パスワードEncoder {@linkplain PasswordEncoderImpl} */
     @Autowired
     @Qualifier("passwordEncoderImpl")
     private PasswordEncoder passwordEncoder;
