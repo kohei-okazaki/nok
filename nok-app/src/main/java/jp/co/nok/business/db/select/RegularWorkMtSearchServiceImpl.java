@@ -21,8 +21,14 @@ public class RegularWorkMtSearchServiceImpl implements RegularWorkMtSearchServic
     private RegularWorkMtDao dao;
 
     @Override
+    // @Cacheable(key = "'regularWorkMtList'", value = "app")
     public List<RegularWorkMt> selectAll() {
         return dao.selectAll();
+    }
+
+    @Override
+    public RegularWorkMt selectById(Integer id) {
+        return dao.selectById(id);
     }
 
 }

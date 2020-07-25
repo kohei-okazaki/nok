@@ -1,6 +1,7 @@
 package jp.co.nok.dashboard.work.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +13,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.co.nok.business.db.create.RegularWorkMtCreateService;
 import jp.co.nok.business.db.select.RegularWorkMtSearchService;
+import jp.co.nok.business.db.update.RegularWorkMtUpdateService;
+import jp.co.nok.dashboard.work.form.RegularEditForm;
 import jp.co.nok.dashboard.work.form.RegularEntryForm;
 import jp.co.nok.db.entity.RegularWorkMt;
 import jp.co.nok.web.view.AppView;
 
 /**
- * 定時時刻登録画面Controller
+ * 定時時刻登録/更新画面Controller
  *
  * @version 1.0.0
  */
@@ -37,10 +41,18 @@ public class RegularEntryController {
     /** 定時情報マスタ作成サービス */
     @Autowired
     private RegularWorkMtCreateService regularWorkMtCreateService;
+    /** 定時情報マスタ更新サービス */
+    @Autowired
+    private RegularWorkMtUpdateService regularWorkMtUpdateService;
 
     @ModelAttribute
     public RegularEntryForm regularEntryForm() {
         return new RegularEntryForm();
+    }
+
+    @ModelAttribute
+    public RegularEditForm regularEditForm() {
+        return new RegularEditForm();
     }
 
     /**
@@ -67,7 +79,7 @@ public class RegularEntryController {
      * @param form
      *            定時時刻登録画面Form
      * @param result
-     *            妥当性チェック結果
+     *            validationチェック結果
      * @return 定時時刻登録画面View
      */
     @PostMapping("/entry")
@@ -86,4 +98,64 @@ public class RegularEntryController {
         model.addAttribute("entrySuccess", "1");
         return AppView.WORK_REGULAR_ENTRY_VIEW.getValue();
     }
+
+    /**
+     * 定時情報更新画面表示
+     *
+     * @param model
+     *            Model
+     * @param seqRegularWorkMtId
+     *            定時情報マスタID
+     * @return 更新画面View
+     */
+    @GetMapping("/edit")
+    public String edit(Model model,
+            @RequestParam(name = "id", required = false) Optional<Integer> seqRegularWorkMtId) {
+
+        if (!seqRegularWorkMtId.isPresent()) {
+            return AppView.WORK_REGULAR_ENTRY_VIEW.getValue();
+        }
+
+        RegularWorkMt mt = regularWorkMtSearchService
+                .selectById(seqRegularWorkMtId.get());
+
+        List<RegularWorkMt> mtList = regularWorkMtSearchService.selectAll();
+
+        model.addAttribute("mt", mt);
+        model.addAttribute("mtList", mtList);
+
+        return AppView.WORK_REGULAR_EDIT_VIEW.getValue();
+    }
+
+    /**
+     * @param model
+     *            Model
+     * @param form
+     *            定時時刻更新Form
+     * @param result
+     *            validationチェック結果
+     * @return 更新画面View
+     */
+    @PostMapping("/edit")
+    public String edit(Model model, @Validated RegularEditForm form,
+            BindingResult result) {
+
+        if (result.hasErrors()) {
+            return AppView.WORK_REGULAR_EDIT_VIEW.getValue();
+        }
+
+        RegularWorkMt mt = regularWorkMtSearchService
+                .selectById(form.getSeqRegularWorkMtId());
+        modelMapper.map(form, mt);
+        regularWorkMtUpdateService.update(mt);
+
+        List<RegularWorkMt> mtList = regularWorkMtSearchService.selectAll();
+
+        model.addAttribute("mt", mt);
+        model.addAttribute("mtList", mtList);
+        model.addAttribute("entrySuccess", "1");
+
+        return AppView.WORK_REGULAR_EDIT_VIEW.getValue();
+    }
+
 }

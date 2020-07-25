@@ -32,4 +32,7 @@ public interface RegularWorkMtDao extends BaseDao {
     @Select
     public List<RegularWorkMt> selectAll();
 
+    @Select
+    public RegularWorkMt selectById(Integer seqRegularWorkMtId);
+
 }

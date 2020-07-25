@@ -13,4 +13,6 @@ public interface RegularWorkMtSearchService {
 
     List<RegularWorkMt> selectAll();
 
+    RegularWorkMt selectById(Integer seqRegularWorkMtId);
+
 }

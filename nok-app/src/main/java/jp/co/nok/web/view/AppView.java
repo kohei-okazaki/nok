@@ -28,8 +28,10 @@ public enum AppView implements BaseEnum {
     USER_EDIT_CONFIRM_VIEW("/user/editconfirm", "editconfirm"),
     /** ログインユーザ設定変更完了View:/user/editprocess */
     USER_EDIT_PROCESS_VIEW("/user/editprocess", "editprocess"),
-    /** 定時時刻登録画面View:/work/regularentry */
+    /** 定時情報登録画面View:/work/regularentry */
     WORK_REGULAR_ENTRY_VIEW("/work/regularentry", "regularentry"),
+    /** 定時情報更新画面View:/work/regularedit */
+    WORK_REGULAR_EDIT_VIEW("/work/regularedit", "regularedit"),
     ;
 
     /** パス */

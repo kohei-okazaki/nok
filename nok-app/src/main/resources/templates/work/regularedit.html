@@ -6,37 +6,33 @@
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{common/layout}">
 <head>
-<title>定時時刻登録</title>
+<title>定時時刻更新</title>
 </head>
 <body>
   <div layout:fragment="content">
     <br>
     <div class="container border col-10">
       <br>
-      <h2>定時時刻登録</h2>
+      <h2>定時時刻更新</h2>
       <br>
       <div class="row">
         <div class="col-lg">
-          <form th:action="@{/work/regular/entry}" method="post" class="needs-validation" th:object="${regularEntryForm}" novalidate>
+          <form th:action="@{/work/regular/edit}" method="post" class="needs-validation" th:object="${regularEditForm}" novalidate>
+            <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('seqRegularWorkMtId')}" th:errors="*{seqRegularWorkMtId}"></div>
             <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('beginHour')}" th:errors="*{beginHour}"></div>
             <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('beginMinute')}" th:errors="*{beginMinute}"></div>
             <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('endHour')}" th:errors="*{endHour}"></div>
             <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('endMinute')}" th:errors="*{endMinute}"></div>
+            <div th:if="${entrySuccess == '1'}" class="alert alert-success" role="alert">更新完了しました</div>
 
-            <div th:if="${entrySuccess == '1'}" class="alert alert-success" role="alert">登録完了しました</div>
+            <input type="hidden" name="seqRegularWorkMtId" th:value="${mt.seqRegularWorkMtId}" />
             <table class="table table-borderless">
               <tr class="form-group zero-margin">
-                <td colspan=4>
-                  <label class="control-label zero-margin" th:text="#{beginWork}"></label>
-                  <span class="badge badge-danger">必須</span>
-                </td>
-                <td colspan=5>
-                  <label class="control-label zero-margin" th:text="#{endWork}"></label>
-                  <span class="badge badge-danger">必須</span>
-                </td>
-              </tr><!-- /.form-group -->
-
+                <td th:text="#{seqRegularWorkMtId}"></td>
+                <td th:text="${mt.seqRegularWorkMtId}"></td>
+              </tr>
               <tr class="form-group zero-margin">
+                <td th:text="#{beginWork}"></td>
                 <td>
                   <input type="number" id="validationCustom01" class="form-control" th:field="*{beginHour}" />
                 </td>
@@ -46,9 +42,9 @@
                 <td>
                   <input type="number" id="validationCustom02" class="form-control" th:field="*{beginMinute}" />
                 </td>
-                <td>
-                  <label class="control-label">~</label>
-                </td>
+              </tr>
+              <tr class="form-group zero-margin">
+                <td th:text="#{endWork}"></td>
                 <td>
                   <input type="number" id="validationCustom03" class="form-control" th:field="*{endHour}" />
                 </td>
@@ -58,13 +54,14 @@
                 <td>
                   <input type="number" id="validationCustom04" class="form-control" th:field="*{endMinute}" />
                 </td>
+              </tr>
+              <tr class="form-group zero-margin">
                 <td>
-                  <input type="submit" class="btn btn-outline-primary mt-1" value="登録" />
+                  <input type="submit" class="btn btn-outline-primary mt-1" value="更新" />
                 </td>
-              </tr><!-- /.form-group -->
-            </table><!-- /.table -->
-          </form><!-- /.needs-validation -->
-          <br>
+              </tr>
+            </table>
+          </form>
         </div><!-- /.col-lg -->
       </div><!-- /.row -->
 
@@ -78,13 +75,11 @@
           <br>
             <table class="table">
               <tr>
-                <th></th>
                 <th th:text="#{seqRegularWorkMtId}"></th>
                 <th th:text="#{beginWork}"></th>
                 <th th:text="#{endWork}"></th>
               </tr>
               <tr th:each="mt : ${mtList}">
-                <td><a class="link" th:href="@{'/work/regular/edit?id=' + ${mt.seqRegularWorkMtId}}">編集</a></td>
                 <td th:text="${mt.seqRegularWorkMtId}"></td>
                 <td th:text="${#numbers.formatInteger(mt.beginHour, 2, 'COMMA')} + ' : ' + ${#numbers.formatInteger(mt.beginMinute, 2, 'COMMA')}"></td>
                 <td th:text="${#numbers.formatInteger(mt.endHour, 2, 'COMMA')} + ' : ' + ${#numbers.formatInteger(mt.endMinute, 2, 'COMMA')}"></td>
