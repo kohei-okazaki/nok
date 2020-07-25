@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,7 +24,9 @@ import jp.co.nok.dashboard.work.form.UserRegularEntryForm;
 import jp.co.nok.db.entity.RegularWorkMt;
 import jp.co.nok.db.entity.WorkUserCompositeMt;
 import jp.co.nok.db.entity.WorkUserMt;
+import jp.co.nok.db.util.DomaUtil;
 import jp.co.nok.web.view.AppView;
+import jp.co.nok.web.view.PagingView;
 
 /**
  * ユーザ定時情報登録Controller
@@ -55,16 +59,26 @@ public class UserRegularEntryController {
     }
 
     /**
-     * ユーザ定時情報登録画面初期表示
+     * ユーザ定時情報登録画面表示処理
      *
      * @param model
      *            Model
+     * @param pageable
+     *            Pageable
      * @return ユーザ定時情報登録画面View
      */
     @GetMapping("entry")
-    public String entry(Model model) {
+    public String entry(Model model,
+            @PageableDefault(size = 5, page = 0) Pageable pageable) {
 
-        List<RegularWorkMt> mtList = regularWorkMtSearchService.selectAll();
+        // 総レコード件数
+        long count = regularWorkMtSearchService.count();
+
+        PagingView paging = DomaUtil.getPageView(pageable, "/work/userregular/entry?page",
+                count);
+        model.addAttribute("paging", paging);
+
+        List<RegularWorkMt> mtList = regularWorkMtSearchService.selectAll(pageable);
         model.addAttribute("mtList", mtList);
 
         List<Integer> seqLoginIdList = loginUserDataSearchService.selectIdList();
@@ -82,7 +96,7 @@ public class UserRegularEntryController {
     }
 
     /**
-     * ユーザ定時情報登録画面初期表示
+     * ユーザ定時情報登録処理
      *
      * @param model
      *            Model

@@ -5,7 +5,7 @@ package jp.co.nok.db.util;
  *
  * @version 1.0.0
  */
-public class Pageable {
+public class PageableTmp {
 
     /** ページ数 */
     private int page;

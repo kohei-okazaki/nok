@@ -2,6 +2,8 @@ package jp.co.nok.business.db.select;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
 import jp.co.nok.db.entity.RegularWorkMt;
 
 /**
@@ -11,7 +13,11 @@ import jp.co.nok.db.entity.RegularWorkMt;
  */
 public interface RegularWorkMtSearchService {
 
+    int count();
+
     List<RegularWorkMt> selectAll();
+
+    List<RegularWorkMt> selectAll(Pageable pageable);
 
     RegularWorkMt selectById(Integer seqRegularWorkMtId);
 

@@ -53,3 +53,13 @@ body {
   background-color: orange !important;
   color: #000;
 }
+
+.disabled {
+  display: none;
+}
+
+.on {
+  color: #dd0000;
+  text-decoration: none;
+  border-bottom: 3px solid #dd0000;
+}
