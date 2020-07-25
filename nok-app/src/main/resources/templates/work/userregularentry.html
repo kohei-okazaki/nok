@@ -46,6 +46,7 @@
           <form th:action="@{/work/userregular/entry}" method="post" class="needs-validation" th:object="${userRegularEntryForm}" novalidate>
             <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('seqLoginId')}" th:errors="*{seqLoginId}"></div>
             <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('seqRegularWorkMtId')}" th:errors="*{seqRegularWorkMtId}"></div>
+            <div th:if="${entrySuccess == '1'}" class="alert alert-success" role="alert">登録完了しました</div>
 
             <table class="table table-borderless">
               <tr class="form-group zero-margin">
@@ -53,14 +54,22 @@
                   <label class="control-label zero-margin" th:text="#{seqLoginId}"></label>
                   <span class="badge badge-danger">必須</span>
                 </td>
-                <td><input type="text" th:field="*{seqLoginId}" /></td>
+                <td>
+                  <select id="seqLoginId" name="seqLoginId" class="custom-select">
+                    <option th:each="seqLoginId : ${seqLoginIdList}" th:value="${seqLoginId}" th:inline="text">[[${seqLoginId}]]</option>
+                  </select>
+                </td>
               </tr>
               <tr class="form-group zero-margin">
                 <td>
                   <label class="control-label zero-margin" th:text="#{seqRegularWorkMtId}"></label>
                   <span class="badge badge-danger">必須</span>
                 </td>
-                <td><input type="text" th:field="*{seqRegularWorkMtId}" /></td>
+                <td>
+                  <select id="seqRegularWorkMtId" name="seqRegularWorkMtId" class="custom-select">
+                    <option th:each="seqRegularWorkMtId : ${seqRegularWorkMtIdList}" th:value="${seqRegularWorkMtId}" th:inline="text">[[${seqRegularWorkMtId}]]</option>
+                  </select>
+                </td>
               </tr>
               <tr class="form-group zero-margin">
                 <td><input type="submit" class="btn btn-outline-primary mt-1" value="登録" /></td>

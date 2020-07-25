@@ -1,5 +1,7 @@
 package jp.co.nok.business.db.select;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,11 @@ public class LoginUserDataSearchServiceImpl implements LoginUserDataSearchServic
     @Override
     public LoginUserData selectById(Integer id) {
         return dao.selectById(id);
+    }
+
+    @Override
+    public List<Integer> selectIdList() {
+        return dao.selectIdList();
     }
 
 }
