@@ -18,10 +18,10 @@ import jp.co.nok.business.db.create.WorkUserMtCreateService;
 import jp.co.nok.business.db.select.LoginUserDataSearchService;
 import jp.co.nok.business.db.select.RegularWorkMtSearchService;
 import jp.co.nok.business.db.select.WorkUserMtSearchService;
-import jp.co.nok.business.work.UserRegularDto;
 import jp.co.nok.dashboard.work.form.UserRegularEntryForm;
 import jp.co.nok.db.entity.RegularWorkMt;
 import jp.co.nok.db.entity.WorkUserCompositeMt;
+import jp.co.nok.db.entity.WorkUserMt;
 import jp.co.nok.web.view.AppView;
 
 /**
@@ -47,7 +47,7 @@ public class UserRegularEntryController {
     private WorkUserMtSearchService workUserMtSearchService;
     /** 勤怠ユーザマスタ作成サービス */
     @Autowired
-    private WorkUserMtCreateService WorkUserMtCreateService;
+    private WorkUserMtCreateService workUserMtCreateService;
 
     @ModelAttribute
     public UserRegularEntryForm userRegularEntryForm() {
@@ -100,7 +100,8 @@ public class UserRegularEntryController {
             return AppView.WORK_USER_REGULAR_ENTRY_VIEW.getValue();
         }
 
-        UserRegularDto dto = modelMapper.map(form, UserRegularDto.class);
+        WorkUserMt workUserMt = modelMapper.map(form, WorkUserMt.class);
+        workUserMtCreateService.create(workUserMt);
 
         model.addAttribute("entrySuccess", "1");
         return AppView.WORK_USER_REGULAR_ENTRY_VIEW.getValue();

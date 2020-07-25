@@ -1,13 +1,14 @@
 package jp.co.nok.db.entity;
 
 import org.seasar.doma.Entity;
+import org.seasar.doma.jdbc.entity.NamingType;
 
 /**
  * 勤怠ユーザマスタ結合Entity
  *
  * @version 1.0.0
  */
-@Entity
+@Entity(naming = NamingType.SNAKE_UPPER_CASE)
 public class WorkUserCompositeMt extends BaseEntity {
 
     /** 勤怠ユーザマスタID */
