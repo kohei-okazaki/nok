@@ -32,6 +32,8 @@ public enum AppView implements BaseEnum {
     WORK_REGULAR_ENTRY_VIEW("/work/regularentry", "regularentry"),
     /** 定時情報更新画面View:/work/regularedit */
     WORK_REGULAR_EDIT_VIEW("/work/regularedit", "regularedit"),
+    /** ユーザ定時情報登録画面View:/work/regularentry */
+    WORK_USER_REGULAR_ENTRY_VIEW("/work/userregularentry", "userregularentry"),
     ;
 
     /** パス */
