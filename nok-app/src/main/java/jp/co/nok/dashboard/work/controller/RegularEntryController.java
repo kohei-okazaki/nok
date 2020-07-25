@@ -67,6 +67,7 @@ public class RegularEntryController {
 
         List<RegularWorkMt> mtList = regularWorkMtSearchService.selectAll();
         model.addAttribute("mtList", mtList);
+        model.addAttribute("mode", "entry");
 
         return AppView.WORK_REGULAR_ENTRY_VIEW.getValue();
     }
@@ -85,6 +86,8 @@ public class RegularEntryController {
     @PostMapping("/entry")
     public String entry(Model model, @Validated RegularEntryForm form,
             BindingResult result) {
+
+        model.addAttribute("mode", "entry");
 
         if (result.hasErrors()) {
             return AppView.WORK_REGULAR_ENTRY_VIEW.getValue();
@@ -113,6 +116,7 @@ public class RegularEntryController {
             @RequestParam(name = "id", required = false) Optional<Integer> seqRegularWorkMtId) {
 
         if (!seqRegularWorkMtId.isPresent()) {
+            model.addAttribute("mode", "entry");
             return AppView.WORK_REGULAR_ENTRY_VIEW.getValue();
         }
 
@@ -123,8 +127,9 @@ public class RegularEntryController {
 
         model.addAttribute("mt", mt);
         model.addAttribute("mtList", mtList);
+        model.addAttribute("mode", "edit");
 
-        return AppView.WORK_REGULAR_EDIT_VIEW.getValue();
+        return AppView.WORK_REGULAR_ENTRY_VIEW.getValue();
     }
 
     /**
@@ -140,8 +145,9 @@ public class RegularEntryController {
     public String edit(Model model, @Validated RegularEditForm form,
             BindingResult result) {
 
+        model.addAttribute("mode", "edit");
         if (result.hasErrors()) {
-            return AppView.WORK_REGULAR_EDIT_VIEW.getValue();
+            return AppView.WORK_REGULAR_ENTRY_VIEW.getValue();
         }
 
         RegularWorkMt mt = regularWorkMtSearchService
@@ -155,7 +161,7 @@ public class RegularEntryController {
         model.addAttribute("mtList", mtList);
         model.addAttribute("entrySuccess", "1");
 
-        return AppView.WORK_REGULAR_EDIT_VIEW.getValue();
+        return AppView.WORK_REGULAR_ENTRY_VIEW.getValue();
     }
 
 }
