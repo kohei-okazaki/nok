@@ -78,13 +78,19 @@ $(function() {
                   <td th:text="${mt.seqRegularWorkMtId}"></td>
                 </tr><!-- /.form-group zero-margin -->
                 <tr class="form-group zero-margin">
-                  <td th:text="#{beginWork}"></td>
+                  <td>
+                    <label class="control-label zero-margin" th:text="#{beginWork}"></label>
+                    <span class="badge badge-danger">必須</span>
+                  </td>
                   <td><input type="number" id="validationCustom01" class="form-control" th:field="*{beginHour}" /></td>
                   <td><label class="control-label">:</label></td>
                   <td><input type="number" id="validationCustom02" class="form-control" th:field="*{beginMinute}" /></td>
                 </tr><!-- /.form-group zero-margin -->
                 <tr class="form-group zero-margin">
-                  <td th:text="#{endWork}"></td>
+                  <td>
+                    <label class="control-label zero-margin" th:text="#{endWork}"></label>
+                    <span class="badge badge-danger">必須</span>
+                  </td>
                   <td><input type="number" id="validationCustom03" class="form-control" th:field="*{endHour}" /></td>
                   <td><label class="control-label">:</label></td>
                   <td><input type="number" id="validationCustom04" class="form-control" th:field="*{endMinute}" /></td>

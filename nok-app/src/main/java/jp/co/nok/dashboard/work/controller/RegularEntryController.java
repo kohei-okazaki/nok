@@ -90,6 +90,7 @@ public class RegularEntryController {
         model.addAttribute("mode", "entry");
 
         if (result.hasErrors()) {
+            model.addAttribute("mtList", regularWorkMtSearchService.selectAll());
             return AppView.WORK_REGULAR_ENTRY_VIEW.getValue();
         }
 
@@ -116,7 +117,7 @@ public class RegularEntryController {
             @RequestParam(name = "id", required = false) Optional<Integer> seqRegularWorkMtId) {
 
         if (!seqRegularWorkMtId.isPresent()) {
-            model.addAttribute("mode", "entry");
+            model.addAttribute("mode", "edit");
             return AppView.WORK_REGULAR_ENTRY_VIEW.getValue();
         }
 
@@ -147,6 +148,11 @@ public class RegularEntryController {
 
         model.addAttribute("mode", "edit");
         if (result.hasErrors()) {
+
+            model.addAttribute("mt", regularWorkMtSearchService
+                    .selectById(form.getSeqRegularWorkMtId()));
+            model.addAttribute("mtList", regularWorkMtSearchService.selectAll());
+
             return AppView.WORK_REGULAR_ENTRY_VIEW.getValue();
         }
 
