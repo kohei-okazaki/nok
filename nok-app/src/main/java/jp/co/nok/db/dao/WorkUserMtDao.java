@@ -33,4 +33,7 @@ public interface WorkUserMtDao extends BaseDao {
     @Select
     public List<WorkUserCompositeMt> selectCompositeRegularMt();
 
+    @Select
+    public int count();
+
 }

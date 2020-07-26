@@ -11,21 +11,21 @@ import jp.co.nok.common.type.BaseEnum;
 public enum AppView implements BaseEnum {
 
     /** ログインView:/login/index */
-    LOGIN_VIEW("/login/index", "index"),
+    LOGIN_VIEW("/login/index", "/login"),
     /** TOPView:/common/top */
-    TOP_VIEW("/common/top", "top"),
+    TOP_VIEW("/common/top", "/top"),
     /** エラー画面のView */
-    APP_ERROR_VIEW("/common/error", "error"),
+    APP_ERROR_VIEW("/common/error", "/error"),
     /** ログインユーザ登録View:/login/regist */
-    LOGIN_REGIST_VIEW("/login/regist", "regist"),
+    LOGIN_REGIST_VIEW("/login/regist", "/login/regist"),
     /** ログインユーザ登録確認View:/login/registconfirm */
-    LOGIN_REGIST_CONFIRM_VIEW("/login/registconfirm", "registconfirm"),
+    LOGIN_REGIST_CONFIRM_VIEW("/login/registconfirm", "/login/registconfirm"),
     /** ログインユーザ登録完了View:/login/registprocess */
-    LOGIN_REGIST_PROCESS_VIEW("/login/registprocess", "registprocess"),
+    LOGIN_REGIST_PROCESS_VIEW("/login/registprocess", "/login/registprocess"),
     /** ログインユーザ設定変更View:/user/edit */
-    USER_EDIT_VIEW("/user/edit", "edit"),
+    USER_EDIT_VIEW("/user/edit", "/user/edit"),
     /** ログインユーザ設定変更確認View:/user/editconfirm */
-    USER_EDIT_CONFIRM_VIEW("/user/editconfirm", "editconfirm"),
+    USER_EDIT_CONFIRM_VIEW("/user/editconfirm", "/user/editconfirm"),
     /** ログインユーザ設定変更完了View:/user/editprocess */
     USER_EDIT_PROCESS_VIEW("/user/editprocess", "editprocess"),
     /** 定時情報登録画面View:/work/regularentry */
