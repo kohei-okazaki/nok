@@ -19,4 +19,6 @@ public interface WorkUserMtSearchService {
 
     List<WorkUserCompositeMt> selectCompositeRegularMt(Pageable pageable);
 
+    WorkUserCompositeMt selectByLoginIdAndMaxWorkUserMtId(Integer seqLoginId);
+
 }

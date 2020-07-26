@@ -22,8 +22,8 @@ public class DailyWorkEntryData extends BaseEntity {
     private Integer seqDailyWorkEntryDataId;
     /** 勤怠ユーザマスタID */
     private Integer seqWorkUserMtId;
-    /** 勤怠登録日 */
-    private LocalDate entryDate;
+    /** 勤怠日 */
+    private LocalDate workDate;
     /** 始業時間(時) */
     private Integer beginHour;
     /** 始業時間(分) */
@@ -53,12 +53,12 @@ public class DailyWorkEntryData extends BaseEntity {
         return seqWorkUserMtId;
     }
 
-    public void setEntryDate(LocalDate entryDate) {
-        this.entryDate = entryDate;
+    public void setWorkDate(LocalDate workDate) {
+        this.workDate = workDate;
     }
 
-    public LocalDate getEntryDate() {
-        return entryDate;
+    public LocalDate getWorkDate() {
+        return workDate;
     }
 
     public void setBeginHour(Integer beginHour) {

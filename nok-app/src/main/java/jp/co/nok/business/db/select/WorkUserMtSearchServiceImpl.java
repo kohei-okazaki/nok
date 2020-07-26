@@ -38,4 +38,9 @@ public class WorkUserMtSearchServiceImpl implements WorkUserMtSearchService {
         return dao.selectCompositeRegularMt(option);
     }
 
+    @Override
+    public WorkUserCompositeMt selectByLoginIdAndMaxWorkUserMtId(Integer seqLoginId) {
+        return dao.selectByLoginIdAndMaxWorkUserMtId(seqLoginId);
+    }
+
 }
