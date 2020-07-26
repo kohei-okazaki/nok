@@ -8,15 +8,6 @@
 <head>
 <title>ユーザ定時情報登録</title>
 <script>
-/*   options = {
-    valueNames : [ "height", "weight", "standardWeight", "bmi", "healthInfoRegDate" ],
-    page : 10,
-    pagination : {
-      pageationClass : "pagination",
-      innerWindow : 1,
-      outerWindow : 1
-    }
-  }; */
 </script>
 </head>
 <body>
@@ -52,6 +43,9 @@
                 th:text="${element.name}" th:classappend="${element.name} == ${paging.currentPageNum + 1} ? 'on'"></a> -->
           <a class="link" th:classappend="!${regularMtPaging.canGoNext} ? 'disabled'" th:href="${regularMtPaging.nextHref}">&gt;</a>
           <a class="link" th:classappend="!${regularMtPaging.canGoLast} ? 'disabled'" th:href="${regularMtPaging.lastHref}">&gt;&gt;</a>
+        </div>
+        <div>
+          <a class="link" th:href="@{/work/regular/entry}">定時登録する</a>
         </div>
         <br><br>
       </div><!-- col-lg -->
