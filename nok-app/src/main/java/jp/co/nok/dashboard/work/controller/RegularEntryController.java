@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,7 +24,9 @@ import jp.co.nok.business.db.update.RegularWorkMtUpdateService;
 import jp.co.nok.dashboard.work.form.RegularEditForm;
 import jp.co.nok.dashboard.work.form.RegularEntryForm;
 import jp.co.nok.db.entity.RegularWorkMt;
+import jp.co.nok.db.util.DomaUtil;
 import jp.co.nok.web.view.AppView;
+import jp.co.nok.web.view.PagingView;
 
 /**
  * 定時時刻登録/更新画面Controller
@@ -61,12 +65,21 @@ public class RegularEntryController {
      *
      * @param model
      *            Model
+     * @param pageable
+     *            Pageable
      * @return 定時時刻登録画面View
      */
     @GetMapping("/entry")
-    public String entry(Model model) {
+    public String entry(Model model,
+            @PageableDefault(size = 5, page = 0) Pageable pageable) {
 
-        List<RegularWorkMt> mtList = regularWorkMtSearchService.selectAll();
+        // 総レコード件数
+        long count = regularWorkMtSearchService.count();
+        PagingView paging = DomaUtil.getPageView(pageable, "/work/regular/entry?page",
+                count);
+        model.addAttribute("paging", paging);
+
+        List<RegularWorkMt> mtList = regularWorkMtSearchService.selectAll(pageable);
         model.addAttribute("mtList", mtList);
         model.addAttribute("mode", "entry");
 

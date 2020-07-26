@@ -92,16 +92,16 @@ public class DomaUtil {
                 pageable.getPageNumber() < (count / pageable.getPageSize()));
 
         pv.setCurrentPageNum(pageable.getPageNumber());
-        pv.setFirstHref("/work/userregular/entry?page=0");
+        pv.setFirstHref(path + "=" + 0);
 
         int fromRecordNum = pageable.getPageSize() * pageable.getPageNumber() + 1;
         pv.setFromRecordNum(fromRecordNum);
         pv.setLastHref(
-                "/work/userregular/entry?page=" + (count / pageable.getPageSize()));
+                path + "=" + (count / pageable.getPageSize()));
         pv.setNextHref(
-                "/work/userregular/entry?page=" + (pageable.getPageNumber() + 1));
+                path + "=" + (pageable.getPageNumber() + 1));
         pv.setPreviousHref(
-                "/work/userregular/entry?page=" + (pageable.getPageNumber() - 1));
+                path + "=" + (pageable.getPageNumber() - 1));
         pv.setRecordPerPage(5);
 
         long toRecordNum = pageable.getPageSize() * pageable.getPageNumber()

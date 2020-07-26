@@ -35,11 +35,13 @@
             <th th:text="#{seqRegularWorkMtId}"></th>
             <th th:text="#{beginWork}"></th>
             <th th:text="#{endWork}"></th>
+            <th th:text="#{regDate}"></th>
           </tr>
           <tr th:each="mt : ${mtList}">
             <td th:text="${mt.seqRegularWorkMtId}"></td>
             <td th:text="${#numbers.formatInteger(mt.beginHour, 2, 'COMMA')} + ' : ' + ${#numbers.formatInteger(mt.beginMinute, 2, 'COMMA')}"></td>
             <td th:text="${#numbers.formatInteger(mt.endHour, 2, 'COMMA')} + ' : ' + ${#numbers.formatInteger(mt.endMinute, 2, 'COMMA')}"></td>
+            <td th:text="${#temporals.format(mt.regDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
           </tr>
         </table><!-- /.table -->
         <div>
@@ -59,7 +61,6 @@
     <div class="row">
       <div class="col-lg">
         <h3>ユーザの定時を登録</h3>
-        <br>
         <div class="border">
           <form th:action="@{/work/userregular/entry}" method="post" class="needs-validation" th:object="${userRegularEntryForm}" novalidate>
             <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('seqLoginId')}" th:errors="*{seqLoginId}"></div>
@@ -108,12 +109,14 @@
             <th th:text="#{seqRegularWorkMtId}"></th>
             <th th:text="#{beginWork}"></th>
             <th th:text="#{endWork}"></th>
+            <th th:text="#{regDate}"></th>
           </tr>
           <tr th:each="mt : ${workUserCopositeMtList}">
             <td th:text="${mt.seqLoginId}"></td>
             <td th:text="${mt.seqRegularWorkMtId}"></td>
             <td th:text="${#numbers.formatInteger(mt.beginHour, 2, 'COMMA')} + ' : ' + ${#numbers.formatInteger(mt.beginMinute, 2, 'COMMA')}"></td>
             <td th:text="${#numbers.formatInteger(mt.endHour, 2, 'COMMA')} + ' : ' + ${#numbers.formatInteger(mt.endMinute, 2, 'COMMA')}"></td>
+            <td th:text="${#temporals.format(mt.regDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
           </tr>
         </table><!-- /.table -->
       </div><!-- col-lg -->
