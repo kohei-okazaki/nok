@@ -23,11 +23,9 @@ import jp.co.nok.business.db.select.RegularWorkMtSearchService;
 import jp.co.nok.business.db.select.WorkUserMtSearchService;
 import jp.co.nok.dashboard.work.form.UserRegularEntryForm;
 import jp.co.nok.db.entity.RegularWorkMt;
-import jp.co.nok.db.entity.WorkUserCompositeMt;
 import jp.co.nok.db.entity.WorkUserMt;
 import jp.co.nok.web.view.AppView;
 import jp.co.nok.web.view.PagingFactory;
-import jp.co.nok.web.view.PagingView;
 
 /**
  * ユーザ定時情報登録Controller
@@ -78,39 +76,30 @@ public class UserRegularEntryController {
         Pageable regularMtPageable = PagingFactory.getPageable(mtPage, 5);
         Pageable userMtPageable = PagingFactory.getPageable(userMtPage, 10);
 
-        // 定時情報マスタ総レコード件数
-        long regularWorkMtCount = regularWorkMtSearchService.count();
-        // 勤怠ユーザマスタ総レコード件数
-        long workUserMtCount = workUserMtSearchService.count();
-
         // 勤怠ユーザマスタのページはそのまま
-        PagingView regularMtPageView = PagingFactory.getPageView(regularMtPageable,
-                "/work/userregular/entry?user_mt_page=" + userMtPageable.getPageNumber()
-                        + "&mt_page",
-                regularWorkMtCount);
-        model.addAttribute("regularMtPaging", regularMtPageView);
+        model.addAttribute("regularMtPaging",
+                PagingFactory.getPageView(regularMtPageable,
+                        "/work/userregular/entry?user_mt_page="
+                                + userMtPageable.getPageNumber() + "&mt_page",
+                        regularWorkMtSearchService.count()));
 
         // 定時情報マスタのページはそのまま
-        PagingView userMtPagingView = PagingFactory.getPageView(userMtPageable,
-                "/work/userregular/entry?mt_page=" + regularMtPageable.getPageNumber()
-                        + "&user_mt_page",
-                workUserMtCount);
-        model.addAttribute("userMtPaging", userMtPagingView);
+        model.addAttribute("userMtPaging",
+                PagingFactory.getPageView(userMtPageable,
+                        "/work/userregular/entry?mt_page="
+                                + regularMtPageable.getPageNumber() + "&user_mt_page",
+                        workUserMtSearchService.count()));
 
         List<RegularWorkMt> mtList = regularWorkMtSearchService
                 .selectAll(regularMtPageable);
         model.addAttribute("mtList", mtList);
 
-        List<Integer> seqLoginIdList = loginUserDataSearchService.selectIdList();
-        model.addAttribute("seqLoginIdList", seqLoginIdList);
-
-        List<Integer> seqRegularWorkMtIdList = mtList.stream()
-                .map(RegularWorkMt::getSeqRegularWorkMtId).collect(Collectors.toList());
-        model.addAttribute("seqRegularWorkMtIdList", seqRegularWorkMtIdList);
-
-        List<WorkUserCompositeMt> workUserCopositeMtList = workUserMtSearchService
-                .selectCompositeRegularMt(userMtPageable);
-        model.addAttribute("workUserCopositeMtList", workUserCopositeMtList);
+        model.addAttribute("seqLoginIdList", loginUserDataSearchService.selectIdList());
+        model.addAttribute("seqRegularWorkMtIdList", mtList.stream()
+                .map(RegularWorkMt::getSeqRegularWorkMtId)
+                .collect(Collectors.toList()));
+        model.addAttribute("workUserCopositeMtList", workUserMtSearchService
+                .selectCompositeRegularMt(userMtPageable));
 
         return AppView.WORK_USER_REGULAR_ENTRY_VIEW.getValue();
     }
