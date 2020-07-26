@@ -136,14 +136,9 @@ public class RegularEntryController {
         model.addAttribute("paging", PagingFactory.getPageView(pageable,
                 "/work/regular/edit?id=" + seqRegularWorkMtId.get().intValue() + "&page",
                 regularWorkMtSearchService.count()));
-
-        RegularWorkMt mt = regularWorkMtSearchService
-                .selectById(seqRegularWorkMtId.get());
-
-        List<RegularWorkMt> mtList = regularWorkMtSearchService.selectAll(pageable);
-
-        model.addAttribute("mt", mt);
-        model.addAttribute("mtList", mtList);
+        model.addAttribute("mt",
+                regularWorkMtSearchService.selectById(seqRegularWorkMtId.get()));
+        model.addAttribute("mtList", regularWorkMtSearchService.selectAll(pageable));
         model.addAttribute("mode", "edit");
 
         return AppView.WORK_REGULAR_ENTRY_VIEW.getValue();
