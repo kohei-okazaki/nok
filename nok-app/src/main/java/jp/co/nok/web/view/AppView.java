@@ -29,11 +29,11 @@ public enum AppView implements BaseEnum {
     /** ログインユーザ設定変更完了View:/user/editprocess */
     USER_EDIT_PROCESS_VIEW("/user/editprocess", "editprocess"),
     /** 定時情報登録画面View:/work/regularentry */
-    WORK_REGULAR_ENTRY_VIEW("/work/regularentry", "regularentry"),
+    WORK_REGULAR_ENTRY_VIEW("/work/regularentry", "/work/regular/entry"),
     /** 定時情報更新画面View:/work/regularedit */
     WORK_REGULAR_EDIT_VIEW("/work/regularedit", "regularedit"),
     /** ユーザ定時情報登録画面View:/work/userregularentry */
-    WORK_USER_REGULAR_ENTRY_VIEW("/work/userregularentry", "userregularentry"),
+    WORK_USER_REGULAR_ENTRY_VIEW("/work/userregularentry", "/work/userregular/entry"),
     ;
 
     /** パス */
@@ -52,7 +52,7 @@ public enum AppView implements BaseEnum {
     }
 
     public String toRedirect() {
-        return "redirect:/" + this.redirectPath;
+        return "redirect:" + this.redirectPath;
     }
 
 }

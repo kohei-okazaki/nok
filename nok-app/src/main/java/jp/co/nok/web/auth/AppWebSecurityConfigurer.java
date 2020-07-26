@@ -25,7 +25,7 @@ public class AppWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     /** 認証処理を行わないURI */
     private static final String[] PERMIT_URIS = new String[] { "/login",
-            "/login/userregist", "/login/userregistconfirm", "/login/userregistprocess",
+            "/login/regist", "/login/registconfirm", "/login/registprocess",
             "/login/login-error", "/css/**", "/js/**", "/webjars/**" };
     /** ログイン認証サービス */
     @Autowired

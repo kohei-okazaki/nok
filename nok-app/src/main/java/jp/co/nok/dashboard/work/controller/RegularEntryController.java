@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.nok.business.db.create.RegularWorkMtCreateService;
 import jp.co.nok.business.db.select.RegularWorkMtSearchService;
@@ -81,15 +82,16 @@ public class RegularEntryController {
      *            定時時刻登録画面Form
      * @param result
      *            validationチェック結果
+     * @param redirectAttributes
+     *            RedirectAttributes
      * @return 定時時刻登録画面View
      */
     @PostMapping("/entry")
     public String entry(Model model, @Validated RegularEntryForm form,
-            BindingResult result) {
-
-        model.addAttribute("mode", "entry");
+            BindingResult result, RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
+            model.addAttribute("mode", "entry");
             model.addAttribute("mtList", regularWorkMtSearchService.selectAll());
             return AppView.WORK_REGULAR_ENTRY_VIEW.getValue();
         }
@@ -97,10 +99,8 @@ public class RegularEntryController {
         RegularWorkMt mt = modelMapper.map(form, RegularWorkMt.class);
         regularWorkMtCreateService.create(mt);
 
-        List<RegularWorkMt> mtList = regularWorkMtSearchService.selectAll();
-        model.addAttribute("mtList", mtList);
-        model.addAttribute("entrySuccess", "1");
-        return AppView.WORK_REGULAR_ENTRY_VIEW.getValue();
+        redirectAttributes.addFlashAttribute("entrySuccess", "1");
+        return AppView.WORK_REGULAR_ENTRY_VIEW.toRedirect();
     }
 
     /**
@@ -140,11 +140,13 @@ public class RegularEntryController {
      *            定時時刻更新Form
      * @param result
      *            validationチェック結果
+     * @param redirectAttributes
+     *            RedirectAttributes
      * @return 更新画面View
      */
     @PostMapping("/edit")
     public String edit(Model model, @Validated RegularEditForm form,
-            BindingResult result) {
+            BindingResult result, RedirectAttributes redirectAttributes) {
 
         model.addAttribute("mode", "edit");
         if (result.hasErrors()) {
@@ -161,13 +163,9 @@ public class RegularEntryController {
         modelMapper.map(form, mt);
         regularWorkMtUpdateService.update(mt);
 
-        List<RegularWorkMt> mtList = regularWorkMtSearchService.selectAll();
+        redirectAttributes.addFlashAttribute("entrySuccess", "1");
 
-        model.addAttribute("mt", mt);
-        model.addAttribute("mtList", mtList);
-        model.addAttribute("entrySuccess", "1");
-
-        return AppView.WORK_REGULAR_ENTRY_VIEW.getValue();
+        return AppView.WORK_REGULAR_ENTRY_VIEW.toRedirect();
     }
 
 }

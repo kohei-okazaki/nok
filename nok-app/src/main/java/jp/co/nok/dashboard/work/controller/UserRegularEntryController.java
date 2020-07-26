@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.nok.business.db.create.WorkUserMtCreateService;
 import jp.co.nok.business.db.select.LoginUserDataSearchService;
@@ -104,11 +105,13 @@ public class UserRegularEntryController {
      *            ユーザ定時情報登録画面Form
      * @param result
      *            validation結果
+     * @param redirectAttributes
+     *            RedirectAttributes
      * @return ユーザ定時情報登録画面View
      */
     @PostMapping("entry")
     public String entry(Model model, @Validated UserRegularEntryForm form,
-            BindingResult result) {
+            BindingResult result, RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
             return AppView.WORK_USER_REGULAR_ENTRY_VIEW.getValue();
@@ -117,8 +120,9 @@ public class UserRegularEntryController {
         WorkUserMt workUserMt = modelMapper.map(form, WorkUserMt.class);
         workUserMtCreateService.create(workUserMt);
 
-        model.addAttribute("entrySuccess", "1");
-        return AppView.WORK_USER_REGULAR_ENTRY_VIEW.getValue();
+        redirectAttributes.addFlashAttribute("entrySuccess", "1");
+
+        return AppView.WORK_USER_REGULAR_ENTRY_VIEW.toRedirect();
     }
 
 }
