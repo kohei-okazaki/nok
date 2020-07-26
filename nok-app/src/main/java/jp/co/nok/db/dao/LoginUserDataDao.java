@@ -1,5 +1,7 @@
 package jp.co.nok.db.dao;
 
+import java.util.List;
+
 import org.seasar.doma.Dao;
 import org.seasar.doma.Delete;
 import org.seasar.doma.Insert;
@@ -29,5 +31,8 @@ public interface LoginUserDataDao extends BaseDao {
 
     @Select
     public LoginUserData selectById(Integer seqLoginId);
+
+    @Select
+    public List<Integer> selectIdList();
 
 }

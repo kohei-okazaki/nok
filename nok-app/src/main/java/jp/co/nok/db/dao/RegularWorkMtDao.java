@@ -8,6 +8,7 @@ import org.seasar.doma.Insert;
 import org.seasar.doma.Select;
 import org.seasar.doma.Update;
 import org.seasar.doma.boot.ConfigAutowireable;
+import org.seasar.doma.jdbc.SelectOptions;
 
 import jp.co.nok.db.entity.RegularWorkMt;
 
@@ -30,6 +31,15 @@ public interface RegularWorkMtDao extends BaseDao {
     public int insert(RegularWorkMt entity);
 
     @Select
+    public long count();
+
+    @Select
     public List<RegularWorkMt> selectAll();
+
+    @Select
+    public List<RegularWorkMt> selectAll(SelectOptions option);
+
+    @Select
+    public RegularWorkMt selectById(Integer seqRegularWorkMtId);
 
 }

@@ -1,5 +1,7 @@
 package jp.co.nok.business.db.select;
 
+import java.util.List;
+
 import jp.co.nok.db.entity.LoginUserData;
 
 /**
@@ -10,5 +12,7 @@ import jp.co.nok.db.entity.LoginUserData;
 public interface LoginUserDataSearchService {
 
     LoginUserData selectById(Integer id);
+
+    List<Integer> selectIdList();
 
 }

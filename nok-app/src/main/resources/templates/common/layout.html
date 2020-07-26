@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title layout:title-pattern="$LAYOUT_TITLE_$CONTENT_TITLE">NOK</title>
+<title layout:title-pattern="$LAYOUT_TITLE_$CONTENT_TITLE" th:text="#{appName}">管理アプリ</title>
 <link th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}" rel="stylesheet" />
 <link th:href="@{/css/layout.css}" rel="stylesheet" />
 <link th:href="@{/images/favicon.png}" rel="icon" />
@@ -15,6 +15,7 @@
 <script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.bundle.min.js}"></script>
 <!-- <script th:src="@{/js/common.js}"></script> -->
+<script th:src="@{/js/list.js}"></script>
 <script>
   function on(target_id) {
     document.getElementById(target_id).style.display = "block";
@@ -27,7 +28,7 @@
 <body>
   <header class="sticky-top header-contents">
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-      <h1 class="text-muted zero-margin">NOK</h1>
+      <h1 class="text-muted zero-margin" th:text="#{appName}"></h1>
       <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav">
           <li class="nav-item">
@@ -64,7 +65,7 @@
                     <li><a href="#">勤怠登録</a></li>
                     <li><a href="#">履歴確認</a></li>
                     <li><a th:href="@{/work/regular/entry}">定時登録</a></li>
-                    <li><a href="#">ユーザ定時登録</a></li>
+                    <li><a th:href="@{/work/userregular/entry}">ユーザ定時登録</a></li>
                   </ul>
                 </div><!-- /.card-body -->
               </div><!-- /.collapse -->

@@ -20,7 +20,7 @@ public abstract class BaseEntity {
     private Integer version;
     /** 登録日時 */
     private LocalDateTime regDate;
-    /** 更新ユーザ */
+    /** 更新日時 */
     private LocalDateTime updateDate;
 
     public Integer getVersion() {
