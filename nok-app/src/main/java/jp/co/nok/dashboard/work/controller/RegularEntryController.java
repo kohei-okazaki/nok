@@ -24,9 +24,8 @@ import jp.co.nok.business.db.update.RegularWorkMtUpdateService;
 import jp.co.nok.dashboard.work.form.RegularEditForm;
 import jp.co.nok.dashboard.work.form.RegularEntryForm;
 import jp.co.nok.db.entity.RegularWorkMt;
-import jp.co.nok.db.util.DomaUtil;
 import jp.co.nok.web.view.AppView;
-import jp.co.nok.web.view.PagingView;
+import jp.co.nok.web.view.PagingFactory;
 
 /**
  * 定時時刻登録/更新画面Controller
@@ -73,11 +72,8 @@ public class RegularEntryController {
     public String entry(Model model,
             @PageableDefault(size = 5, page = 0) Pageable pageable) {
 
-        // 総レコード件数
-        long count = regularWorkMtSearchService.count();
-        PagingView paging = DomaUtil.getPageView(pageable, "/work/regular/entry?page",
-                count);
-        model.addAttribute("paging", paging);
+        model.addAttribute("paging", PagingFactory.getPageView(pageable,
+                "/work/regular/entry?page", regularWorkMtSearchService.count()));
 
         List<RegularWorkMt> mtList = regularWorkMtSearchService.selectAll(pageable);
         model.addAttribute("mtList", mtList);
@@ -123,21 +119,28 @@ public class RegularEntryController {
      *            Model
      * @param seqRegularWorkMtId
      *            定時情報マスタID
+     * @param pageable
+     *            Pageable
      * @return 更新画面View
      */
     @GetMapping("/edit")
     public String edit(Model model,
-            @RequestParam(name = "id", required = false) Optional<Integer> seqRegularWorkMtId) {
+            @RequestParam(name = "id", required = false) Optional<Integer> seqRegularWorkMtId,
+            @PageableDefault(size = 5, page = 0) Pageable pageable) {
 
         if (!seqRegularWorkMtId.isPresent()) {
             model.addAttribute("mode", "edit");
             return AppView.WORK_REGULAR_ENTRY_VIEW.getValue();
         }
 
+        model.addAttribute("paging", PagingFactory.getPageView(pageable,
+                "/work/regular/edit?id=" + seqRegularWorkMtId.get().intValue() + "&page",
+                regularWorkMtSearchService.count()));
+
         RegularWorkMt mt = regularWorkMtSearchService
                 .selectById(seqRegularWorkMtId.get());
 
-        List<RegularWorkMt> mtList = regularWorkMtSearchService.selectAll();
+        List<RegularWorkMt> mtList = regularWorkMtSearchService.selectAll(pageable);
 
         model.addAttribute("mt", mt);
         model.addAttribute("mtList", mtList);

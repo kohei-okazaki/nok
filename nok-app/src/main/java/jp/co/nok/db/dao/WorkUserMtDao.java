@@ -8,6 +8,7 @@ import org.seasar.doma.Insert;
 import org.seasar.doma.Select;
 import org.seasar.doma.Update;
 import org.seasar.doma.boot.ConfigAutowireable;
+import org.seasar.doma.jdbc.SelectOptions;
 
 import jp.co.nok.db.entity.WorkUserCompositeMt;
 import jp.co.nok.db.entity.WorkUserMt;
@@ -31,9 +32,15 @@ public interface WorkUserMtDao extends BaseDao {
     public int insert(WorkUserMt entity);
 
     @Select
+    public int count();
+
+    @Select
     public List<WorkUserCompositeMt> selectCompositeRegularMt();
 
     @Select
-    public int count();
+    public List<WorkUserCompositeMt> selectCompositeRegularMt(SelectOptions option);
+
+    @Select
+    public WorkUserMt selectById(Integer seqWorkUserMtId);
 
 }

@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.nok.business.db.create.WorkUserMtCreateService;
@@ -25,8 +25,8 @@ import jp.co.nok.dashboard.work.form.UserRegularEntryForm;
 import jp.co.nok.db.entity.RegularWorkMt;
 import jp.co.nok.db.entity.WorkUserCompositeMt;
 import jp.co.nok.db.entity.WorkUserMt;
-import jp.co.nok.db.util.DomaUtil;
 import jp.co.nok.web.view.AppView;
+import jp.co.nok.web.view.PagingFactory;
 import jp.co.nok.web.view.PagingView;
 
 /**
@@ -64,22 +64,41 @@ public class UserRegularEntryController {
      *
      * @param model
      *            Model
-     * @param pageable
-     *            Pageable
+     * @param mtPage
+     *            定時情報マスタのリクエストページ数
+     * @param userMtPage
+     *            勤怠ユーザマスタのリクエストページ数
      * @return ユーザ定時情報登録画面View
      */
     @GetMapping("entry")
     public String entry(Model model,
-            @PageableDefault(size = 5, page = 0) Pageable pageable) {
+            @RequestParam(name = "mt_page", required = false) String mtPage,
+            @RequestParam(name = "user_mt_page", required = false) String userMtPage) {
 
-        // 総レコード件数
-        long count = regularWorkMtSearchService.count();
+        Pageable regularMtPageable = PagingFactory.getPageable(mtPage, 5);
+        Pageable userMtPageable = PagingFactory.getPageable(userMtPage, 10);
 
-        PagingView paging = DomaUtil.getPageView(pageable, "/work/userregular/entry?page",
-                count);
-        model.addAttribute("paging", paging);
+        // 定時情報マスタ総レコード件数
+        long regularWorkMtCount = regularWorkMtSearchService.count();
+        // 勤怠ユーザマスタ総レコード件数
+        long workUserMtCount = workUserMtSearchService.count();
 
-        List<RegularWorkMt> mtList = regularWorkMtSearchService.selectAll(pageable);
+        // 勤怠ユーザマスタのページはそのまま
+        PagingView regularMtPageView = PagingFactory.getPageView(regularMtPageable,
+                "/work/userregular/entry?user_mt_page=" + userMtPageable.getPageNumber()
+                        + "&mt_page",
+                regularWorkMtCount);
+        model.addAttribute("regularMtPaging", regularMtPageView);
+
+        // 定時情報マスタのページはそのまま
+        PagingView userMtPagingView = PagingFactory.getPageView(userMtPageable,
+                "/work/userregular/entry?mt_page=" + regularMtPageable.getPageNumber()
+                        + "&user_mt_page",
+                workUserMtCount);
+        model.addAttribute("userMtPaging", userMtPagingView);
+
+        List<RegularWorkMt> mtList = regularWorkMtSearchService
+                .selectAll(regularMtPageable);
         model.addAttribute("mtList", mtList);
 
         List<Integer> seqLoginIdList = loginUserDataSearchService.selectIdList();
@@ -90,7 +109,7 @@ public class UserRegularEntryController {
         model.addAttribute("seqRegularWorkMtIdList", seqRegularWorkMtIdList);
 
         List<WorkUserCompositeMt> workUserCopositeMtList = workUserMtSearchService
-                .selectCompositeRegularMt();
+                .selectCompositeRegularMt(userMtPageable);
         model.addAttribute("workUserCopositeMtList", workUserCopositeMtList);
 
         return AppView.WORK_USER_REGULAR_ENTRY_VIEW.getValue();

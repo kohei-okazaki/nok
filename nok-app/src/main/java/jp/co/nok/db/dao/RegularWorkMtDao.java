@@ -31,15 +31,15 @@ public interface RegularWorkMtDao extends BaseDao {
     public int insert(RegularWorkMt entity);
 
     @Select
-    public List<RegularWorkMt> selectAll();
+    public long count();
 
     @Select
-    public RegularWorkMt selectById(Integer seqRegularWorkMtId);
+    public List<RegularWorkMt> selectAll();
 
     @Select
     public List<RegularWorkMt> selectAll(SelectOptions option);
 
     @Select
-    public int count();
+    public RegularWorkMt selectById(Integer seqRegularWorkMtId);
 
 }

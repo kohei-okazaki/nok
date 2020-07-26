@@ -13,7 +13,7 @@ import jp.co.nok.db.entity.RegularWorkMt;
  */
 public interface RegularWorkMtSearchService {
 
-    int count();
+    long count();
 
     List<RegularWorkMt> selectAll();
 

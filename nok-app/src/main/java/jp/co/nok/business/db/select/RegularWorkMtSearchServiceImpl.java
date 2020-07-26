@@ -24,7 +24,7 @@ public class RegularWorkMtSearchServiceImpl implements RegularWorkMtSearchServic
     private RegularWorkMtDao dao;
 
     @Override
-    public int count() {
+    public long count() {
         return dao.count();
     }
 
