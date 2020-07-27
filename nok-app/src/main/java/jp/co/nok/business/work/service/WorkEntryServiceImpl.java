@@ -11,7 +11,7 @@ import jp.co.nok.business.work.dto.BusinessCalendarDto;
 import jp.co.nok.common.util.DateUtil;
 
 /**
- * 勤怠登録画面サービス実装クラス
+ * 当月勤怠登録画面サービス実装クラス
  *
  * @version 1.0.0
  */

@@ -34,11 +34,11 @@ import jp.co.nok.web.view.AppView;
  */
 @Controller
 @RequestMapping("/work/month")
-public class MonthEntryController {
+public class MonthlyEntryController {
 
     @Autowired
     private HttpSession session;
-    /** 勤怠登録画面サービス */
+    /** 当月勤怠登録画面サービス */
     @Autowired
     private WorkEntryService workEntryService;
     /** 日別勤怠登録情報検索サービス */
@@ -73,17 +73,17 @@ public class MonthEntryController {
                 .selectByLoginIdAndMaxWorkUserMtId(seqLoginId);
         model.addAttribute("regularMt", regularMt);
 
-        String targetYear = year;
-        String targetMonth = month;
+        String targetYear = StringUtil.isEmpty(year)
+                ? DateUtil.toString(DateUtil.getSysDate(), DateFormatType.YYYY)
+                : year;
+        String targetMonth = StringUtil.isEmpty(month)
+                ? DateUtil.toString(DateUtil.getSysDate(), DateFormatType.MM)
+                : month;
 
-        // 未指定の場合、今月を取得対象とする
-        if (StringUtil.isEmpty(targetYear)) {
-            targetYear = DateUtil.toString(DateUtil.getSysDate(), DateFormatType.YYYY);
-        } else if (StringUtil.isEmpty(targetMonth)) {
-            targetMonth = DateUtil.toString(DateUtil.getSysDate(), DateFormatType.MM);
-        }
         LocalDate targetDate = LocalDate.of(Integer.parseInt(targetYear),
                 Integer.parseInt(targetMonth), 1);
+
+        // TODO 営業日マスタをDDLを作ること(Excelには記載済。generatorを実行するだけ)
 
         List<BusinessCalendarDto> calendarList = workEntryService
                 .getBusinessCalendarDtoList(targetDate);
