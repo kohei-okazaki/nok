@@ -35,6 +35,7 @@ public class DomaUtil {
      * @return SelectOptions
      */
     public static SelectOptions createSelectOptions(Pageable pageable, boolean countFlg) {
+
         int offset = pageable.getPageNumber() * pageable.getPageSize();
         int limit = pageable.getPageSize();
 

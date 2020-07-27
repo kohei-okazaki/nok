@@ -1,4 +1,4 @@
-package jp.co.nok.business.work;
+package jp.co.nok.business.work.dto;
 
 /**
  * ユーザ定時情報機能Dto

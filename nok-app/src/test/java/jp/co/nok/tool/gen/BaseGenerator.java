@@ -12,6 +12,7 @@ import jp.co.nok.common.log.Logger;
 import jp.co.nok.common.log.LoggerFactory;
 import jp.co.nok.common.type.BaseEnum;
 import jp.co.nok.common.util.FileUtil.FileSeparator;
+import jp.co.nok.tool.excel.DmlExcelReader;
 import jp.co.nok.tool.excel.Excel;
 import jp.co.nok.tool.excel.ExcelReader;
 import jp.co.nok.tool.util.ToolUtil;
@@ -46,7 +47,7 @@ public abstract class BaseGenerator {
             this.prop = readProp();
 
             // Excelファイルを取得
-            this.excel = new ExcelReader().read(prop);
+            this.excel = getExcelReader().read(prop);
 
             // 自動生成個別処理
             List<GenerateFile> genFileList = generateImpl();
@@ -71,6 +72,19 @@ public abstract class BaseGenerator {
     abstract List<GenerateFile> generateImpl() throws Exception;
 
     /**
+     * ExcelファイルのReaderを返す<br>
+     * デフォルトで「TABLE_LIST」シートを読み込むReaderを返している<br>
+     * DML作成時は本メソッドをOverrideして個別で{@linkplain DmlExcelReader}を返す
+     *
+     * @return ExcelReader
+     * @throws Exception
+     *             Excelファイルの読込に失敗した場合
+     */
+    protected ExcelReader getExcelReader() throws Exception {
+        return new ExcelReader();
+    }
+
+    /**
      * 設定ファイルを読込を行う
      *
      * @return 設定ファイル
@@ -89,6 +103,7 @@ public abstract class BaseGenerator {
         sj.add("tool.properties");
         ToolProperty prop = new PropertyReader().read(sj.toString(), ToolProperty.class);
         Stream.of(prop.getTargetTables().split(",")).forEach(e -> prop.addTargetTable(e));
+        Stream.of(prop.getDmlTables().split(",")).forEach(e -> prop.addDmlTable(e));
 
         return prop;
 
@@ -113,7 +128,9 @@ public abstract class BaseGenerator {
         DROP("DROP", "nok-docs\\02_design\\90_db\\02_drop", DropSqlGenerator.class),
         /** テーブル定義作成 */
         TABLE_DEFINE("TABLE_DEFINE", "nok-docs\\02_design\\90_db\\99_others",
-                TableDefineGenerator.class);
+                TableDefineGenerator.class),
+        /** DML作成 */
+        DML("DML", "nok-docs\\02_design\\90_db\\03_dml", DmlGenerator.class);
 
         /** 値 */
         private String value;
