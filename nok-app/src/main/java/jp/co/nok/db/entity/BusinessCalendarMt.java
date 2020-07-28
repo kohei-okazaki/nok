@@ -1,14 +1,12 @@
 package jp.co.nok.db.entity;
 
-import jp.co.nok.db.entity.BaseEntity;
+import java.time.LocalDate;
+
 import org.seasar.doma.Entity;
-import org.seasar.doma.jdbc.entity.NamingType;
-import org.seasar.doma.Id;
 import org.seasar.doma.GeneratedValue;
 import org.seasar.doma.GenerationType;
-import java.lang.Integer;
-import java.time.LocalDate;
-import java.lang.String;
+import org.seasar.doma.Id;
+import org.seasar.doma.jdbc.entity.NamingType;
 
 /**
  * 営業日マスタ Entity
@@ -24,6 +22,8 @@ public class BusinessCalendarMt extends BaseEntity {
     private Integer seqBusinessCalendarMtId;
     /** 日付 */
     private LocalDate date;
+    /** 曜日 */
+    private String weekday;
     /** 営業日フラグ */
     private String businessFlg;
 
@@ -41,6 +41,14 @@ public class BusinessCalendarMt extends BaseEntity {
 
     public LocalDate getDate() {
         return date;
+    }
+
+    public void setWeekday(String weekday) {
+        this.weekday = weekday;
+    }
+
+    public String getWeekday() {
+        return weekday;
     }
 
     public void setBusinessFlg(String businessFlg) {

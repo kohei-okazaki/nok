@@ -534,7 +534,9 @@ public class DateUtil {
         YYYYMMDD_NOSEP("yyyyMMdd"),
         /** YYYY/MM/DD HH:mm:ss */
         YYYYMMDDHHMMSS("yyyy/MM/dd HH:mm:ss"),
-        /** YYYYMMDD_HHmmss */
+        /** yyyyMM */
+        YYYYMM_NOSEP("yyyyMM"),
+        /** yyyyMMddHHmmss */
         YYYYMMDDHHMMSS_NOSEP("yyyyMMddHHmmss");
 
         /** 値 */

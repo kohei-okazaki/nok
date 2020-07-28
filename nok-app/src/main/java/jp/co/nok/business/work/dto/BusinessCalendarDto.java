@@ -13,6 +13,8 @@ public class BusinessCalendarDto {
     private BigDecimal day;
     /** 曜日 */
     private String weekDay;
+    /** 営業日フラグ */
+    private String businessFlg;
 
     public BigDecimal getDay() {
         return day;
@@ -28,6 +30,14 @@ public class BusinessCalendarDto {
 
     public void setWeekDay(String weekDay) {
         this.weekDay = weekDay;
+    }
+
+    public String getBusinessFlg() {
+        return businessFlg;
+    }
+
+    public void setBusinessFlg(String businessFlg) {
+        this.businessFlg = businessFlg;
     }
 
 }

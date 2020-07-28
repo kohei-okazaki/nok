@@ -1,12 +1,15 @@
 package jp.co.nok.db.dao;
 
-import jp.co.nok.db.dao.BaseDao;
+import java.util.List;
+
 import org.seasar.doma.Dao;
-import org.seasar.doma.boot.ConfigAutowireable;
-import jp.co.nok.db.entity.BusinessCalendarMt;
 import org.seasar.doma.Delete;
-import org.seasar.doma.Update;
 import org.seasar.doma.Insert;
+import org.seasar.doma.Select;
+import org.seasar.doma.Update;
+import org.seasar.doma.boot.ConfigAutowireable;
+
+import jp.co.nok.db.entity.BusinessCalendarMt;
 
 /**
  * 営業日マスタ Dao
@@ -25,5 +28,8 @@ public interface BusinessCalendarMtDao extends BaseDao {
 
     @Insert
     public int insert(BusinessCalendarMt entity);
+
+    @Select
+    public List<BusinessCalendarMt> selectByMonth(String date);
 
 }

@@ -1,7 +1,6 @@
 package jp.co.nok.dashboard.work.controller;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,14 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import jp.co.nok.business.db.select.DailyWorkEntryDataService;
+import jp.co.nok.business.db.select.DailyWorkEntryDataSearchService;
 import jp.co.nok.business.db.select.WorkUserMtSearchService;
-import jp.co.nok.business.work.dto.BusinessCalendarDto;
-import jp.co.nok.business.work.service.WorkEntryService;
+import jp.co.nok.business.work.service.MonthlyWorkEntryService;
 import jp.co.nok.common.component.SessionComponent;
-import jp.co.nok.common.util.DateUtil;
-import jp.co.nok.common.util.DateUtil.DateFormatType;
-import jp.co.nok.common.util.StringUtil;
 import jp.co.nok.dashboard.work.form.MonthEntryForm;
 import jp.co.nok.db.entity.WorkUserCompositeMt;
 import jp.co.nok.web.view.AppView;
@@ -40,10 +35,10 @@ public class MonthlyEntryController {
     private HttpSession session;
     /** 当月勤怠登録画面サービス */
     @Autowired
-    private WorkEntryService workEntryService;
+    private MonthlyWorkEntryService monthlyWorkEntryService;
     /** 日別勤怠登録情報検索サービス */
     @Autowired
-    private DailyWorkEntryDataService dailyWorkEntryDataService;
+    private DailyWorkEntryDataSearchService dailyWorkEntryDataService;
     /** 勤怠ユーザマスタ検索サービス */
     @Autowired
     private WorkUserMtSearchService workUserMtSearchService;
@@ -73,21 +68,11 @@ public class MonthlyEntryController {
                 .selectByLoginIdAndMaxWorkUserMtId(seqLoginId);
         model.addAttribute("regularMt", regularMt);
 
-        String targetYear = StringUtil.isEmpty(year)
-                ? DateUtil.toString(DateUtil.getSysDate(), DateFormatType.YYYY)
-                : year;
-        String targetMonth = StringUtil.isEmpty(month)
-                ? DateUtil.toString(DateUtil.getSysDate(), DateFormatType.MM)
-                : month;
-
-        LocalDate targetDate = LocalDate.of(Integer.parseInt(targetYear),
-                Integer.parseInt(targetMonth), 1);
-
-        List<BusinessCalendarDto> calendarList = workEntryService
-                .getBusinessCalendarDtoList(targetDate);
+        // 処理対象年月
+        LocalDate targetDate = monthlyWorkEntryService.getTargetDate(year, month);
 
         model.addAttribute("thisMonthList", dailyWorkEntryDataService
-                .getMonthList(seqLoginId, year, month, calendarList));
+                .getMonthList(regularMt.getSeqWorkUserMtId(), targetDate));
 
         return AppView.WORK_MONTH_ENTRY_VIEW.getValue();
     }

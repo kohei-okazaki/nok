@@ -10,7 +10,9 @@ import jp.co.nok.business.work.dto.BusinessCalendarDto;
  *
  * @version 1.0.0
  */
-public interface WorkEntryService {
+public interface MonthlyWorkEntryService {
+
+    LocalDate getTargetDate(String year, String month);
 
     List<BusinessCalendarDto> getBusinessCalendarDtoList(LocalDate targetDate);
 
