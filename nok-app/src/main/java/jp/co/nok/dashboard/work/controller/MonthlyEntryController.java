@@ -83,8 +83,6 @@ public class MonthlyEntryController {
         LocalDate targetDate = LocalDate.of(Integer.parseInt(targetYear),
                 Integer.parseInt(targetMonth), 1);
 
-        // TODO 営業日マスタをDDLを作ること(Excelには記載済。generatorを実行するだけ)
-
         List<BusinessCalendarDto> calendarList = workEntryService
                 .getBusinessCalendarDtoList(targetDate);
 
