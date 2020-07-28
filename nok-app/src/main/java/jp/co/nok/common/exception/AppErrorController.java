@@ -2,8 +2,6 @@ package jp.co.nok.common.exception;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.nok.common.log.Logger;
@@ -29,13 +27,13 @@ public class AppErrorController implements ErrorController {
         return AppView.APP_ERROR_VIEW.getValue();
     }
 
-    @GetMapping
-    @PostMapping
-    public String error(Exception e) {
-
-        LOG.error("エラーが発生しました", e);
-
-        return AppView.APP_ERROR_VIEW.getValue();
-    }
+    // @GetMapping
+    // @PostMapping
+    // public String error(Exception e) {
+    //
+    // LOG.error("エラーが発生しました", e);
+    //
+    // return AppView.APP_ERROR_VIEW.getValue();
+    // }
 
 }

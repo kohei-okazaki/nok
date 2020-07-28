@@ -8,15 +8,6 @@
 <head>
 <title>ユーザ定時情報登録</title>
 <script>
-/*   options = {
-    valueNames : [ "height", "weight", "standardWeight", "bmi", "healthInfoRegDate" ],
-    page : 10,
-    pagination : {
-      pageationClass : "pagination",
-      innerWindow : 1,
-      outerWindow : 1
-    }
-  }; */
 </script>
 </head>
 <body>
@@ -53,6 +44,11 @@
           <a class="link" th:classappend="!${regularMtPaging.canGoNext} ? 'disabled'" th:href="${regularMtPaging.nextHref}">&gt;</a>
           <a class="link" th:classappend="!${regularMtPaging.canGoLast} ? 'disabled'" th:href="${regularMtPaging.lastHref}">&gt;&gt;</a>
         </div>
+        <div>
+          <form th:action="@{/work/regular/entry}" method="get">
+            <input type="submit" class="btn btn-outline-primary mt-1" value="定時登録する" />
+          </form>
+        </div>
         <br><br>
       </div><!-- col-lg -->
     </div><!-- row -->
@@ -64,8 +60,13 @@
           <form th:action="@{/work/userregular/entry}" method="post" class="needs-validation" th:object="${userRegularEntryForm}" novalidate>
             <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('seqLoginId')}" th:errors="*{seqLoginId}"></div>
             <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('seqRegularWorkMtId')}" th:errors="*{seqRegularWorkMtId}"></div>
-            <div th:if="${entrySuccess == '1'}" class="alert alert-success" role="alert">登録完了しました</div>
 
+            <div class="row">
+              <div class="col">
+                <br>
+                <div th:if="${entrySuccess == '1'}" class="alert alert-success" role="alert">登録完了しました</div>
+              </div>
+            </div>
             <table class="table table-borderless">
               <tr class="form-group zero-margin">
                 <td>
